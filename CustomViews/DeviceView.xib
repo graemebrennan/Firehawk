@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="DeviceView" customModule="FireHawk" customModuleProvider="target">
+            <connections>
+                <outlet property="contentView" destination="PDc-TS-siG" id="4hH-cw-3Ch"/>
+                <outlet property="imgView" destination="q9w-hK-QeX" id="x4O-yv-dFb"/>
+                <outlet property="lblNote" destination="uww-Lb-aUC" id="zNG-hg-ffd"/>
+                <outlet property="lblTitle" destination="YH0-Ca-1Sh" id="JYB-f6-0BT"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="PDc-TS-siG">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="113"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="Device Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YH0-Ca-1Sh">
+                    <rect key="frame" x="112" y="24" width="286" height="18"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Device Room" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uww-Lb-aUC">
+                    <rect key="frame" x="112" y="50" width="286" height="7"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="firealarm" translatesAutoresizingMaskIntoConstraints="NO" id="q9w-hK-QeX">
+                    <rect key="frame" x="16" y="17" width="80" height="80"/>
+                    <constraints>
+                        <constraint firstAttribute="width" secondItem="q9w-hK-QeX" secondAttribute="height" id="2aV-Xi-OzE"/>
+                        <constraint firstAttribute="height" constant="80" id="bOY-BM-27W"/>
+                    </constraints>
+                </imageView>
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="next" translatesAutoresizingMaskIntoConstraints="NO" id="nXV-Ib-dC1">
+                    <rect key="frame" x="358" y="57" width="48" height="48"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="48" id="vvI-9f-txH"/>
+                        <constraint firstAttribute="width" secondItem="nXV-Ib-dC1" secondAttribute="height" id="yl8-JT-AHR"/>
+                    </constraints>
+                </imageView>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="sXO-XN-lek"/>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="YH0-Ca-1Sh" secondAttribute="trailing" constant="16" id="8wU-pt-EbD"/>
+                <constraint firstAttribute="bottom" secondItem="nXV-Ib-dC1" secondAttribute="bottom" constant="8" id="Gxb-vF-nIJ"/>
+                <constraint firstAttribute="trailing" secondItem="nXV-Ib-dC1" secondAttribute="trailing" constant="8" id="Gy0-zM-i4M"/>
+                <constraint firstItem="q9w-hK-QeX" firstAttribute="leading" secondItem="PDc-TS-siG" secondAttribute="leading" constant="16" id="TZq-Da-H35"/>
+                <constraint firstAttribute="trailing" secondItem="uww-Lb-aUC" secondAttribute="trailing" constant="16" id="UiE-M7-bCY"/>
+                <constraint firstItem="uww-Lb-aUC" firstAttribute="leading" secondItem="q9w-hK-QeX" secondAttribute="trailing" constant="16" id="V9E-Xv-WzO"/>
+                <constraint firstItem="YH0-Ca-1Sh" firstAttribute="top" secondItem="PDc-TS-siG" secondAttribute="top" constant="24" id="X8d-Pp-8CG"/>
+                <constraint firstItem="q9w-hK-QeX" firstAttribute="top" relation="greaterThanOrEqual" secondItem="PDc-TS-siG" secondAttribute="top" constant="16" id="YJa-zR-W9c"/>
+                <constraint firstItem="nXV-Ib-dC1" firstAttribute="top" secondItem="uww-Lb-aUC" secondAttribute="bottom" id="aI2-FC-0py"/>
+                <constraint firstItem="YH0-Ca-1Sh" firstAttribute="leading" secondItem="q9w-hK-QeX" secondAttribute="trailing" constant="16" id="bbZ-Ti-9aV"/>
+                <constraint firstAttribute="bottom" secondItem="q9w-hK-QeX" secondAttribute="bottom" constant="16" id="fqc-Bi-jOv"/>
+                <constraint firstItem="uww-Lb-aUC" firstAttribute="top" secondItem="YH0-Ca-1Sh" secondAttribute="bottom" constant="8" symbolic="YES" id="oO3-mk-P7J"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <point key="canvasLocation" x="-262.31884057971018" y="-425.55803571428572"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="firealarm" width="512" height="512"/>
+        <image name="next" width="512" height="512"/>
+    </resources>
+</document>

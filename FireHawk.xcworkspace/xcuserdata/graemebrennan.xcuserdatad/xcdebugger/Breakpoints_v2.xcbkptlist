@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Bucket
+   uuid = "3E659E4E-79F6-4FAD-AA15-E5AAFACE34A2"
+   type = "0"
+   version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "CC5AE413-F350-4566-99DF-BD255CEBFC1E"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ViewControllers/BarCodeScanViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "49"
+            endingLineNumber = "49"
+            landmarkName = "prepare(for:sender:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "1386A283-8EDC-4C8F-9B85-978FCEEA8AD3"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Model/Scan.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "126"
+            endingLineNumber = "126"
+            landmarkName = "init(scan:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "1386A283-8EDC-4C8F-9B85-978FCEEA8AD3 - f5c744a691cb0c28"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "FireHawk.DeviceReport.init(scan: Swift.String) -&gt; FireHawk.DeviceReport"
+                  moduleName = "FireHawk"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/graemebrennan/Documents/AppDev/FireHawk/Model/Scan.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "123"
+                  endingLineNumber = "123"
+                  offsetFromSymbolStart = "10187">
+               </Location>
+               <Location
+                  uuid = "1386A283-8EDC-4C8F-9B85-978FCEEA8AD3 - f5c744a691cb0c28"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "FireHawk.DeviceReport.init(scan: Swift.String) -&gt; FireHawk.DeviceReport"
+                  moduleName = "FireHawk"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/graemebrennan/Documents/AppDev/FireHawk/Model/Scan.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "123"
+                  endingLineNumber = "123"
+                  offsetFromSymbolStart = "10454">
+               </Location>
+               <Location
+                  uuid = "1386A283-8EDC-4C8F-9B85-978FCEEA8AD3 - f5c744a691cb0c28"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "FireHawk.DeviceReport.init(scan: Swift.String) -&gt; FireHawk.DeviceReport"
+                  moduleName = "FireHawk"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/graemebrennan/Documents/AppDev/FireHawk/Model/Scan.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "123"
+                  endingLineNumber = "123"
+                  offsetFromSymbolStart = "10728">
+               </Location>
+               <Location
+                  uuid = "1386A283-8EDC-4C8F-9B85-978FCEEA8AD3 - f5c744a691cb0c28"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "FireHawk.DeviceReport.init(scan: Swift.String) -&gt; FireHawk.DeviceReport"
+                  moduleName = "FireHawk"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/graemebrennan/Documents/AppDev/FireHawk/Model/Scan.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "123"
+                  endingLineNumber = "123"
+                  offsetFromSymbolStart = "11002">
+               </Location>
+               <Location
+                  uuid = "1386A283-8EDC-4C8F-9B85-978FCEEA8AD3 - f5c744a691cb0c28"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "FireHawk.DeviceReport.init(scan: Swift.String) -&gt; FireHawk.DeviceReport"
+                  moduleName = "FireHawk"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/graemebrennan/Documents/AppDev/FireHawk/Model/Scan.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "123"
+                  endingLineNumber = "123"
+                  offsetFromSymbolStart = "11276">
+               </Location>
+               <Location
+                  uuid = "1386A283-8EDC-4C8F-9B85-978FCEEA8AD3 - f5c744a691cb0c28"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "FireHawk.DeviceReport.init(scan: Swift.String) -&gt; FireHawk.DeviceReport"
+                  moduleName = "FireHawk"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/graemebrennan/Documents/AppDev/FireHawk/Model/Scan.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "123"
+                  endingLineNumber = "123"
+                  offsetFromSymbolStart = "11550">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "339A05AD-29FF-4879-9545-AE6C6229AE99"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Model/Scan.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "355"
+            endingLineNumber = "355"
+            landmarkName = "init(scan:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "327387E0-3E83-4EE8-A4B2-FC06B4B2D263"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Model/Scan.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "360"
+            endingLineNumber = "360"
+            landmarkName = "init(scan:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
+</Bucket>
