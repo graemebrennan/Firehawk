@@ -13,6 +13,11 @@ class ReportViewController: UIViewController {
     var rep: DeviceReportCD?
     var newReport: DeviceReport?
     
+    var info9: BoolInputRow?
+    var info10: BoolInputRow?
+    var info11: BoolInputRow?
+    var info12: BoolInputRow?
+    var info13: BoolInputRow?
     
       @IBOutlet weak var lblWarning: UILabel!
       @IBOutlet weak var deviceInformationTitle: SectionTitle!
@@ -24,11 +29,20 @@ class ReportViewController: UIViewController {
       @IBOutlet weak var aditionalInfoTitle: SectionTitle!
       
      // @IBOutlet weak var vHeader: UIView!
-      @IBOutlet weak var faultsStack: UIStackView!
-      @IBOutlet weak var AdditionalInformationStack: UIStackView!
+    
       @IBOutlet weak var productCard: ProductCard!
       @IBOutlet weak var alarmDataStack: UIStackView!
       
+    @IBOutlet weak var faultsStack: UIStackView!
+    
+    
+    // Question labels
+    @IBOutlet weak var lblQ1: UILabel!
+    @IBOutlet weak var lblQ2: UILabel!
+    @IBOutlet weak var lblQ3: UILabel!
+    @IBOutlet weak var lblQ4: UILabel!
+    @IBOutlet weak var lblQ5: UILabel!
+    
       
       @IBOutlet weak var AdditionalInfo: MultiLineInputField!
     
@@ -56,7 +70,7 @@ class ReportViewController: UIViewController {
     aditionalInfoTitle.lblTitle.text = "Additional Information"
     
     AdditionalInfo.lblTitle.text = "Additional Comments"
-    
+    AdditionalInfo.tfInput.text = rep?.note
     // TODO: add ditional notes in text field of report.
     // AdditionalInfo.tfInput.text = rep.note
     // vHeader.roundCorners(corners: [.topLeft, .topRight], radius: 16)
@@ -182,27 +196,47 @@ func COAlarmInformation(newReport: DeviceReport) {
     info8.lblDesc3.text = "Date"
     faultsStack.addArrangedSubview(info8)
 
-    let info9 = FaultRow(frame: CGRect.zero)
-    info9.lblTitle.text = "Is the Device in the Correct Location ?"
-    AdditionalInformationStack.addArrangedSubview(info9)
+
+    // add text the report labels 
+    if rep!.q1 == true {
+        lblQ1.text = "The Device is in the Correct Location"
+        lblQ1.textColor = .green
+    } else {
+        lblQ1.text = "The Device Is not in the Correct Location"
+        lblQ1.textColor = .red
+    }
     
-    let info10 = FaultRow(frame: CGRect.zero)
-    info10.lblTitle.text = "Is the Device clear of Furniture ?"
-    AdditionalInformationStack.addArrangedSubview(info10)
+    if rep!.q2 == true {
+        lblQ2.text = "The Device is clear of furniture"
+        lblQ2.textColor = .green
+    } else {
+        lblQ2.text = "The Device is blocked by furniture"
+        lblQ2.textColor = .red
+    }
     
-    let info11 = FaultRow(frame: CGRect.zero)
-    info11.lblTitle.text = "Did Audio play during the Test ?"
-    AdditionalInformationStack.addArrangedSubview(info11)
+    if rep!.q3 == true {
+        lblQ3.text = "Audio did play during the Test"
+        lblQ3.textColor = .green
+    } else {
+        lblQ3.text = "Audio did not play during the Test"
+        lblQ3.textColor = .red
+    }
     
-    let info12 = FaultRow(frame: CGRect.zero)
-    info12.lblTitle.text = "Is the Device in good Condition ?"
-    AdditionalInformationStack.addArrangedSubview(info12)
+    if rep!.q4 == true {
+        lblQ4.text = "The Device appears in good condition"
+        lblQ4.textColor = .green
+    } else {
+        lblQ4.text = "The Device appears in bad condition"
+        lblQ4.textColor = .red
+    }
     
-    let info13 = FaultRow(frame: CGRect.zero)
-    info13.lblTitle.text = "Does the Device need to be Replaced ?"
-    AdditionalInformationStack.addArrangedSubview(info13)
-    
-    
+    if rep!.q5 == true {
+        lblQ5.text = "The Device dose not need to be replaced"
+        lblQ5.textColor = .green
+    } else {
+        lblQ5.text = "The Device Needs to Be replaced"
+        lblQ5.textColor = .red
+    }
 }
 
 func SmokeAlarmInformation(newReport: DeviceReport) {
@@ -273,28 +307,46 @@ func SmokeAlarmInformation(newReport: DeviceReport) {
         info8.lblDesc3.text = "Date"
         faultsStack.addArrangedSubview(info8)
     
-        // Device Questions
-        let info9 = FaultRow(frame: CGRect.zero)
-        info9.lblTitle.text = "Is the Device in the Correct Location ?"
-        AdditionalInformationStack.addArrangedSubview(info9)
-        
-        let info10 = FaultRow(frame: CGRect.zero)
-        info10.lblTitle.text = "Is the Device clear of Furniture ?"
-        AdditionalInformationStack.addArrangedSubview(info10)
-        
-        let info11 = FaultRow(frame: CGRect.zero)
-        info11.lblTitle.text = "Did Audio play during the Test ?"
-        AdditionalInformationStack.addArrangedSubview(info11)
-        
-        let info12 = FaultRow(frame: CGRect.zero)
-        info12.lblTitle.text = "Is the Device in good Condition ?"
-        AdditionalInformationStack.addArrangedSubview(info12)
-        
-        let info13 = FaultRow(frame: CGRect.zero)
-        info13.lblTitle.text = "Does the Device need to be Replaced ?"
-        AdditionalInformationStack.addArrangedSubview(info13)
+    // add text the report labels
+    if rep!.q1 == true {
+        lblQ1.text = "The Device is in the Correct Location"
+        lblQ1.textColor = .green
+    } else {
+        lblQ1.text = "The Device Is not in the Correct Location"
+        lblQ1.textColor = .red
+    }
     
+    if rep!.q2 == true {
+        lblQ2.text = "The Device is clear of furniture"
+        lblQ2.textColor = .green
+    } else {
+        lblQ2.text = "The Device is blocked by furniture"
+        lblQ2.textColor = .red
+    }
     
+    if rep!.q3 == true {
+        lblQ3.text = "Audio did play during the Test"
+        lblQ3.textColor = .green
+    } else {
+        lblQ3.text = "Audio did not play during the Test"
+        lblQ3.textColor = .red
+    }
+    
+    if rep!.q4 == true {
+        lblQ4.text = "The Device appears in good condition"
+        lblQ4.textColor = .green
+    } else {
+        lblQ4.text = "The Device appears in bad condition"
+        lblQ4.textColor = .red
+    }
+    
+    if rep!.q5 == true {
+        lblQ5.text = "The Device dose not need to be replaced"
+        lblQ5.textColor = .green
+    } else {
+        lblQ5.text = "The Device Needs to Be replaced"
+        lblQ5.textColor = .red
+    }
 }
 
 func HeatAlarmInformation(newReport: DeviceReport) {
@@ -361,24 +413,45 @@ infoStack.addArrangedSubview(info4)
     info8.lblDesc3.text = "Date"
     faultsStack.addArrangedSubview(info8)
 
-    let info9 = FaultRow(frame: CGRect.zero)
-    info9.lblTitle.text = "Is the Device in the Correct Location ?"
-    AdditionalInformationStack.addArrangedSubview(info9)
+    // add text the report labels
+    if rep!.q1 == true {
+        lblQ1.text = "The Device is in the Correct Location"
+        lblQ1.textColor = .green
+    } else {
+        lblQ1.text = "The Device Is not in the Correct Location"
+        lblQ1.textColor = .red
+    }
     
-    let info10 = FaultRow(frame: CGRect.zero)
-    info10.lblTitle.text = "Is the Device clear of Furniture ?"
-    AdditionalInformationStack.addArrangedSubview(info10)
+    if rep!.q2 == true {
+        lblQ2.text = "The Device is clear of furniture"
+        lblQ2.textColor = .green
+    } else {
+        lblQ2.text = "The Device is blocked by furniture"
+        lblQ2.textColor = .red
+    }
     
-    let info11 = FaultRow(frame: CGRect.zero)
-    info11.lblTitle.text = "Did Audio play during the Test ?"
-    AdditionalInformationStack.addArrangedSubview(info11)
+    if rep!.q3 == true {
+        lblQ3.text = "Audio did play during the Test"
+        lblQ3.textColor = .green
+    } else {
+        lblQ3.text = "Audio did not play during the Test"
+        lblQ3.textColor = .red
+    }
     
-    let info12 = FaultRow(frame: CGRect.zero)
-    info12.lblTitle.text = "Is the Device in good Condition ?"
-    AdditionalInformationStack.addArrangedSubview(info12)
+    if rep!.q4 == true {
+        lblQ4.text = "The Device appears in good condition"
+        lblQ4.textColor = .green
+    } else {
+        lblQ4.text = "The Device appears in bad condition"
+        lblQ4.textColor = .red
+    }
     
-    let info13 = FaultRow(frame: CGRect.zero)
-    info13.lblTitle.text = "Does the Device need to be Replaced ?"
-    AdditionalInformationStack.addArrangedSubview(info13)
+    if rep!.q5 == true {
+        lblQ5.text = "The Device dose not need to be replaced"
+        lblQ5.textColor = .green
+    } else {
+        lblQ5.text = "The Device Needs to Be replaced"
+        lblQ5.textColor = .red
+    }
 }
 }

@@ -17,6 +17,12 @@ class DeviceReportViewController: UIViewController {
     // Reference to managed core data object context
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
+    var info9: BoolInputRow?
+    var info10: BoolInputRow?
+    var info11: BoolInputRow?
+    var info12: BoolInputRow?
+    var info13: BoolInputRow?
+    
     var newReport: DeviceReport?
     
   static func route() -> UIViewController {
@@ -188,25 +194,25 @@ class DeviceReportViewController: UIViewController {
         info8.lblDesc3.text = "Date"
         faultsStack.addArrangedSubview(info8)
     
-        let info9 = FaultRow(frame: CGRect.zero)
-        info9.lblTitle.text = "Is the Device in the Correct Location ?"
-        AdditionalInformationStack.addArrangedSubview(info9)
+        info9 = BoolInputRow(frame: CGRect.zero)
+        info9!.lblTitle.text = "Is the Device in the Correct Location ?"
+        AdditionalInformationStack.addArrangedSubview(info9!)
         
-        let info10 = FaultRow(frame: CGRect.zero)
-        info10.lblTitle.text = "Is the Device clear of Furniture ?"
-        AdditionalInformationStack.addArrangedSubview(info10)
+        info10 = BoolInputRow(frame: CGRect.zero)
+        info10!.lblTitle.text = "Is the Device clear of Furniture ?"
+        AdditionalInformationStack.addArrangedSubview(info10!)
         
-        let info11 = FaultRow(frame: CGRect.zero)
-        info11.lblTitle.text = "Did Audio play during the Test ?"
-        AdditionalInformationStack.addArrangedSubview(info11)
+        info11 = BoolInputRow(frame: CGRect.zero)
+        info11!.lblTitle.text = "Did Audio play during the Test ?"
+        AdditionalInformationStack.addArrangedSubview(info11!)
         
-        let info12 = FaultRow(frame: CGRect.zero)
-        info12.lblTitle.text = "Is the Device in good Condition ?"
-        AdditionalInformationStack.addArrangedSubview(info12)
+        info12 = BoolInputRow(frame: CGRect.zero)
+        info12!.lblTitle.text = "Is the Device in good Condition ?"
+        AdditionalInformationStack.addArrangedSubview(info12!)
         
-        let info13 = FaultRow(frame: CGRect.zero)
-        info13.lblTitle.text = "Does the Device need to be Replaced ?"
-        AdditionalInformationStack.addArrangedSubview(info13)
+        info13 = BoolInputRow(frame: CGRect.zero)
+        info13!.lblTitle.text = "Does the Device need to be Replaced ?"
+        AdditionalInformationStack.addArrangedSubview(info13!)
   }
   
     func SmokeAlarmInformation(newReport: DeviceReport) {
@@ -278,25 +284,25 @@ class DeviceReportViewController: UIViewController {
             faultsStack.addArrangedSubview(info8)
         
             // Device Questions
-            let info9 = FaultRow(frame: CGRect.zero)
-            info9.lblTitle.text = "Is the Device in the Correct Location ?"
-            AdditionalInformationStack.addArrangedSubview(info9)
-            
-            let info10 = FaultRow(frame: CGRect.zero)
-            info10.lblTitle.text = "Is the Device clear of Furniture ?"
-            AdditionalInformationStack.addArrangedSubview(info10)
-            
-            let info11 = FaultRow(frame: CGRect.zero)
-            info11.lblTitle.text = "Did Audio play during the Test ?"
-            AdditionalInformationStack.addArrangedSubview(info11)
-            
-            let info12 = FaultRow(frame: CGRect.zero)
-            info12.lblTitle.text = "Is the Device in good Condition ?"
-            AdditionalInformationStack.addArrangedSubview(info12)
-            
-            let info13 = FaultRow(frame: CGRect.zero)
-            info13.lblTitle.text = "Does the Device need to be Replaced ?"
-            AdditionalInformationStack.addArrangedSubview(info13)
+        info9 = BoolInputRow(frame: CGRect.zero)
+        info9!.lblTitle.text = "Is the Device in the Correct Location ?"
+        AdditionalInformationStack.addArrangedSubview(info9!)
+        
+        info10 = BoolInputRow(frame: CGRect.zero)
+        info10!.lblTitle.text = "Is the Device clear of Furniture ?"
+        AdditionalInformationStack.addArrangedSubview(info10!)
+        
+        info11 = BoolInputRow(frame: CGRect.zero)
+        info11!.lblTitle.text = "Did Audio play during the Test ?"
+        AdditionalInformationStack.addArrangedSubview(info11!)
+        
+        info12 = BoolInputRow(frame: CGRect.zero)
+        info12!.lblTitle.text = "Is the Device in good Condition ?"
+        AdditionalInformationStack.addArrangedSubview(info12!)
+        
+        info13 = BoolInputRow(frame: CGRect.zero)
+        info13!.lblTitle.text = "Does the Device need to be Replaced ?"
+        AdditionalInformationStack.addArrangedSubview(info13!)
         
         
   }
@@ -365,25 +371,25 @@ class DeviceReportViewController: UIViewController {
         info8.lblDesc3.text = "Date"
         faultsStack.addArrangedSubview(info8)
     
-        let info9 = FaultRow(frame: CGRect.zero)
-        info9.lblTitle.text = "Is the Device in the Correct Location ?"
-        AdditionalInformationStack.addArrangedSubview(info9)
-        
-        let info10 = FaultRow(frame: CGRect.zero)
-        info10.lblTitle.text = "Is the Device clear of Furniture ?"
-        AdditionalInformationStack.addArrangedSubview(info10)
-        
-        let info11 = FaultRow(frame: CGRect.zero)
-        info11.lblTitle.text = "Did Audio play during the Test ?"
-        AdditionalInformationStack.addArrangedSubview(info11)
-        
-        let info12 = FaultRow(frame: CGRect.zero)
-        info12.lblTitle.text = "Is the Device in good Condition ?"
-        AdditionalInformationStack.addArrangedSubview(info12)
-        
-        let info13 = FaultRow(frame: CGRect.zero)
-        info13.lblTitle.text = "Does the Device need to be Replaced ?"
-        AdditionalInformationStack.addArrangedSubview(info13)
+    info9 = BoolInputRow(frame: CGRect.zero)
+    info9!.lblTitle.text = "Is the Device in the Correct Location ?"
+    AdditionalInformationStack.addArrangedSubview(info9!)
+    
+    info10 = BoolInputRow(frame: CGRect.zero)
+    info10!.lblTitle.text = "Is the Device clear of Furniture ?"
+    AdditionalInformationStack.addArrangedSubview(info10!)
+    
+    info11 = BoolInputRow(frame: CGRect.zero)
+    info11!.lblTitle.text = "Did Audio play during the Test ?"
+    AdditionalInformationStack.addArrangedSubview(info11!)
+    
+    info12 = BoolInputRow(frame: CGRect.zero)
+    info12!.lblTitle.text = "Is the Device in good Condition ?"
+    AdditionalInformationStack.addArrangedSubview(info12!)
+    
+    info13 = BoolInputRow(frame: CGRect.zero)
+    info13!.lblTitle.text = "Does the Device need to be Replaced ?"
+    AdditionalInformationStack.addArrangedSubview(info13!)
   }
   
     /*
@@ -431,7 +437,7 @@ class DeviceReportViewController: UIViewController {
         // https://www.youtube.com/watch?v=O7u9nYWjvKk
         
         // Create alert
-        let alert = UIAlertController(title: "Report Reference", message: "Device ID: \((self.newReport?.deviceSerialNumber)!)", preferredStyle: .alert)
+        let alert = UIAlertController(title: "Report Title", message: "please enter a title for the device report", preferredStyle: .alert)
         alert.addTextField()
         
         // Configure button handler
@@ -443,9 +449,21 @@ class DeviceReportViewController: UIViewController {
             // Create a person object
             let newRep = DeviceReportCD(context: self.context)
             newRep.scan = self.scan
-            newRep.note = textfield.text
+            newRep.title = textfield.text
             newRep.date = Date()
             newRep.deviceType = self.newReport?.deviceType
+            newRep.serialNumber = self.newReport?.deviceSerialNumber
+            
+            
+
+            //get switch positions and add to core data module
+            newRep.q1 = self.info9!.scPosition.isOn
+            newRep.q2 = self.info10!.scPosition.isOn
+            newRep.q3 = self.info11!.scPosition.isOn
+            newRep.q4 = self.info12!.scPosition.isOn
+            newRep.q5 = self.info13!.scPosition.isOn
+            
+            newRep.note = self.AdditionalInfo.tfInput.text
             
             // save the data to core data db
             do {

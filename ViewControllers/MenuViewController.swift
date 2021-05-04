@@ -88,7 +88,7 @@ class MenuViewController: UIViewController {
     
     @IBAction func newServicePressed(_ sender: UIButton) {
         
-        performSegue(withIdentifier: "menuToServiceLocation", sender: self)
+        performSegue(withIdentifier: "MainVCToScan", sender: self)
         
     }
     
@@ -112,7 +112,9 @@ extension MenuViewController: UITableViewDataSource {
         let deviceReport = self.items![indexPath.row]
         
         // fill cell details
-        cell.lblTitle.text = deviceReport.note
+        cell.lblName.text = deviceReport.title
+        cell.lblDate.text = deviceReport.date?.as_ddmmyyyy_hhmmss()
+        cell.lblSerialNumber.text = deviceReport.serialNumber
         
         print("deviceReport.deviceType = \(deviceReport.deviceType)")
         if deviceReport.deviceType == "CO" {

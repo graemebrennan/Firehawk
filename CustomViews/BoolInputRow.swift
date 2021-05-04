@@ -7,11 +7,14 @@
 
 import UIKit
 
-class FaultRow: UIView {
+class BoolInputRow: UIView {
 
-  @IBOutlet var contentView: UIView!
-  @IBOutlet weak var lblTitle: UILabel!
-  
+    @IBOutlet var contentView: UIView!
+    @IBOutlet weak var lblTitle: UILabel!
+    @IBOutlet weak var scPosition: UISwitch!
+
+    
+    
   
   override init(frame: CGRect) {
     super.init(frame: frame)
@@ -31,7 +34,6 @@ class FaultRow: UIView {
     lblTitle.text = nil
   }
   
-  @IBAction func onPressYES(_ sender: Any){}
-  @IBAction func onPressNO(_ sender: Any){}
+
   
 }

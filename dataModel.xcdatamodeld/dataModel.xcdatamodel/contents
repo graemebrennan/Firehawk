@@ -4,9 +4,16 @@
         <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="deviceType" optional="YES" attributeType="String"/>
         <attribute name="note" optional="YES" attributeType="String"/>
+        <attribute name="q1" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="q2" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="q3" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="q4" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="q5" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="scan" optional="YES" attributeType="String"/>
+        <attribute name="serialNumber" optional="YES" attributeType="String"/>
+        <attribute name="title" optional="YES" attributeType="String"/>
     </entity>
     <elements>
-        <element name="DeviceReportCD" positionX="-36" positionY="9" width="128" height="89"/>
+        <element name="DeviceReportCD" positionX="-36" positionY="9" width="128" height="194"/>
     </elements>
 </model>

@@ -12,17 +12,20 @@ class DeviceCell: UITableViewCell {
   
   @IBOutlet weak var shadowView: UIView!
   @IBOutlet weak var bgView: UIView!
-  @IBOutlet weak var lblTitle: UILabel!
-  @IBOutlet weak var lblNote: UILabel!
+  @IBOutlet weak var lblName: UILabel!
+  @IBOutlet weak var lblDate: UILabel!
   @IBOutlet weak var imgView: UIImageView!
+    @IBOutlet weak var lblSerialNumber: UILabel!
     
   private var shadowLayer: CAShapeLayer = CAShapeLayer()
   
     override func awakeFromNib() {
         super.awakeFromNib()
+        
         // Initialization code
-      lblTitle.textColor = UIColor(rgb: 0x8D8D8D)
-      lblNote.textColor = UIColor(rgb: 0x8D8D8D)
+        lblName.textColor = UIColor(rgb: 0x8D8D8D)
+        lblDate.textColor = UIColor(rgb: 0x8D8D8D)
+        lblSerialNumber.textColor = UIColor(rgb: 0x8D8D8D)
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
