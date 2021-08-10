@@ -7,11 +7,11 @@
 
 import UIKit
 
-class SearchBarViewController: UIViewController {
+class InfoViewController: UIViewController {
 
   static func route() -> UIViewController {
     let storyboard = UIStoryboard(name: "Main", bundle: nil)
-    guard let vc = storyboard.instantiateViewController(identifier: "SearchBarViewController") as? SearchBarViewController else {
+    guard let vc = storyboard.instantiateViewController(identifier: "SearchBarViewController") as? InfoViewController else {
       return UIViewController()
     }
     return vc

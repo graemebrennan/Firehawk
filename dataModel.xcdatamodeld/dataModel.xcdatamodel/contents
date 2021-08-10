@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="17709" systemVersion="20D91" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="18154" systemVersion="20D91" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="AddressCD" representedClassName="AddressCD" syncable="YES" codeGenerationType="class">
+        <attribute name="line1" optional="YES" attributeType="String"/>
+        <attribute name="line2" optional="YES" attributeType="String"/>
+        <attribute name="postcode" optional="YES" attributeType="String"/>
+        <attribute name="townCity" optional="YES" attributeType="String"/>
+        <relationship name="serviceReport" maxCount="1" deletionRule="Nullify" destinationEntity="ServiceReportCD" inverseName="houseAddress" inverseEntity="ServiceReportCD"/>
+    </entity>
     <entity name="DeviceReportCD" representedClassName="DeviceReportCD" syncable="YES" codeGenerationType="class">
         <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="deviceType" optional="YES" attributeType="String"/>
@@ -12,8 +19,17 @@
         <attribute name="scan" optional="YES" attributeType="String"/>
         <attribute name="serialNumber" optional="YES" attributeType="String"/>
         <attribute name="title" optional="YES" attributeType="String"/>
+        <relationship name="serviceReport" maxCount="1" deletionRule="Nullify" destinationEntity="ServiceReportCD" inverseName="deviceReports" inverseEntity="ServiceReportCD"/>
+    </entity>
+    <entity name="ServiceReportCD" representedClassName="ServiceReportCD" syncable="YES" codeGenerationType="class">
+        <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="name" optional="YES" attributeType="String"/>
+        <relationship name="deviceReports" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="DeviceReportCD" inverseName="serviceReport" inverseEntity="DeviceReportCD"/>
+        <relationship name="houseAddress" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="AddressCD" inverseName="serviceReport" inverseEntity="AddressCD"/>
     </entity>
     <elements>
-        <element name="DeviceReportCD" positionX="-36" positionY="9" width="128" height="194"/>
+        <element name="AddressCD" positionX="-44.26513671875" positionY="84.04522705078125" width="128" height="118"/>
+        <element name="DeviceReportCD" positionX="-49.85205078125" positionY="-297.9091339111328" width="128" height="223"/>
+        <element name="ServiceReportCD" positionX="-268.9385375976562" positionY="-170.7649993896484" width="128" height="103"/>
     </elements>
 </model>

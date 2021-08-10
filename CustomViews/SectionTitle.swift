@@ -39,7 +39,7 @@ class SectionTitle: UIView {
   
   override func layoutSubviews() {
     super.layoutSubviews()
-    let cornerRadius: CGFloat = 14.0
+    let cornerRadius: CGFloat = 0.0//14.0
     contentView.layer.cornerRadius = cornerRadius
     shadowLayer.path = UIBezierPath(roundedRect: bounds,
                                     cornerRadius: cornerRadius).cgPath
@@ -48,10 +48,10 @@ class SectionTitle: UIView {
     shadowLayer.shadowPath = shadowLayer.path
     shadowLayer.shadowOffset = CGSize(width: 0.0,
                                       height: 1.8)
-    shadowLayer.shadowOpacity = 0.3
-    shadowLayer.shadowRadius = 3.0
+   // shadowLayer.shadowOpacity = 0.3
+   // shadowLayer.shadowRadius = 3.0
     contentView.layer.insertSublayer(shadowLayer, at: 0)
-    contentView.backgroundColor = UIColor(rgb: 0x3584FA)
+   // contentView.backgroundColor = UIColor(rgb: 0x3584FA)
     
     
   }

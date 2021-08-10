@@ -1,0 +1,334 @@
+//
+//  ReportSummaryViewController.swift
+//  FireHawk
+//
+//  Created by Graeme Brennan on 5/7/21.
+//
+
+import UIKit
+import CoreData
+import MessageUI
+import PDFKit
+
+class ReportSummaryViewController: UIViewController {
+
+    
+    //coredata
+    let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+    
+    //var serviceReports: [ServiceReportCD]? = []
+    var latestRecord: ServiceReportCD?
+    var deviceReportList: [DeviceReportCD]? = []
+    
+    var serviceReport: ServiceReportCD?
+    var selectedDeviceReport: DeviceReportCD?
+    
+    @IBOutlet weak var tableView: UITableView!
+    
+    var pdfDocument: PDFDocument!
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+        
+        tableView.delegate = self
+        tableView.dataSource = self
+        
+        // Do any additional setup after loading the view.
+        tableView.register(UINib(nibName: "DeviceCell", bundle: nil), forCellReuseIdentifier: "DeviceCellIdentifier")
+
+
+        
+        if let allDeviceReports = serviceReport?.deviceReports?.allObjects as? [DeviceReportCD] {
+            self.deviceReportList = allDeviceReports
+        }
+        
+    }
+    
+    
+    @IBAction func sendEmailPressed(_ sender: Any) {
+        
+        print("Send Email")
+        
+        print("compose Email")
+        composeEmail()
+        
+    }
+    
+    func composeEmail() {
+        
+        // build title page
+        composeCoverPagePDF()
+        
+        print("creating new PDF \(Int(deviceReportList?.count ?? 0))pages")
+        
+        for i in 0...deviceReportList!.count-1 {
+            // creat and insert a new pdf page for each device
+            composeDevicePagePDF(i: i)
+
+        }
+        
+        //self.pdfDocument
+        showMailComposer()
+        
+    }
+    
+    func composeCoverPagePDF() {
+        
+        let pdfTitle = self.serviceReport?.name
+        let pdfBody = """
+                        \(self.serviceReport?.date)
+                        \(self.serviceReport?.houseAddress?.line1)
+                        \(self.serviceReport?.houseAddress?.line2)
+                        \(self.serviceReport?.houseAddress?.townCity)
+                        \(self.serviceReport?.houseAddress?.postcode)
+                        """
+        let pdfHeaderImage = UIImage(named: "Logo")
+        
+        let pdfCreator = PDFCoverCreator(title: pdfTitle!, body: pdfBody, image: pdfHeaderImage!)
+        
+        let data = pdfCreator.createPDFReport()
+        
+        self.pdfDocument = PDFDocument(data: data)
+        
+    }
+    
+    func composeDevicePagePDF(i: Int) {
+        print("creating new PDF page")
+        
+        //let newPage = PDFPage()
+        
+        let pdfTitle = self.serviceReport?.name
+        let pdfBody = pdfDeviceBody(i: i)
+        let pdfHeaderImage = UIImage(named: "ReportHeader")
+       // let pdfContact = "contactTextView.text"
+        
+        
+        let pdfCreator = PDFCreator(title: pdfTitle!, body: pdfBody, image: pdfHeaderImage!)
+        
+        
+        
+        
+        let data = pdfCreator.createPDFReport()
+        
+        //self.pdfDocument = PDFDocument(data: data)
+        let newPage = PDFDocument(data: data)
+        let page = newPage?.page(at: 0)
+        
+        self.pdfDocument.insert(page!, at: i+1 )
+       
+        //let newPage = PDFPage()
+        
+        
+        
+        //return data
+    }
+    
+    func pdfDeviceBody(i: Int) -> String {
+        
+        var bodyString = ""
+        
+        
+            
+        // unpack the devie scan data
+            var deviceScanData = DeviceReport(scan: self.deviceReportList![i].scan!)
+            
+            var string = """
+                \(deviceReportList![i].title!)
+                Device Type: \(deviceReportList![i].deviceType!)
+                Report Data: \(deviceReportList![i].date?.as_ddmmyyyy_hhmmss())
+                Serial Number: \(deviceReportList![i].serialNumber!)
+                
+                Device Health: \(deviceScanData.deviceHealthStatus!)
+                Life Remaining: \(deviceScanData.batteryLifeRemaining_YearsLeft!)
+                Replace By: \(deviceScanData.deviceReplacentDate!)
+                
+                Removals From Mounting Plate: \(deviceScanData.plateRemovals!)
+                
+                Device Tests:
+                Device Test Count: \(deviceScanData.deviceTestCount!)
+                Last Test Date: \(deviceScanData.deviceLastTestDate!)
+                
+                Manufacture Details
+                Serial Number: \(deviceScanData.deviceSerialNumber!)
+                Manufacture Date: \(deviceScanData.snManufactureDate!)
+                
+                Alarms
+
+                High CO Alarm (+300 PPM)
+                High Alarm Count: \(String(describing: deviceScanData.highCOAlarmCount!))
+                Last Occured: \(String(describing:deviceScanData.highCOAlarmLastDate?.as_ddmmyyyy()))
+                
+                Medium CO Alarm (>100 PPM)
+                Medium Alarm Count: \(String(describing: deviceScanData.mediumCOAlarmCount!))
+                Last Occured: \(String(describing:deviceScanData.mediumCOAlarmLastDate?.as_ddmmyyyy()))
+                
+                Low CO Alarm (<100 PPM)
+                Low Alarm Count: \(String(describing: deviceScanData.lowCOAlarmCount!))
+                Last Occured: \(String(describing:deviceScanData.lowCOAlarmLastDate?.as_ddmmyyyy()))
+                
+                Pre Alarm
+                Pre Alarm Count: \(String(describing: deviceScanData.preCOAlarmCount!))
+                Last Occured: \(String(describing:deviceScanData.preCOAlarmLastDate?.as_ddmmyyyy()))
+                    
+                Faults
+                Fault Status: \(String(describing:deviceScanData.faultFlag))
+
+                Device Faults: \(String(describing:deviceScanData.deviceFault))
+                Date: \(String(describing:deviceScanData.deviceFaultDate))
+                
+                Remote Faults: \(String(describing:deviceScanData.remoteFault))
+                Date: \(String(describing:deviceScanData.remoteFaultDate))
+                
+                Battery Fault: \(String(describing:deviceScanData.batteryFault))
+                Date: \(String(describing:deviceScanData.batteryFaultDate))
+                
+                End Of Life: \(String(describing:deviceScanData.eol_Fault))
+                Date: \(String(describing:deviceScanData.eol_FaultDate))
+                 
+                
+                \(String(describing:deviceReportList![i].q1))
+                \(String(describing:deviceReportList![i].q2))
+                \(String(describing:deviceReportList![i].q3))
+                \(String(describing:deviceReportList![i].q4))
+                \(String(describing:deviceReportList![i].q5))
+                
+                Aditional Notes: \(String(describing:deviceReportList![i].note))
+                
+                ----------------------------------------------------------------------------------------
+                """
+            bodyString.append(string)
+        
+
+        return bodyString
+    }
+    
+    func showMailComposer() {
+        
+        print("creating Email")
+        
+        guard MFMailComposeViewController.canSendMail() else {
+            // TODO:- Show alert informing the user
+            print("Mail services are not available")
+            return
+        }
+        
+        
+        //let messageBody = "<h1>Hello world</h1> normal text here"
+        // send email of PDF
+        let composeVC = MFMailComposeViewController()
+        composeVC.mailComposeDelegate = self
+        
+        composeVC.setToRecipients(["graeme_brennan@mac.com"])
+        composeVC.setSubject("Contact Us / Feedback")
+        composeVC.setMessageBody("wassssup", isHTML: true)
+        
+        //Attach pdf
+        //   if let filePath = Bundle.main.path(forResource: "TestPDF", ofType: "pdf") {
+        //      if let data = NSData(contentsOfFile: filePath) {
+        composeVC.addAttachmentData(self.pdfDocument.dataRepresentation()! as Data, mimeType: "pdf" , fileName: "TestPDF")
+            //composeVC.addAttachmentData(<#T##attachment: Data##Data#>, mimeType: <#T##String#>, fileName: <#T##String#>)
+        //      }
+        //   }
+        //self.pdfDocument.dataRepresentation()
+        // Present the view controller modally.
+        self.present(composeVC, animated: true, completion: nil)
+    }
+}
+
+extension ReportSummaryViewController: UITableViewDataSource {
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        
+        return self.deviceReportList?.count ?? 0
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        let cell = tableView.dequeueReusableCell(withIdentifier: "DeviceCellIdentifier", for: indexPath) as! DeviceCell
+        
+        // fill device nib property fields
+        cell.lblName.text = self.deviceReportList?[indexPath.row].title
+        cell.lblDate.text =  self.deviceReportList?[indexPath.row].date?.as_ddmmyyyy_hhmmss()
+        cell.lblSerialNumber.text = self.deviceReportList?[indexPath.row].serialNumber
+        
+        // add device image
+        if self.deviceReportList?[indexPath.row].deviceType == "X10" {
+            
+            
+            cell.imageView?.image = UIImage(named: "Firehawk_FHB10_smoke_alarm.png")
+
+        } else if self.deviceReportList?[indexPath.row].deviceType == "CO" {
+
+            cell.imageView?.image = UIImage(named: "Firehawk_CO7B10Y.png")
+            
+        } else if self.deviceReportList?[indexPath.row].deviceType == "H10"{
+
+            cell.imageView?.image = UIImage(named: "Firehawk_FHH10_heat_alarm.png")
+
+        } else {
+            print ("Error, devicetype not recognised")
+        }
+        
+        return cell
+    }
+
+}
+
+extension ReportSummaryViewController: UITableViewDelegate {
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        // get selected report.
+        self.selectedDeviceReport = self.deviceReportList![indexPath.row]
+        
+        //self.i = indexPath.row
+        performSegue(withIdentifier: "ReportSummaryVCtoReportVC", sender: self)
+        
+        print( " pressed selected row \(indexPath.row) ")
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        if segue.identifier == "ReportSummaryVCtoReportVC" {
+            
+            var deviceReportVC = segue.destination as! ReportViewController
+                
+            //ReportVC.scan = self.items![i].scan
+            deviceReportVC.deviceReport = self.selectedDeviceReport
+        }
+
+    
+    }
+    
+    
+}
+
+
+extension ReportSummaryViewController: MFMailComposeViewControllerDelegate {
+    
+    func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
+        
+        if let _ = error {
+            //Show error alert
+            controller.dismiss(animated: true)
+            return
+        }
+        
+        switch result {
+        case .cancelled:
+            print("Cancelled")
+        case .failed:
+            print("Failed to send")
+        case .saved:
+            print("Saved")
+        case .sent:
+            print("Email Sent")
+        @unknown default:
+            break
+        }
+        
+        controller.dismiss(animated: true)
+    }
+}
+

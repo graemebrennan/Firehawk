@@ -23,7 +23,7 @@ class DetailHouseNameViewController: UIViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-      tableView.register(UINib(nibName: "HouseCell", bundle: nil), forCellReuseIdentifier: "HouseCellIdentifier")
+      tableView.register(UINib(nibName: "ServiceCell", bundle: nil), forCellReuseIdentifier: "ServiceCellIdentifier")
       tableView.dataSource = self
     }
     
@@ -48,7 +48,7 @@ extension DetailHouseNameViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-      let cell = tableView.dequeueReusableCell(withIdentifier: "HouseCellIdentifier", for: indexPath) as! HouseCell
+      let cell = tableView.dequeueReusableCell(withIdentifier: "ServiceCellIdentifier", for: indexPath) as! ServiceCell
       return cell
     }
     

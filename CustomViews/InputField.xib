@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -23,25 +23,25 @@
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rbu-0q-2gR">
                     <rect key="frame" x="16" y="16" width="31" height="18"/>
                     <fontDescription key="fontDescription" type="system" weight="medium" pointSize="15"/>
-                    <color key="textColor" red="0.51372307539999995" green="0.50979954000000005" blue="0.50979965930000004" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                    <nil key="highlightedColor"/>
+                    <color key="textColor" red="0.0" green="0.65000000000000002" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <color key="highlightedColor" red="0.0" green="0.65000000000000002" blue="0.0" alpha="1" colorSpace="deviceRGB"/>
                 </label>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yjp-Nc-uJG">
                     <rect key="frame" x="16" y="38" width="382" height="48"/>
                     <subviews>
-                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" placeholder="Enter text here..." minimumFontSize="20" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="Td6-i8-gdf">
-                            <rect key="frame" x="12" y="0.0" width="358" height="48"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" placeholder="Enter text here..." adjustsFontForContentSizeCategory="YES" minimumFontSize="20" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="Td6-i8-gdf">
+                            <rect key="frame" x="12" y="16" width="358" height="16"/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
                             <textInputTraits key="textInputTraits"/>
                         </textField>
                     </subviews>
-                    <color key="backgroundColor" red="0.97640675310000002" green="0.93726485969999995" blue="0.93724620339999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                    <color key="backgroundColor" red="0.9155400991" green="0.48434937" blue="0.34898048640000001" alpha="0.18820099483262623" colorSpace="custom" customColorSpace="displayP3"/>
                     <constraints>
                         <constraint firstAttribute="trailing" secondItem="Td6-i8-gdf" secondAttribute="trailing" constant="12" id="9Tq-uj-7BC"/>
                         <constraint firstItem="Td6-i8-gdf" firstAttribute="leading" secondItem="yjp-Nc-uJG" secondAttribute="leading" constant="12" id="X4B-FF-7jz"/>
                         <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="30" id="YoG-jF-7gB"/>
-                        <constraint firstItem="Td6-i8-gdf" firstAttribute="top" secondItem="yjp-Nc-uJG" secondAttribute="top" id="buB-wh-Qvi"/>
-                        <constraint firstAttribute="bottom" secondItem="Td6-i8-gdf" secondAttribute="bottom" id="yaR-A9-B63"/>
+                        <constraint firstItem="Td6-i8-gdf" firstAttribute="centerY" secondItem="yjp-Nc-uJG" secondAttribute="centerY" id="n7o-J5-6bD"/>
                     </constraints>
                 </view>
             </subviews>

@@ -13,7 +13,13 @@ class MultiLineInputField: UIView {
     @IBOutlet var contentView: UIView!
     @IBOutlet weak var lblTitle: UILabel!
     @IBOutlet weak var bgView: UIView!
-    @IBOutlet weak var tfInput: UILabel!
+    
+ 
+    @IBOutlet weak var tfInput: UITextView!
+    
+    
+    
+    //@IBOutlet weak var tfInput: UITextView!
     
     
     private var shadowLayer: CAShapeLayer = CAShapeLayer()
@@ -56,6 +62,9 @@ class MultiLineInputField: UIView {
       contentView.layer.insertSublayer(shadowLayer, at: 0)
       contentView.backgroundColor = .white
       bgView.layer.cornerRadius = 8.0
+        
+       // tfInput.textContainer.lineFragmentPadding = 5
+        //tfInput.
       
     }
 }

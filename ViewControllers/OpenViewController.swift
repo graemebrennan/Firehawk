@@ -23,7 +23,7 @@ class OpenViewController: UIViewController {
     func setUpElements() {
 
         // style the elements
-        Utilities.styleFilledButton(signUpButton)
-        Utilities.styleHollowButton(loginButton)
+        Utilities.styleFilledButton(loginButton)
+        Utilities.styleHollowButton(signUpButton)
     }
 }

@@ -31,7 +31,7 @@ class AlarmInfoRow: UIView {
     contentView.fixInView(self)
     lblTitle.textColor = UIColor(rgb: 0x3584FA)
     lblDesc1.textColor = UIColor(rgb: 0x8D8D8D)
-    lblDesc2.textColor = UIColor(rgb: 0xB8A2A2)
+    lblDesc2.textColor = UIColor(rgb: 0x8D8D8D)
     lblDesc3.textColor = UIColor(rgb: 0xB8A2A2)
     // Clear data
     lblTitle.text = nil

@@ -43,7 +43,7 @@ class ProductCard: UIView {
   
   override func layoutSubviews() {
     super.layoutSubviews()
-    let cornerRadius: CGFloat = 16.0
+    let cornerRadius: CGFloat = 0.0
     contentView.layer.cornerRadius = cornerRadius
     shadowLayer.path = UIBezierPath(roundedRect: bounds,
                                     cornerRadius: cornerRadius).cgPath
@@ -60,7 +60,7 @@ class ProductCard: UIView {
     contentView.layer.borderColor = UIColor(rgb: 0xC5C7FF).cgColor
     contentView.layer.borderWidth = 3.0
     
-    imgView.layer.cornerRadius = cornerRadius
+    //imgView.layer.cornerRadius = cornerRadius
     imgView.clipsToBounds = true
   }
 }

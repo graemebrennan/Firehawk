@@ -10,12 +10,15 @@ import FirebaseAuth
 import Firebase
 import FirebaseFirestore
 
+
 class SignUpViewController: UIViewController {
 
-    @IBOutlet weak var firstNameTextField: UITextField!
-    @IBOutlet weak var lastNameTextField: UITextField!
-    @IBOutlet weak var emailTextField: UITextField!
-    @IBOutlet weak var passwordTextField: UITextField!
+
+    @IBOutlet weak var firstNameIF: InputField!
+    @IBOutlet weak var lastNameIF: InputField!
+    @IBOutlet weak var emailIF: InputField!
+    @IBOutlet weak var passwordIF: InputField!
+    @IBOutlet weak var scrollView: UIScrollView!
     
     @IBOutlet weak var signUpButton: UIButton!
     
@@ -34,37 +37,53 @@ class SignUpViewController: UIViewController {
         errorLabel.alpha = 0
         
         // style the elements
-        Utilities.styleTextField(firstNameTextField)
-        Utilities.styleTextField(lastNameTextField)
-        Utilities.styleTextField(emailTextField)
-        Utilities.styleTextField(passwordTextField)
+//        Utilities.styleTextField(firstNameTextField)
+//        Utilities.styleTextField(lastNameTextField)
+//        Utilities.styleTextField(emailTextField)
+//        Utilities.styleTextField(passwordTextField)
+        
+        // Do any additional setup after loading the view.
+        self.firstNameIF.lblTitle.text = "First Name"
+        self.firstNameIF.placeholder = "Enter first name"
+        
+        self.lastNameIF.lblTitle.text = "Last Name"
+        self.lastNameIF.placeholder = "Enter last name"
+        
+        self.emailIF.lblTitle.text = "Email"
+        self.emailIF.placeholder = "Enter your email address"
+        
+        self.passwordIF.lblTitle.text = "Password"
+        self.passwordIF.placeholder = "Enter your password"
+        
         Utilities.styleFilledButton(signUpButton)
         
-    }
-    /*
-    // MARK: - Navigation
+        //listen for keyboard events
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
+        }
+    
+
+    
+//    @objc func keyboardWillChange(notification: Notification) {
+//        print("Keyboard will show: \(notification.name.rawValue)")
+//
+//
+//        view.frame.origin.y = -300
+//    }
     
     //Check the fields and validate that the data is correct. If everything is correct, this method returns nil. Otherwise, it returns he error message
     func validateFields() -> String? {
         
         //Check that all fields are filled in
-        if firstNameTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines) == "" ||
-            lastNameTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines) == "" ||
-            emailTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines) == "" ||
-            passwordTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines) == "" {
+        if firstNameIF.lblTitle.text?.trimmingCharacters(in: .whitespacesAndNewlines) == "" ||
+            lastNameIF.lblTitle.text?.trimmingCharacters(in: .whitespacesAndNewlines) == "" ||
+            emailIF.lblTitle.text?.trimmingCharacters(in: .whitespacesAndNewlines) == "" ||
+            passwordIF.lblTitle.text?.trimmingCharacters(in: .whitespacesAndNewlines) == "" {
              
             return "Please fill in all fields."
         }
         
         //Check if the password is secure
-        let cleanedPassword = passwordTextField.text!.trimmingCharacters(in: .whitespacesAndNewlines)
+        let cleanedPassword = passwordIF.lblTitle.text!.trimmingCharacters(in: .whitespacesAndNewlines)
         
         if Utilities.isPasswordValid(cleanedPassword) == false {
             //Password isnt secure enough
@@ -85,14 +104,14 @@ class SignUpViewController: UIViewController {
         else {
         
             //create cleaned versions of the data, strip out white spaces
-            let firstName = firstNameTextField.text!.trimmingCharacters(in: .whitespacesAndNewlines)
-            let lastName = lastNameTextField.text!.trimmingCharacters(in: .whitespacesAndNewlines)
-            let email = emailTextField.text!.trimmingCharacters(in: .whitespacesAndNewlines)
-            let password = passwordTextField.text!.trimmingCharacters(in: .whitespacesAndNewlines)
+            let firstName = firstNameIF.lblTitle.text?.trimmingCharacters(in: .whitespacesAndNewlines)
+            let lastName = lastNameIF.lblTitle.text?.trimmingCharacters(in: .whitespacesAndNewlines)
+            let email = emailIF.lblTitle.text?.trimmingCharacters(in: .whitespacesAndNewlines)
+            let password = passwordIF.lblTitle.text?.trimmingCharacters(in: .whitespacesAndNewlines)
             
             
         //create new user
-            Auth.auth().createUser(withEmail: email, password: password) { (result, err) in
+            Auth.auth().createUser(withEmail: email!, password: password!) { (result, err) in
                 
                 //Check for errors
                 if err != nil {

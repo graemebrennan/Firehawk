@@ -331,6 +331,7 @@ PODS:
     - gRPC-Core/Interface (= 1.28.0)
   - gRPC-Core/Interface (1.28.0)
   - GTMSessionFetcher/Core (1.4.0)
+  - IQKeyboardManagerSwift (6.5.6)
   - leveldb-library (1.22)
   - nanopb (1.30905.0):
     - nanopb/decode (= 1.30905.0)
@@ -344,6 +345,7 @@ DEPENDENCIES:
   - Firebase/Auth
   - Firebase/Core
   - Firebase/Firestore
+  - IQKeyboardManagerSwift
 
 SPEC REPOS:
   trunk:
@@ -365,6 +367,7 @@ SPEC REPOS:
     - "gRPC-C++"
     - gRPC-Core
     - GTMSessionFetcher
+    - IQKeyboardManagerSwift
     - leveldb-library
     - nanopb
     - PromisesObjC
@@ -388,10 +391,11 @@ SPEC CHECKSUMS:
   "gRPC-C++": 2ea13a2e14f0b89991a0b4b0151e7c6a56319516
   gRPC-Core: 325ba201411619a7302c621a1c8ee787719d4b9b
   GTMSessionFetcher: 6f5c8abbab8a9bce4bb3f057e317728ec6182b10
+  IQKeyboardManagerSwift: c7df9d2deb356c04522f5c4b7b6e4ce4d8ed94fe
   leveldb-library: 55d93ee664b4007aac644a782d11da33fba316f7
   nanopb: c43f40fadfe79e8b8db116583945847910cbabc9
   PromisesObjC: c119f3cd559f50b7ae681fa59dc1acd19173b7e6
 
-PODFILE CHECKSUM: 4b0c683b47d32d2af6dfefffc0eee4194bc608df
+PODFILE CHECKSUM: 741be57f3578e34ce89aebc2948713dd0b5ce1fb
 
 COCOAPODS: 1.9.1
