@@ -21,6 +21,7 @@ class NewServiceSummaryViewController: UIViewController, UITableViewDataSource {
     var latestRecord: ServiceReportCD?
 
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var scanNewButton: UIButton!
     
   static func route() -> UIViewController {
     let storyboard = UIStoryboard(name: "Main", bundle: nil)
@@ -44,8 +45,15 @@ class NewServiceSummaryViewController: UIViewController, UITableViewDataSource {
         self.deviceReportList = allDeviceReports
     }
     
+    setUpElements()
   }
-  
+    
+    func setUpElements() {
+        
+        
+        Utilities.styleFilledButton(scanNewButton)
+        
+    }
     
     func fetchLatestServiceReport() {
 

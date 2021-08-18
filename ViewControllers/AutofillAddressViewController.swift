@@ -28,7 +28,8 @@ class AutofillAddressViewController: UIViewController {
   @IBOutlet weak var inpZip: InputField!
   @IBOutlet weak var inpCityTown: InputField!
   @IBOutlet weak var inpAddressLine2: InputField!
-  
+    @IBOutlet weak var NextButton: UIButton!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -48,10 +49,18 @@ class AutofillAddressViewController: UIViewController {
         inpCityTown.lblTitle.text = "City"
         inpCityTown.placeholder = "Enter your City"
         
+        setUpElements()
+        
     }
     
-    @IBAction func nextButtonPressed(_ sender: UIBarButtonItem) {
+    func setUpElements() {
         
+        // style the elements
+        Utilities.styleFilledButton(NextButton)
+        
+    }
+    
+    @IBAction func nextButtonPressed(_ sender: Any) {
         // create report
         var newServiceReport = ServiceReportCD(context: self.context)
         newServiceReport.name = inpTitle.tfInput.text
@@ -78,6 +87,8 @@ class AutofillAddressViewController: UIViewController {
         performSegue(withIdentifier: "ReoprtSetupVCToScanVC", sender: self)
         
     }
+    
+
     
     /*
     // MARK: - Navigation
