@@ -30,32 +30,28 @@
 		675B68EA25BF05FE00D6686D /* SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6D8F4E225504EF800B52A3A /* SearchBar.swift */; };
 		675B68EC25BF060500D6686D /* HouseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6D8F4ED2550609300B52A3A /* HouseView.swift */; };
 		675B68EE25BF060A00D6686D /* DeviceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6D8F4F32550650B00B52A3A /* DeviceView.swift */; };
-		675B68F025BF061200D6686D /* LedScanViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C64AD0462549BBE100C56D9A /* LedScanViewController.swift */; };
-		675B68F125BF061200D6686D /* ScanProductViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C64AD0492549BC0200C56D9A /* ScanProductViewController.swift */; };
-		675B68F225BF061200D6686D /* ServiceLocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C64AD04C2549BC1900C56D9A /* ServiceLocationViewController.swift */; };
-		675B68F325BF061200D6686D /* AutofillAddressViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C64AD04F2549BC2D00C56D9A /* AutofillAddressViewController.swift */; };
+		675B68F025BF061200D6686D /* ScannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C64AD0462549BBE100C56D9A /* ScannerViewController.swift */; };
+		675B68F325BF061200D6686D /* PropertyInformationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C64AD04F2549BC2D00C56D9A /* PropertyInformationViewController.swift */; };
 		675B68F425BF061200D6686D /* DeviceReportViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C64AD0522549BC4400C56D9A /* DeviceReportViewController.swift */; };
 		675B68F525BF061200D6686D /* NewServiceSummaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C64AD0552549BC6500C56D9A /* NewServiceSummaryViewController.swift */; };
-		675B68F625BF061200D6686D /* InfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6D8F4DE25504BFA00B52A3A /* InfoViewController.swift */; };
-		675B68F725BF061200D6686D /* DetailHouseNameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C64AD0582549BC8200C56D9A /* DetailHouseNameViewController.swift */; };
 		675B68F825BF061200D6686D /* ReportViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C64AD05B2549BC8F00C56D9A /* ReportViewController.swift */; };
 		675B68F925BF061200D6686D /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67E791DD25BED3A700FF3B79 /* MenuViewController.swift */; };
-		675B68FA25BF061200D6686D /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67E791E025BED3BD00FF3B79 /* LoginViewController.swift */; };
-		675B68FB25BF061200D6686D /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67E791E325BED3D200FF3B79 /* SignUpViewController.swift */; };
 		675B68FD25BF061800D6686D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C64AD02D2549B9AC00C56D9A /* AppDelegate.swift */; };
 		6768B90126C30A7D006F5C9D /* AlarmInfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6768B8FF26C30A7D006F5C9D /* AlarmInfoCell.swift */; };
 		6768B90226C30A7D006F5C9D /* AlarmInfoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6768B90026C30A7D006F5C9D /* AlarmInfoCell.xib */; };
 		6768B90526C33498006F5C9D /* FaultInfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6768B90326C33498006F5C9D /* FaultInfoCell.swift */; };
 		6768B90626C33498006F5C9D /* FaultInfoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6768B90426C33498006F5C9D /* FaultInfoCell.xib */; };
 		6777ADEA25F23E9900DDF69F /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6777ADE925F23E9900DDF69F /* Extensions.swift */; };
-		67AF3AE225CA05AE00185DCB /* OpenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67AF3AE125CA05AE00185DCB /* OpenViewController.swift */; };
+		678A8D1D26CDCBFE00EAD688 /* PropertyDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 678A8D1C26CDCBFE00EAD688 /* PropertyDetails.swift */; };
+		678A8D1F26CDCF8300EAD688 /* ServiceReportOP.swift in Sources */ = {isa = PBXBuildFile; fileRef = 678A8D1E26CDCF8300EAD688 /* ServiceReportOP.swift */; };
+		678A8D2126CDD28E00EAD688 /* DeviceReportOP.swift in Sources */ = {isa = PBXBuildFile; fileRef = 678A8D2026CDD28E00EAD688 /* DeviceReportOP.swift */; };
 		67B83CDD26B41F2400299315 /* Notes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67B83CDC26B41F2400299315 /* Notes.swift */; };
 		67CAC12D262785A40041894D /* MultiLineInputField.xib in Resources */ = {isa = PBXBuildFile; fileRef = 67CAC12C262785A40041894D /* MultiLineInputField.xib */; };
 		67CAC1302627889A0041894D /* MultiLineInputField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67CAC12F2627889A0041894D /* MultiLineInputField.swift */; };
 		67CAC134262799970041894D /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67CAC133262799970041894D /* Constants.swift */; };
 		67DE45FB26A1BE2C001E1BD7 /* Reports.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67DE45FA26A1BE2C001E1BD7 /* Reports.swift */; };
 		67E636AC26A06FCD008B3B14 /* PDFCreator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67E636AB26A06FCD008B3B14 /* PDFCreator.swift */; };
-		67E659EA269355E90014B786 /* ReportSummaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67E659E9269355E90014B786 /* ReportSummaryViewController.swift */; };
+		67E659EA269355E90014B786 /* OldServiceSummaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67E659E9269355E90014B786 /* OldServiceSummaryViewController.swift */; };
 		67E791F425BEFFAC00FF3B79 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 67E791F325BEFFAC00FF3B79 /* GoogleService-Info.plist */; };
 		8F40581AFDC4F7478DCF3F13 /* Pods_FireHawk.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CF71D57488D9CEF417B3EC3A /* Pods_FireHawk.framework */; };
 		C62B7E17254D938B00001F18 /* AlarmInfoRow.xib in Resources */ = {isa = PBXBuildFile; fileRef = C62B7E16254D938B00001F18 /* AlarmInfoRow.xib */; };
@@ -87,17 +83,17 @@
 		6768B90326C33498006F5C9D /* FaultInfoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FaultInfoCell.swift; sourceTree = "<group>"; };
 		6768B90426C33498006F5C9D /* FaultInfoCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FaultInfoCell.xib; sourceTree = "<group>"; };
 		6777ADE925F23E9900DDF69F /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
-		67AF3AE125CA05AE00185DCB /* OpenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenViewController.swift; sourceTree = "<group>"; };
+		678A8D1C26CDCBFE00EAD688 /* PropertyDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PropertyDetails.swift; sourceTree = "<group>"; };
+		678A8D1E26CDCF8300EAD688 /* ServiceReportOP.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceReportOP.swift; sourceTree = "<group>"; };
+		678A8D2026CDD28E00EAD688 /* DeviceReportOP.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceReportOP.swift; sourceTree = "<group>"; };
 		67B83CDC26B41F2400299315 /* Notes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notes.swift; sourceTree = "<group>"; };
 		67CAC12C262785A40041894D /* MultiLineInputField.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MultiLineInputField.xib; sourceTree = "<group>"; };
 		67CAC12F2627889A0041894D /* MultiLineInputField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiLineInputField.swift; sourceTree = "<group>"; };
 		67CAC133262799970041894D /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		67DE45FA26A1BE2C001E1BD7 /* Reports.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reports.swift; sourceTree = "<group>"; };
 		67E636AB26A06FCD008B3B14 /* PDFCreator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PDFCreator.swift; sourceTree = "<group>"; };
-		67E659E9269355E90014B786 /* ReportSummaryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportSummaryViewController.swift; sourceTree = "<group>"; };
+		67E659E9269355E90014B786 /* OldServiceSummaryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OldServiceSummaryViewController.swift; sourceTree = "<group>"; };
 		67E791DD25BED3A700FF3B79 /* MenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuViewController.swift; sourceTree = "<group>"; };
-		67E791E025BED3BD00FF3B79 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
-		67E791E325BED3D200FF3B79 /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		67E791E625BEF53F00FF3B79 /* Utilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
 		67E791F325BEFFAC00FF3B79 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		C62B7E13254D937B00001F18 /* AlarmInfoRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmInfoRow.swift; sourceTree = "<group>"; };
@@ -108,13 +104,10 @@
 		C64AD0362549B9AC00C56D9A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C64AD0392549B9AC00C56D9A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C64AD03B2549B9AC00C56D9A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		C64AD0462549BBE100C56D9A /* LedScanViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LedScanViewController.swift; sourceTree = "<group>"; };
-		C64AD0492549BC0200C56D9A /* ScanProductViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanProductViewController.swift; sourceTree = "<group>"; };
-		C64AD04C2549BC1900C56D9A /* ServiceLocationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceLocationViewController.swift; sourceTree = "<group>"; };
-		C64AD04F2549BC2D00C56D9A /* AutofillAddressViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutofillAddressViewController.swift; sourceTree = "<group>"; };
+		C64AD0462549BBE100C56D9A /* ScannerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScannerViewController.swift; sourceTree = "<group>"; };
+		C64AD04F2549BC2D00C56D9A /* PropertyInformationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PropertyInformationViewController.swift; sourceTree = "<group>"; };
 		C64AD0522549BC4400C56D9A /* DeviceReportViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceReportViewController.swift; sourceTree = "<group>"; };
 		C64AD0552549BC6500C56D9A /* NewServiceSummaryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewServiceSummaryViewController.swift; sourceTree = "<group>"; };
-		C64AD0582549BC8200C56D9A /* DetailHouseNameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailHouseNameViewController.swift; sourceTree = "<group>"; };
 		C64AD05B2549BC8F00C56D9A /* ReportViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportViewController.swift; sourceTree = "<group>"; };
 		C64AD05F2549C08D00C56D9A /* RoundedButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedButton.swift; sourceTree = "<group>"; };
 		C64AD0642549C25300C56D9A /* ColorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorExtension.swift; sourceTree = "<group>"; };
@@ -134,7 +127,6 @@
 		C6D249B7254DA5CA00393F48 /* FaultRow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FaultRow.xib; sourceTree = "<group>"; };
 		C6D8F4D82550400A00B52A3A /* DeviceCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceCell.swift; sourceTree = "<group>"; };
 		C6D8F4D92550400A00B52A3A /* DeviceCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DeviceCell.xib; sourceTree = "<group>"; };
-		C6D8F4DE25504BFA00B52A3A /* InfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoViewController.swift; sourceTree = "<group>"; };
 		C6D8F4E225504EF800B52A3A /* SearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBar.swift; sourceTree = "<group>"; };
 		C6D8F4E525504F0500B52A3A /* SearchBar.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SearchBar.xib; sourceTree = "<group>"; };
 		C6D8F4E82550578900B52A3A /* ServiceCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceCell.swift; sourceTree = "<group>"; };
@@ -179,6 +171,9 @@
 				67DE45FA26A1BE2C001E1BD7 /* Reports.swift */,
 				670559F226AF3179007982D3 /* DeviceReport.swift */,
 				67B83CDC26B41F2400299315 /* Notes.swift */,
+				678A8D1C26CDCBFE00EAD688 /* PropertyDetails.swift */,
+				678A8D1E26CDCF8300EAD688 /* ServiceReportOP.swift */,
+				678A8D2026CDD28E00EAD688 /* DeviceReportOP.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -223,20 +218,13 @@
 		C64AD0442549BB8900C56D9A /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
-				C64AD0462549BBE100C56D9A /* LedScanViewController.swift */,
-				C64AD0522549BC4400C56D9A /* DeviceReportViewController.swift */,
-				C64AD04C2549BC1900C56D9A /* ServiceLocationViewController.swift */,
-				C64AD0492549BC0200C56D9A /* ScanProductViewController.swift */,
-				C64AD04F2549BC2D00C56D9A /* AutofillAddressViewController.swift */,
-				C64AD0552549BC6500C56D9A /* NewServiceSummaryViewController.swift */,
-				C6D8F4DE25504BFA00B52A3A /* InfoViewController.swift */,
-				C64AD0582549BC8200C56D9A /* DetailHouseNameViewController.swift */,
-				C64AD05B2549BC8F00C56D9A /* ReportViewController.swift */,
 				67E791DD25BED3A700FF3B79 /* MenuViewController.swift */,
-				67E791E025BED3BD00FF3B79 /* LoginViewController.swift */,
-				67E791E325BED3D200FF3B79 /* SignUpViewController.swift */,
-				67AF3AE125CA05AE00185DCB /* OpenViewController.swift */,
-				67E659E9269355E90014B786 /* ReportSummaryViewController.swift */,
+				C64AD04F2549BC2D00C56D9A /* PropertyInformationViewController.swift */,
+				C64AD0462549BBE100C56D9A /* ScannerViewController.swift */,
+				C64AD0522549BC4400C56D9A /* DeviceReportViewController.swift */,
+				C64AD0552549BC6500C56D9A /* NewServiceSummaryViewController.swift */,
+				67E659E9269355E90014B786 /* OldServiceSummaryViewController.swift */,
+				C64AD05B2549BC8F00C56D9A /* ReportViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -439,27 +427,22 @@
 			buildActionMask = 2147483647;
 			files = (
 				675B68FD25BF061800D6686D /* AppDelegate.swift in Sources */,
-				675B68F025BF061200D6686D /* LedScanViewController.swift in Sources */,
-				675B68F125BF061200D6686D /* ScanProductViewController.swift in Sources */,
-				675B68F225BF061200D6686D /* ServiceLocationViewController.swift in Sources */,
-				675B68F325BF061200D6686D /* AutofillAddressViewController.swift in Sources */,
+				675B68F025BF061200D6686D /* ScannerViewController.swift in Sources */,
+				675B68F325BF061200D6686D /* PropertyInformationViewController.swift in Sources */,
 				6709DDF425EE76FB00FF5BF3 /* Scan.swift in Sources */,
 				675B68F425BF061200D6686D /* DeviceReportViewController.swift in Sources */,
 				675B68F525BF061200D6686D /* NewServiceSummaryViewController.swift in Sources */,
-				675B68F625BF061200D6686D /* InfoViewController.swift in Sources */,
-				675B68F725BF061200D6686D /* DetailHouseNameViewController.swift in Sources */,
 				675B68F825BF061200D6686D /* ReportViewController.swift in Sources */,
 				670559F126AF0EF6007982D3 /* Konstants.swift in Sources */,
 				67E636AC26A06FCD008B3B14 /* PDFCreator.swift in Sources */,
 				6709DDF725EE840100FF5BF3 /* fakeScan.swift in Sources */,
 				675B68F925BF061200D6686D /* MenuViewController.swift in Sources */,
 				67B83CDD26B41F2400299315 /* Notes.swift in Sources */,
-				675B68FA25BF061200D6686D /* LoginViewController.swift in Sources */,
-				675B68FB25BF061200D6686D /* SignUpViewController.swift in Sources */,
 				675B68EE25BF060A00D6686D /* DeviceView.swift in Sources */,
 				675B68EC25BF060500D6686D /* HouseView.swift in Sources */,
+				678A8D1D26CDCBFE00EAD688 /* PropertyDetails.swift in Sources */,
 				6768B90126C30A7D006F5C9D /* AlarmInfoCell.swift in Sources */,
-				67E659EA269355E90014B786 /* ReportSummaryViewController.swift in Sources */,
+				67E659EA269355E90014B786 /* OldServiceSummaryViewController.swift in Sources */,
 				675B68EA25BF05FE00D6686D /* SearchBar.swift in Sources */,
 				675B68E825BF05FB00D6686D /* BoolInputRow.swift in Sources */,
 				675B68E625BF05F800D6686D /* AlarmInfoRow.swift in Sources */,
@@ -473,13 +456,14 @@
 				675B68E025BF05EE00D6686D /* ProductCard.swift in Sources */,
 				675B68DE25BF05E900D6686D /* InputField.swift in Sources */,
 				675B68DA25BF05E400D6686D /* RoundedButton.swift in Sources */,
+				678A8D2126CDD28E00EAD688 /* DeviceReportOP.swift in Sources */,
 				675B68DB25BF05E400D6686D /* ShadowView.swift in Sources */,
+				678A8D1F26CDCF8300EAD688 /* ServiceReportOP.swift in Sources */,
 				67433C2F26411122003204AE /* dataModel.xcdatamodeld in Sources */,
 				675B68DC25BF05E400D6686D /* SelectField.swift in Sources */,
 				675B68D825BF05DF00D6686D /* ServiceCell.swift in Sources */,
 				675B68D625BF05DB00D6686D /* DeviceCell.swift in Sources */,
 				675B68D125BF05D500D6686D /* ColorExtension.swift in Sources */,
-				67AF3AE225CA05AE00185DCB /* OpenViewController.swift in Sources */,
 				675B68D225BF05D500D6686D /* ViewExtension.swift in Sources */,
 				675B68D325BF05D500D6686D /* Utilities.swift in Sources */,
 				67CAC134262799970041894D /* Constants.swift in Sources */,

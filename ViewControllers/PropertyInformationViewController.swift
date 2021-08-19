@@ -8,15 +8,16 @@
 import UIKit
 import CoreData
 
-class AutofillAddressViewController: UIViewController {
+class PropertyInformationViewController: UIViewController {
 
     // core data context
-    let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+   // let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
+    var newPropertyDetails = PropertyDetails()
     
   static func route() -> UIViewController {
     let storyboard = UIStoryboard(name: "Main", bundle: nil)
-    guard let vc = storyboard.instantiateViewController(identifier: "AutofillAddressViewController") as? AutofillAddressViewController else {
+    guard let vc = storyboard.instantiateViewController(identifier: "AutofillAddressViewController") as? PropertyInformationViewController else {
       return UIViewController()
     }
     return vc
@@ -62,33 +63,37 @@ class AutofillAddressViewController: UIViewController {
     
     @IBAction func nextButtonPressed(_ sender: Any) {
         // create report
-        var newServiceReport = ServiceReportCD(context: self.context)
-        newServiceReport.name = inpTitle.tfInput.text
-        newServiceReport.date = Date()
         
-        var newServiceAddress = AddressCD(context: self.context)
-        newServiceAddress.serviceReport = newServiceReport
-        newServiceAddress.line1 = inpAddressLine1.tfInput.text
-        newServiceAddress.line2 = inpAddressLine2.tfInput.text
-        newServiceAddress.postcode = inpZip.tfInput.text
-        newServiceAddress.townCity = inpCityTown.tfInput.text
+        newPropertyDetails.name = inpTitle.tfInput.text
+        newPropertyDetails.date = Date()
+        
+
+        newPropertyDetails.line1 = inpAddressLine1.tfInput.text
+        newPropertyDetails.line2 = inpAddressLine2.tfInput.text
+        newPropertyDetails.postcode = inpZip.tfInput.text
+        newPropertyDetails.townCity = inpCityTown.tfInput.text
+
+
+
 
         
-        
-        // save the date to core
-        do {
-            try self.context.save()
-        }
-        catch {
-            print("error in storing new service report on core date. ")
-        }
+
         
         // change to next screen
-        performSegue(withIdentifier: "ReoprtSetupVCToScanVC", sender: self)
+        performSegue(withIdentifier: "ReportSetupVCToScanVC", sender: self)
         
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "ReportSetupVCToScanVC" {
+            let scannerVC = segue.destination as! ScannerViewController
+            
 
+         
+            scannerVC.newPropertyDetails = self.newPropertyDetails
+        }
+        
+    }
     
     /*
     // MARK: - Navigation

@@ -10,7 +10,7 @@ import CoreData
 import MessageUI
 import PDFKit
 
-class ReportSummaryViewController: UIViewController {
+class OldServiceSummaryViewController: UIViewController {
 
     
     //coredata
@@ -186,12 +186,7 @@ class ReportSummaryViewController: UIViewController {
                 End Of Life: \(String(describing:deviceScanData.eol_Fault))
                 Date: \(String(describing:deviceScanData.eol_FaultDate))
                  
-                
-                \(String(describing:deviceReportList![i].q1))
-                \(String(describing:deviceReportList![i].q2))
-                \(String(describing:deviceReportList![i].q3))
-                \(String(describing:deviceReportList![i].q4))
-                \(String(describing:deviceReportList![i].q5))
+
                 
                 Aditional Notes: \(String(describing:deviceReportList![i].note))
                 
@@ -236,7 +231,7 @@ class ReportSummaryViewController: UIViewController {
     }
 }
 
-extension ReportSummaryViewController: UITableViewDataSource {
+extension OldServiceSummaryViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
@@ -251,6 +246,7 @@ extension ReportSummaryViewController: UITableViewDataSource {
         cell.lblName.text = self.deviceReportList?[indexPath.row].title
         cell.lblDate.text =  self.deviceReportList?[indexPath.row].date?.as_ddmmyyyy_hhmmss()
         cell.lblSerialNumber.text = self.deviceReportList?[indexPath.row].serialNumber
+        cell.FaultIndicatorView.backgroundColor = getFaultColour(str: (self.deviceReportList?[indexPath.row].healthIndicator)!)
         
         // add device image
         if self.deviceReportList?[indexPath.row].deviceType == "X10" {
@@ -275,7 +271,7 @@ extension ReportSummaryViewController: UITableViewDataSource {
 
 }
 
-extension ReportSummaryViewController: UITableViewDelegate {
+extension OldServiceSummaryViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
@@ -301,11 +297,23 @@ extension ReportSummaryViewController: UITableViewDelegate {
     
     }
     
-    
+    func getFaultColour(str : String) -> UIColor {
+        
+        switch str {
+        case "green":
+            return UIColor(rgb: 0x9EC042)
+        case "amber":
+            return UIColor(rgb: 0xD86437)
+        case "red":
+            return UIColor(rgb: 0xEA4748)
+        default:
+            return .lightGray
+        }
+    }
 }
 
 
-extension ReportSummaryViewController: MFMailComposeViewControllerDelegate {
+extension OldServiceSummaryViewController: MFMailComposeViewControllerDelegate {
     
     func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
         

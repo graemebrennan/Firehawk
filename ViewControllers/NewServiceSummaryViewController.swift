@@ -12,7 +12,7 @@ class NewServiceSummaryViewController: UIViewController, UITableViewDataSource {
   
 
     var newReport: DeviceReport?
-    var deviceReportList: [DeviceReportCD]? = []
+    var propertyReport: ServiceReportOP?
     
     //coredata
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
@@ -39,12 +39,12 @@ class NewServiceSummaryViewController: UIViewController, UITableViewDataSource {
     tableView.dataSource = self
     
     
-    fetchLatestServiceReport()
+    //fetchLatestServiceReport()
     
-    if let allDeviceReports = latestRecord?.deviceReports?.allObjects as? [DeviceReportCD] {
-        self.deviceReportList = allDeviceReports
-    }
-    
+//    if let allDeviceReports = latestRecord?.deviceReports?.allObjects as? [DeviceReportCD] {
+//        self.deviceReportList = allDeviceReports
+//    }
+//
     setUpElements()
   }
     
@@ -55,34 +55,34 @@ class NewServiceSummaryViewController: UIViewController, UITableViewDataSource {
         
     }
     
-    func fetchLatestServiceReport() {
-
-        // fetch all the ServiceReports in core data
-        do {
-
-            let request = ServiceReportCD.fetchRequest() as NSFetchRequest<ServiceReportCD>
-
-            self.serviceReports = try context.fetch(request)
-            let count = self.serviceReports!.count - 1
-            
-            self.latestRecord = serviceReports![count]
-            
-            print("self.latestRecord?.deviceReports[0].name = \((self.latestRecord?.deviceReports)!)")
-           // tableView.reloadData()
-            DispatchQueue.main.async {
-                self.tableView.reloadData()
-            }
-        }
-        catch {
-
-        }
-    }
+//    func fetchLatestServiceReport() {
+//
+//        // fetch all the ServiceReports in core data
+//        do {
+//
+//            let request = ServiceReportCD.fetchRequest() as NSFetchRequest<ServiceReportCD>
+//
+//            self.serviceReports = try context.fetch(request)
+//            let count = self.serviceReports!.count - 1
+//
+//            self.latestRecord = serviceReports![count]
+//
+//            print("self.latestRecord?.deviceReports[0].name = \((self.latestRecord?.deviceReports)!)")
+//           // tableView.reloadData()
+//            DispatchQueue.main.async {
+//                self.tableView.reloadData()
+//            }
+//        }
+//        catch {
+//
+//        }
+//    }
     
     
     @IBAction func saveButtonPressed(_ sender: UIBarButtonItem) {
         
         // segue back to main menu scren
-        
+        print("Unwinding save new report here")
     }
     
     
@@ -103,28 +103,28 @@ class NewServiceSummaryViewController: UIViewController, UITableViewDataSource {
    */
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
     
-    return self.deviceReportList?.count ?? 0
+    return self.propertyReport?.deviceReport?.count ?? 0
   }
   
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     
     let cell = tableView.dequeueReusableCell(withIdentifier: "DeviceCellIdentifier", for: indexPath) as! DeviceCell
     
-    cell.lblName.text = self.deviceReportList?[indexPath.row].title
-    cell.lblDate.text =  self.deviceReportList?[indexPath.row].date?.as_ddmmyyyy_hhmmss()
-//        //self.serviceReports?[indexPath.row].date?.as_ddmmyyyy_hhmmss()
+    cell.lblName.text = self.propertyReport?.deviceReport![indexPath.row].title
+    cell.lblDate.text =  self.propertyReport?.deviceReport![indexPath.row].date?.as_ddmmyyyy_hhmmss()
+    cell.FaultIndicatorView.backgroundColor = getFaultColour(str: (self.propertyReport?.deviceReport![indexPath.row].healthIndicator)!)
     
     // add device image
-    if self.deviceReportList?[indexPath.row].deviceType == "X10" {
+    if self.propertyReport?.deviceReport![indexPath.row].deviceType == "X10" {
         
         
         cell.imageView?.image = UIImage(named: "Firehawk_FHB10_smoke_alarm.png")
 
-    } else if self.deviceReportList?[indexPath.row].deviceType == "CO" {
+    } else if self.propertyReport?.deviceReport![indexPath.row].deviceType == "CO" {
 
         cell.imageView?.image = UIImage(named: "Firehawk_CO7B10Y.png")
         
-    } else if self.deviceReportList?[indexPath.row].deviceType == "H10"{
+    } else if self.propertyReport?.deviceReport![indexPath.row].deviceType == "H10"{
 
         cell.imageView?.image = UIImage(named: "Firehawk_FHH10_heat_alarm.png")
 
@@ -136,9 +136,48 @@ class NewServiceSummaryViewController: UIViewController, UITableViewDataSource {
     return cell
   }
     
-
+    func getFaultColour(str : String) -> UIColor {
+        
+        switch str {
+        case "green":
+            return UIColor(rgb: 0x9EC042)
+        case "amber":
+            return UIColor(rgb: 0xD86437)
+        case "red":
+            return UIColor(rgb: 0xEA4748)
+        default:
+            return .lightGray
+        }
+    }
+    
     @IBAction func scanNewDevicePressed(_ sender: UIButton) {
         
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        print("prepair for segue before unwinding")
+        
+        // save current service report to CD here
+        
+        // create report
+        var newServiceReport = ServiceReportCD(context: self.context)
+        newServiceReport.name = newPropertyDetails.name
+        newServiceReport.date = newPropertyDetails.date
+
+        var newServiceAddress = Address(CD(context: self.context))
+        newServiceAddress.serviceReport = newServiceReport
+        newServiceAddress.line1 = newPropertyDetails.line1
+        newServiceAddress.line2 = newPropertyDetails.line2
+        newServiceAddress.postcode = newPropertyDetails.postcode
+        newServiceAddress.townCity = newPropertyDetails.townCity
+        
+        // save the date to core
+        do {
+            try self.context.save()
+        }
+        catch {
+            print("error in storing new service report on core date. ")
+        }
+        
+    }
 }

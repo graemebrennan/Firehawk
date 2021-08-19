@@ -14,14 +14,15 @@ class ServiceCell: UITableViewCell {
   @IBOutlet weak var lblName: UILabel!
   @IBOutlet weak var lblAddress: UILabel!
   @IBOutlet weak var lblDate: UILabel!
-
+    @IBOutlet weak var faultIndicator: UIView!
+    
     
   private var shadowLayer: CAShapeLayer = CAShapeLayer()
   
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
-      //lblName.textColor = UIColor(rgb: 0x8D8D8D)
+      lblName.textColor = UIColor(rgb: 0x3584FA)
       lblAddress.textColor = UIColor(rgb: 0x8D8D8D)
       lblDate.textColor = UIColor(rgb: 0x8D8D8D)
         

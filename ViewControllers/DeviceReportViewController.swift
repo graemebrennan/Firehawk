@@ -11,15 +11,19 @@ import CoreData
 
 class DeviceReportViewController: UIViewController {
 
+    // recieve from past VC
     var newScan: String?
+    var propertyDetails = PropertyDetails()
     
+    // build for bext VC
+    var propertyReport = ServiceReportOP()
+        
     //coredata
-    let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+    //let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
-    var serviceReports: [ServiceReportCD]? = []
-    var latestRecord: ServiceReportCD?
     var newReport: DeviceReport?
-    
+    var newRep: DeviceReportOP?
+
     
   static func route() -> UIViewController {
     let storyboard = UIStoryboard(name: "Main", bundle: nil)
@@ -30,9 +34,8 @@ class DeviceReportViewController: UIViewController {
   }
     
 
-  
-    @IBOutlet weak var healthWarning: UILabel!
 
+    
     @IBOutlet weak var deviceInformationTitle: SectionTitle!
     
     //@IBOutlet var view: UIView!
@@ -79,13 +82,10 @@ class DeviceReportViewController: UIViewController {
         
         self.newReport = DeviceReport(scan: newScan!)
         
-        // Do any additional setup after loading the view.
-        healthWarning.text = "Device Health Warning"
-        healthWarning.backgroundColor = getFaultColour(str: newReport!.deviceFaultIndicator)
         
         serialNumberLabel.text = "Serial Number: \(newReport!.deviceSerialNumber!)"
         manufactureDate.text = "Manufacture Date: \( newReport!.snManufactureDate!.as_ddmmyyyy())"
-        replacementDate.text = "Replacement Date: \( newReport!.snManufactureExpiaryDate!.as_ddmmyyyy())"
+        
         
        // lblWarning.alpha = 1
       deviceInformationTitle.lblTitle.text = "Device Information"
@@ -124,6 +124,7 @@ class DeviceReportViewController: UIViewController {
             print ("Error, devicetype not recognised")
         }
 
+        
     }
     
     func COAlarmInformation(newReport: DeviceReport) {
@@ -183,26 +184,33 @@ class DeviceReportViewController: UIViewController {
             let textfield = alert.textFields![0]
             
             // Create a person object
-            let newRep = DeviceReportCD(context: self.context)
+            var newRep = DeviceReportOP(scan: self.newScan)
             newRep.scan = self.newScan
             newRep.title = textfield.text
             newRep.date = Date()
             newRep.deviceType = self.newReport?.deviceType
             newRep.serialNumber = self.newReport?.deviceSerialNumber
             newRep.note = self.commentsTV.text
+            newRep.healthIndicator = self.newReport?.deviceFaultIndicator
             
+            if self.propertyReport.deviceReport?.count == nil {
+                //create new property Report
+                self.propertyReport.deviceReport![0] = newRep
+            } else {
+                self.propertyReport.deviceReport?.append(newRep)
+            }
             // get latest report
-            self.fetchLatestServiceReport()
+           // self.fetchLatestServiceReport()
             
-            newRep.serviceReport = self.latestRecord
+            //newRep.serviceReport = self.latestRecord
             
             // save the data to core data db
-            do {
-                try self.context.save()
-            } catch {
-                print("error saving data")
-            }
-            
+//            do {
+//                try self.context.save()
+//            } catch {
+//                print("error saving data")
+//            }
+//
             // self.moveToMainScreen()
             self.moveToNewServiceSummary()
         }
@@ -232,47 +240,56 @@ class DeviceReportViewController: UIViewController {
         
     }
     
-    // fetch the service report from core data, how
-    func fetchServiceReport() {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "NewDeviceReportToNewServiceSummary" {
+            let NewServiceSummaryVC = segue.destination as! NewServiceSummaryViewController
+            
+            NewServiceSummaryVC.propertyReport = self.propertyReport
+        }
         
-        // fetch all the ServiceReports in core data
-        do {
-            
-            let request : NSFetchRequest<ServiceReportCD> = ServiceReportCD.fetchRequest()
-            
-            //request.setFetchLimit
-            // set the filtering and sorting on the request
-            //                    let pred = NSPredicate(format: "nameContains 'Ted'")
-            //                    request.predicate = pred
-            
-            
-            self.serviceReports = try context.fetch(request)
-            // tableView.reloadData()
-            print("servicereports count = ")
-            print(serviceReports!.count)
-        }
-        catch {
-            
-        }
     }
     
-    func fetchLatestServiceReport() {
-        
-        // fetch all the ServiceReports in core data
-        do {
-            
-            let request = ServiceReportCD.fetchRequest() as NSFetchRequest<ServiceReportCD>
-            
-            self.serviceReports = try context.fetch(request)
-            let count = self.serviceReports!.count - 1
-            
-            self.latestRecord = serviceReports![count]
-            
-        }
-        catch {
-            
-        }
-    }
+    // fetch the service report from core data, how
+//    func fetchServiceReport() {
+//
+//        // fetch all the ServiceReports in core data
+//        do {
+//
+//            let request : NSFetchRequest<ServiceReportCD> = ServiceReportCD.fetchRequest()
+//
+//            //request.setFetchLimit
+//            // set the filtering and sorting on the request
+//            //                    let pred = NSPredicate(format: "nameContains 'Ted'")
+//            //                    request.predicate = pred
+//
+//
+//            self.serviceReports = try context.fetch(request)
+//            // tableView.reloadData()
+//            print("servicereports count = ")
+//            print(serviceReports!.count)
+//        }
+//        catch {
+//
+//        }
+//    }
+    
+//    func fetchLatestServiceReport() {
+//
+//        // fetch all the ServiceReports in core data
+//        do {
+//
+//            let request = ServiceReportCD.fetchRequest() as NSFetchRequest<ServiceReportCD>
+//
+//            self.serviceReports = try context.fetch(request)
+//            let count = self.serviceReports!.count - 1
+//
+//            self.latestRecord = serviceReports![count]
+//
+//        }
+//        catch {
+//
+//        }
+//    }
     
     func moveToMainScreen() {
         
@@ -337,7 +354,7 @@ extension DeviceReportViewController: UITableViewDataSource, UITableViewDelegate
             case 1: // Medium Co Alarm +300PPM
                 
                 cell.title.text = "Medium CO Alarm (>100 PPM)"
-                cell.count.text = "Alarm Count: \(String(describing: self.newReport?.mediumCOAlarmCount!))"
+                cell.count.text = "Alarm Count: \(String(describing: self.newReport!.mediumCOAlarmCount!))"
                 
                 if self.newReport!.mediumCOAlarmCount == 0 {
                     cell.date.text = ""
@@ -352,7 +369,7 @@ extension DeviceReportViewController: UITableViewDataSource, UITableViewDelegate
             case 2: // Low Co Alarm +300PPM
                 
                 cell.title.text = "Low CO Alarm (<100 PPM)"
-                cell.count.text = "Alarm Count: \(String(describing: self.newReport?.lowCOAlarmCount!))"
+                cell.count.text = "Alarm Count: \(String(describing: self.newReport!.lowCOAlarmCount!))"
                 
                 if self.newReport!.lowCOAlarmCount == 0 {
                     cell.date.text = ""
@@ -367,7 +384,7 @@ extension DeviceReportViewController: UITableViewDataSource, UITableViewDelegate
             case 3: // Pre Alarm
                 
                 cell.title.text = "Pre Alarms"
-                cell.count.text = "Alarm Count: \(String(describing: newReport?.preCOAlarmCount!))"
+                cell.count.text = "Alarm Count: \(String(describing: newReport!.preCOAlarmCount!))"
                 
                 if self.newReport!.preCOAlarmCount == 0 {
                     cell.date.text = ""
@@ -402,50 +419,83 @@ extension DeviceReportViewController: UITableViewDataSource, UITableViewDelegate
             let cell = tableView.dequeueReusableCell(withIdentifier: "AlarmInfoCellIdentifier", for: indexPath) as! AlarmInfoCell
             
             switch indexPath.row {
-            case 0: // High Co Alarm +300PPM
-                // Alarm Stack
+            case 0: // Life Remaining
                 
                 cell.title.text = "Life Remaining"
-                cell.count.text = "Alarm Count: \(String(describing: self.newReport!.highCOAlarmCount))"
+    
                 
-                if self.newReport!.highCOAlarmCount == 0 {
-                    cell.date.text = ""
+                if self.newReport!.lifeRemainingFaultIndicator == "green" {
+                    // device not in final year of life
+                    cell.count.text = "\(String(describing: self.newReport!.deviceLifeRemaining_YearsLeft!)) Years Left"
+                    cell.note.text = " - "
+                    
+                } else if self.newReport!.lifeRemainingFaultIndicator == "amber" {
+                    // the device is in its final year of life
+                    cell.count.text = "\(String(describing: self.newReport!.deviceLifeRemaining_MonthsLeft!)) Months Left"
+                    cell.note.text = "This device will need to be replaced soon"
                 } else {
-                    cell.date.text = "Date of Last Alarm: \(self.newReport!.highCOAlarmLastDate!.as_ddmmyyyy())"
+                    // the device is in its final 6 months
+                    cell.count.text = "\(String(describing: self.newReport!.deviceLifeRemaining_DaysLeft!)) Days Left"
+                    cell.note.text = "This device needs to be replaced"
                 }
                 
-                cell.FaultIndicator.backgroundColor = getFaultColour(str: newReport!.highCOAlarmFaultIndicator)
-                cell.note.text = getFaultNote(str: newReport!.highCOAlarmFaultIndicator)
+                cell.FaultIndicator.backgroundColor = getFaultColour(str: newReport!.lifeRemainingFaultIndicator)
                 
-            case 1: // Medium Co Alarm +300PPM
+                cell.date.text = "Product Expiration Date: \( newReport!.snManufactureExpiaryDate!.as_ddmmyyyy())"
                 
-                cell.title.text = "Removals From Mounnting Plate"
+                
+            case 1: // Plate Removals
+                
+                cell.title.text = "Device Removals"
                 cell.count.text = "Removal Count: \(String(self.newReport!.plateRemovals!))"
                 
-                if self.newReport!.mediumCOAlarmCount == 0 {
-                    cell.date.text = ""
+                if self.newReport!.plateRemovals == 0 {
+                    cell.date.text = " - "
+                    cell.note.text = "Device has never been removed"
                 } else {
+                    
                     cell.date.text = "Last Removal Date: \(self.newReport!.lastPlateRemovalDate!.as_ddmmyyyy())"
+                    
+                    if self.newReport!.plateRemovalsFaultIndicator == "amber" {
+                        cell.note.text = "Device has been removed in past year"
+                    } else if self.newReport!.plateRemovalsFaultIndicator == "red"{
+                        cell.note.text = "Device has been removed in past 6 months"
+                    } else {
+                        cell.note.text = " - "
+                    }
+               
                 }
                 
-                cell.FaultIndicator.backgroundColor = getFaultColour(str: newReport!.mediumCOAlarmFaultIndicator)
-                cell.note.text = "Last Removal Fault Note"
-
+                cell.FaultIndicator.backgroundColor = getFaultColour(str: newReport!.plateRemovalsFaultIndicator)
                 
-            case 2: // Low Co Alarm +300PPM
+            case 2: // Device Test History
                 
                 cell.title.text = "Device Test"
                 cell.count.text = "Test Count: \(self.newReport!.deviceTestCount!)"
                 
-                if self.newReport!.lowCOAlarmCount == 0 {
-                    cell.date.text = ""
+                if self.newReport!.deviceTestCount == 0 {
+                    cell.date.text = " Device never tested"
                 } else {
-                    cell.date.text = "Last Test Date: \(self.newReport!.deviceLastTestDate?.as_ddmmyyyy())"
+                    cell.date.text = "Last Test Date: \(self.newReport!.deviceLastTestDate!.as_ddmmyyyy())"
                 }
                 
-                cell.FaultIndicator.backgroundColor = getFaultColour(str: newReport!.lowCOAlarmFaultIndicator)
-                cell.note.text = "device Test Note"
+                cell.FaultIndicator.backgroundColor = getFaultColour(str: newReport!.deviceTestFaultIndicator)
+               
 
+                
+                if self.newReport?.deviceTestFaultIndicator == "green" {
+                    
+                    cell.note.text = "Device tested within past week"
+                    
+                } else if self.newReport?.deviceTestFaultIndicator == "amber" {
+                    
+                    cell.note.text = "Device has not been tested for more than two weeks"
+                    
+                } else {
+                    
+                    cell.note.text = "Device has not been tested for more than a month"
+                    
+                }
                 
                 
             default:
@@ -465,17 +515,17 @@ extension DeviceReportViewController: UITableViewDataSource, UITableViewDelegate
             switch indexPath.row {
             case 0:
                 
-                cell.title.text = "Battery Fault"
+                cell.title.text = "Battery Fault        \(newReport!.batteryVoltage!)V"
                 //cell.count.text = "Alarm Count"
 
                 
                 if newReport?.batteryFault == true {
+                    cell.date.text = "Last Occured \(newReport!.batteryFaultDate!)"
                     cell.note.text = "Battery Fault"
-                    cell.date.text = "Last Occured \(newReport?.batteryFaultDate)"
                     cell.FaultIndicator.backgroundColor = UIColor(rgb: 0xEA4748)
                 } else {
                     cell.date.text = " - "
-                    cell.note.text = "No Fault"
+                    cell.note.text = "No fault"
                     cell.FaultIndicator.backgroundColor = UIColor(rgb: 0x9EC042)
                 }
                 
@@ -551,5 +601,6 @@ extension DeviceReportViewController: UITableViewDataSource, UITableViewDelegate
         }
     }
     
+
 
 }

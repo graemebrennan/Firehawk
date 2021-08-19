@@ -19,6 +19,7 @@ struct DeviceReport {
     var deviceSwicthOnDate: Date? // scanned or user input
     var runtimeClock: Int? // scanned
     var runtimeClockHours: Int? // scanned
+    
     var switchOnDate: Date? //
 
     var plateRemovals: Int? // scanned
@@ -72,8 +73,9 @@ struct DeviceReport {
     var deviceLifeRemaining_HoursLeft: Int?
     var deviceLifeRemaining_DaysLeft: Int?
     var deviceLifeRemaining_MonthsLeft: Int?
+    var deviceLifeRemaining_YearsLeft: Int?
     
-    var deviceLifetime: Int?
+    var deviceLifetimeYears: Int?
     
     var softwareVersion: String?
     var checkSum: String?
@@ -121,37 +123,37 @@ struct DeviceReport {
         case 0:
             self.deviceType = "X10"
             print("deviceType: X10 Smoke Alarm)")
-            self.deviceLifetime = 10
+            self.deviceLifetimeYears = 10
             
         case 1:
             self.deviceType = "FH700HIA"
             print("deviceType: FH700HIA")
-            self.deviceLifetime = 10
+            self.deviceLifetimeYears = 10
             
         case 2:
             self.deviceType = "H10"
             print("deviceType: H10 Heat Alarm")
-            self.deviceLifetime = 10
+            self.deviceLifetimeYears = 10
             
         case 3:
             self.deviceType = "CO"
             print("deviceType: CO10Y Alarm")
-            self.deviceLifetime = 10
+            self.deviceLifetimeYears = 10
             
         case 4:
             self.deviceType = "RF"
             print("deviceType: Radio Patress")
-            self.deviceLifetime = 10
+            self.deviceLifetimeYears = 10
             
         case 5:
             self.deviceType = "FH500"
             print("deviceType: FH500")
-            self.deviceLifetime = 10
+            self.deviceLifetimeYears = 10
             
         default:
             self.deviceType = "Unknown Device"
             print("deviceType: Unknown Device")
-            self.deviceLifetime = 10
+            self.deviceLifetimeYears = 10
         }
         
         //MARK:- fix this, can pull year from within sn no need to pull from string. alkso cant do this directly
@@ -174,7 +176,7 @@ struct DeviceReport {
         // get current year
         let currentYear = calendar.component(.year, from: Date())
         // calculate the difference in years between serial date and current date
-        let snManufactureYearsLeft = deviceLifetime - (currentYear - (2000 + Int(productionYearInt)) )
+        let snManufactureYearsLeft = self.deviceLifetimeYears! - (currentYear - (2000 + Int(productionYearInt)) )
         // predict expiary date by claculating (life time - years since manufacture date) = years left from now
         var snManufactureYearsLeftComponent = DateComponents()
         snManufactureYearsLeftComponent.year = snManufactureYearsLeft
@@ -200,14 +202,17 @@ struct DeviceReport {
         if runTimeComponent.hour! >= 83220 {
             // red lifetime warning, in last 6 months
             self.lifeRemainingFaultIndicator = "red"
-        } else if (runTimeComponent.hour! >= 70080) {
-            // amber warning in last 2 years
+        } else if (runTimeComponent.hour! >= 78840) {
+            // amber warning in last year
             self.lifeRemainingFaultIndicator = "amber"
         } else {
             self.lifeRemainingFaultIndicator = "green"
         }
         
-
+        self.deviceLifeRemaining_HoursLeft = (self.deviceLifetimeYears! * 8760) - self.runtimeClockHours!
+        self.deviceLifeRemaining_DaysLeft = self.deviceLifeRemaining_HoursLeft! / 24
+        self.deviceLifeRemaining_MonthsLeft = self.deviceLifeRemaining_DaysLeft! / 30
+        self.deviceLifeRemaining_YearsLeft = self.deviceLifeRemaining_MonthsLeft! / 12
         
         //MARK:- PlateRemovals
         let plateRemovalStartIndex = scan.index(scan.startIndex, offsetBy: 12)
@@ -234,14 +239,18 @@ struct DeviceReport {
             print("lastPlateRemovalDate: \(lastPlateRemovalDate!)")
         }
         
-        if (plateRemovalInt == 0) || ((self.runtimeClockHours! - self.lastPlateRemovalComponent.hour!) >= 8760) {
-            self.plateRemovalsFaultIndicator = "green"
+        if (self.runtimeClockHours! - self.lastPlateRemovalComponent.hour!) < 4380 {
+            // device was not removed in past year or has never been removed
+            self.plateRemovalsFaultIndicator = "red"
             
-        } else {
+        } else if (self.runtimeClockHours! - self.lastPlateRemovalComponent.hour!) <= 8760 {
+            // device was removed in past year
             self.plateRemovalsFaultIndicator = "amber"
+        } else {
+            self.plateRemovalsFaultIndicator = "green"
         }
-
         
+
         //MARK:- DeviceTest
         let deviceTestCountStartIndex = scan.index(scan.startIndex, offsetBy: 18)
         let deviceTestCountEndIndex = scan.index(scan.startIndex, offsetBy: 19)
@@ -519,7 +528,7 @@ struct DeviceReport {
         print("self.batteryChargePercentage = \(self.batteryChargePercentage)")
         
         //TODO:- complete batery condition filtering and move to replacemnet dates 27/07/2021
-        let batteryLifeRemaining_YearsLeft = Float(self.deviceLifetime!) * self.batteryChargePercentage!
+        let batteryLifeRemaining_YearsLeft = Float(self.deviceLifetimeYears!) * self.batteryChargePercentage!
         let batteryLifeRemaining_HoursLeft = batteryLifeRemaining_YearsLeft * (365 * 24)
         self.batteryLifeRemaining_YearsLeft = batteryLifeRemaining_YearsLeft
        
@@ -581,7 +590,7 @@ struct DeviceReport {
 
         
         //MARK:- set faults
-        if (faultFlagUInt8 != nil) {
+        if (faultFlagUInt8 != 0x00) {
             var activeFaults = faultFlagUInt8!
             if (activeFaults & 0x01 == 0x01) {
                 self.batteryFault = true
@@ -600,9 +609,8 @@ struct DeviceReport {
         
         //MARK:- Device Health Marker
         
-        if faultFlagUInt8 == nil && self.lifeRemainingFaultIndicator == "green"
-                    && self.lifeRemainingFaultIndicator == "green"
-                    && self.plateRemovalsFaultIndicator == "amber"
+        if faultFlagUInt8 == 0x00 && self.lifeRemainingFaultIndicator == "green"
+                    && self.plateRemovalsFaultIndicator == "green"
                     && self.deviceTestFaultIndicator == "green"
                     && self.highCOAlarmFaultIndicator == "green"
                     && self.mediumCOAlarmFaultIndicator  == "green"
@@ -611,8 +619,7 @@ struct DeviceReport {
             
             self.deviceFaultIndicator = "green"
             
-        } else if faultFlagUInt8 != nil || self.lifeRemainingFaultIndicator == "red"
-                    || self.lifeRemainingFaultIndicator == "red"
+        } else if faultFlagUInt8 != 0x00 || self.lifeRemainingFaultIndicator == "red"
                     || self.plateRemovalsFaultIndicator == "red"
                     || self.deviceTestFaultIndicator == "red"
                     || self.highCOAlarmFaultIndicator == "red"

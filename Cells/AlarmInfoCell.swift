@@ -24,6 +24,7 @@ class AlarmInfoCell: UITableViewCell {
         title.textColor = UIColor(rgb: 0x3584FA)
         count.textColor = UIColor(rgb: 0x8D8D8D)
         date.textColor = UIColor(rgb: 0x8D8D8D)
+        note.textColor = UIColor(rgb: 0x8D8D8D)
         FaultIndicator.backgroundColor = .lightGray
         
     }

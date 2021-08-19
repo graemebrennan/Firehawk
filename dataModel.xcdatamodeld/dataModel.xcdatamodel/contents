@@ -10,12 +10,8 @@
     <entity name="DeviceReportCD" representedClassName="DeviceReportCD" syncable="YES" codeGenerationType="class">
         <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="deviceType" optional="YES" attributeType="String"/>
+        <attribute name="healthIndicator" optional="YES" attributeType="String"/>
         <attribute name="note" optional="YES" attributeType="String"/>
-        <attribute name="q1" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
-        <attribute name="q2" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
-        <attribute name="q3" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
-        <attribute name="q4" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
-        <attribute name="q5" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="scan" optional="YES" attributeType="String"/>
         <attribute name="serialNumber" optional="YES" attributeType="String"/>
         <attribute name="title" optional="YES" attributeType="String"/>
@@ -23,13 +19,14 @@
     </entity>
     <entity name="ServiceReportCD" representedClassName="ServiceReportCD" syncable="YES" codeGenerationType="class">
         <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="faultIndicator" optional="YES" attributeType="String"/>
         <attribute name="name" optional="YES" attributeType="String"/>
         <relationship name="deviceReports" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="DeviceReportCD" inverseName="serviceReport" inverseEntity="DeviceReportCD"/>
         <relationship name="houseAddress" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="AddressCD" inverseName="serviceReport" inverseEntity="AddressCD"/>
     </entity>
     <elements>
         <element name="AddressCD" positionX="-44.26513671875" positionY="84.04522705078125" width="128" height="118"/>
-        <element name="DeviceReportCD" positionX="-49.85205078125" positionY="-297.9091339111328" width="128" height="223"/>
-        <element name="ServiceReportCD" positionX="-268.9385375976562" positionY="-170.7649993896484" width="128" height="103"/>
+        <element name="DeviceReportCD" positionX="-49.85205078125" positionY="-297.9091339111328" width="128" height="149"/>
+        <element name="ServiceReportCD" positionX="-268.9385375976562" positionY="-170.7649993896484" width="128" height="104"/>
     </elements>
 </model>

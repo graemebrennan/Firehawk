@@ -146,6 +146,8 @@ extension MenuViewController: UITableViewDataSource {
        // cell.lblAddress.text = serviceReport.houseAddress?.line1 ?? "No Address"
         cell.lblAddress.text = serviceReport.houseAddress?.postcode
         cell.lblDate.text = serviceReport.date?.as_ddmmyyyy_hhmmss() ?? "Date Unkownand"
+        cell.faultIndicator.backgroundColor = getFaultColour(str: "amber")
+        
    //     cell.lblAddress.text = houseReport.houseAddress?.postcode
 //        print("deviceReport.deviceType = \(deviceReport.deviceType)")
 //        if deviceReport.deviceType == "CO" {
@@ -199,7 +201,19 @@ extension MenuViewController: UITableViewDataSource {
     
     @IBAction func unwindToMainViewController(_ sender: UIStoryboardSegue) {}
 
-
+    func getFaultColour(str : String) -> UIColor {
+        
+        switch str {
+        case "green":
+            return UIColor(rgb: 0x9EC042)
+        case "amber":
+            return UIColor(rgb: 0xD86437)
+        case "red":
+            return UIColor(rgb: 0xEA4748)
+        default:
+            return .lightGray
+        }
+    }
 }
 
 extension MenuViewController: UITableViewDelegate {
@@ -218,7 +232,7 @@ extension MenuViewController: UITableViewDelegate {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
 
         if segue.identifier == "MainVCToReportSummaryVC" {
-            let ReportVC = segue.destination as! ReportSummaryViewController
+            let ReportVC = segue.destination as! OldServiceSummaryViewController
                 
             
             ReportVC.serviceReport = self.selectedSeviceReport
