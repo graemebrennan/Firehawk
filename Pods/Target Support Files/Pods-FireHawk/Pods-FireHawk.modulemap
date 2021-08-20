@@ -1,0 +1,6 @@
+framework module Pods_FireHawk {
+  umbrella header "Pods-FireHawk-umbrella.h"
+
+  export *
+  module * { export * }
+}
