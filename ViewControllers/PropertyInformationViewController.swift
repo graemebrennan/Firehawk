@@ -9,31 +9,28 @@ import UIKit
 import CoreData
 
 class PropertyInformationViewController: UIViewController {
-
-    // core data context
-   // let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
     var newPropertyDetails = PropertyDetails()
     
-  static func route() -> UIViewController {
-    let storyboard = UIStoryboard(name: "Main", bundle: nil)
-    guard let vc = storyboard.instantiateViewController(identifier: "AutofillAddressViewController") as? PropertyInformationViewController else {
-      return UIViewController()
+    static func route() -> UIViewController {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        guard let vc = storyboard.instantiateViewController(identifier: "AutofillAddressViewController") as? PropertyInformationViewController else {
+            return UIViewController()
+        }
+        return vc
     }
-    return vc
-  }
-  
- 
-  @IBOutlet weak var inpTitle: InputField!
-  @IBOutlet weak var inpAddressLine1: InputField!
-  @IBOutlet weak var inpZip: InputField!
-  @IBOutlet weak var inpCityTown: InputField!
-  @IBOutlet weak var inpAddressLine2: InputField!
+    
+    
+    @IBOutlet weak var inpTitle: InputField!
+    @IBOutlet weak var inpAddressLine1: InputField!
+    @IBOutlet weak var inpZip: InputField!
+    @IBOutlet weak var inpCityTown: InputField!
+    @IBOutlet weak var inpAddressLine2: InputField!
     @IBOutlet weak var NextButton: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         // Do any additional setup after loading the view.
         inpTitle.lblTitle.text = "Report Title"
         inpTitle.placeholder = "Enter a title for the report"
@@ -62,22 +59,14 @@ class PropertyInformationViewController: UIViewController {
     }
     
     @IBAction func nextButtonPressed(_ sender: Any) {
-        // create report
         
+        // create report
         newPropertyDetails.name = inpTitle.tfInput.text
         newPropertyDetails.date = Date()
-        
-
         newPropertyDetails.line1 = inpAddressLine1.tfInput.text
         newPropertyDetails.line2 = inpAddressLine2.tfInput.text
         newPropertyDetails.postcode = inpZip.tfInput.text
         newPropertyDetails.townCity = inpCityTown.tfInput.text
-
-
-
-
-        
-
         
         // change to next screen
         performSegue(withIdentifier: "ReportSetupVCToScanVC", sender: self)
@@ -86,25 +75,15 @@ class PropertyInformationViewController: UIViewController {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "ReportSetupVCToScanVC" {
+            
             let scannerVC = segue.destination as! ScannerViewController
             
-
-         
             scannerVC.newPropertyDetails = self.newPropertyDetails
         }
         
     }
     
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    @IBAction func onPressComplete(_ sender: Any) {
+        navigationController?.popViewController(animated: true)
     }
-    */
-  @IBAction func onPressComplete(_ sender: Any) {
-    navigationController?.popViewController(animated: true)
-  }
 }

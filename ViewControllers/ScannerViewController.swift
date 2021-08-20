@@ -9,11 +9,13 @@ import UIKit
 
 class ScannerViewController: UIViewController {
     
+    var newPropertyDetails = PropertyDetails() // valid only on first scan
+    var scanCount: Int? // nil on first scan
+    
     let fs = fakeScan()
     var newScan: String?
     let SCAN_LENGTH: Int = 72
     
-    var newPropertyDetails = PropertyDetails()
     
     @IBOutlet weak var scanButton: UIButton!
     
@@ -28,13 +30,12 @@ class ScannerViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
         
         setUpElements()
     }
     
     func setUpElements() {
-
+        
         Utilities.styleFilledButton(scanButton)
         
     }
@@ -48,9 +49,6 @@ class ScannerViewController: UIViewController {
         newScan = fs.ArrayOfScans[randomNumber]
         print(newScan)
         
-        // begin scan process here
-        
-        // Check Scan is Vald
         // check scan data
         if checkScan() {
             performSegue(withIdentifier: "scanToDeviceReport", sender: self)
@@ -58,9 +56,6 @@ class ScannerViewController: UIViewController {
             //shwo error message and re-scan
             print("checksum failed o perform segue")
         }
-        
-        // Scan Complete
-        
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -68,7 +63,7 @@ class ScannerViewController: UIViewController {
         
         deviceReportVC.newScan = self.newScan
         deviceReportVC.propertyDetails = self.newPropertyDetails
-        
+        deviceReportVC.scanCount = self.scanCount
     }
     
     func checkScan() -> Bool {
@@ -91,34 +86,16 @@ class ScannerViewController: UIViewController {
             
             sum += UInt16(newValInt!)
             sum = sum & 0x00FF
-            // sum = sum + newValInt!
+            
         }
-        
-        //        if sum != ckSum! {
-        //
-        //            print ("checksume fail")
-        //            return false
-        //
-        //        } else {
-        //
         
         print ("checksume pass")
         return true
-        //}
     }
     
     @IBAction func unwindToScannerViewController(_ sender: UIStoryboardSegue) {}
-    /*
-     // MARK: - Navigation
-     
-     // In a storyboard-based application, you will often want to do a little preparation before navigation
-     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-     // Get the new view controller using segue.destination.
-     // Pass the selected object to the new view controller.
-     }
-     */
     
 }
 
-    
+
 

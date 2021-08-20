@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		670559EF26AF0D17007982D3 /* checkSum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 670559EE26AF0D17007982D3 /* checkSum.swift */; };
 		670559F126AF0EF6007982D3 /* Konstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 670559F026AF0EF5007982D3 /* Konstants.swift */; };
-		670559F326AF3179007982D3 /* DeviceReport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 670559F226AF3179007982D3 /* DeviceReport.swift */; };
+		670559F326AF3179007982D3 /* ScanAnalysis.swift in Sources */ = {isa = PBXBuildFile; fileRef = 670559F226AF3179007982D3 /* ScanAnalysis.swift */; };
 		6709DDF425EE76FB00FF5BF3 /* Scan.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6709DDF325EE76FB00FF5BF3 /* Scan.swift */; };
 		6709DDF725EE840100FF5BF3 /* fakeScan.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6709DDF625EE840100FF5BF3 /* fakeScan.swift */; };
 		67433C2F26411122003204AE /* dataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 67433C2D26411122003204AE /* dataModel.xcdatamodeld */; };
@@ -74,7 +74,7 @@
 /* Begin PBXFileReference section */
 		670559EE26AF0D17007982D3 /* checkSum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = checkSum.swift; sourceTree = "<group>"; };
 		670559F026AF0EF5007982D3 /* Konstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Konstants.swift; sourceTree = "<group>"; };
-		670559F226AF3179007982D3 /* DeviceReport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceReport.swift; sourceTree = "<group>"; };
+		670559F226AF3179007982D3 /* ScanAnalysis.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanAnalysis.swift; sourceTree = "<group>"; };
 		6709DDF325EE76FB00FF5BF3 /* Scan.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Scan.swift; sourceTree = "<group>"; };
 		6709DDF625EE840100FF5BF3 /* fakeScan.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = fakeScan.swift; sourceTree = "<group>"; };
 		67433C2E26411122003204AE /* dataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = dataModel.xcdatamodel; sourceTree = "<group>"; };
@@ -169,7 +169,7 @@
 				67E636AB26A06FCD008B3B14 /* PDFCreator.swift */,
 				67433C2D26411122003204AE /* dataModel.xcdatamodeld */,
 				67DE45FA26A1BE2C001E1BD7 /* Reports.swift */,
-				670559F226AF3179007982D3 /* DeviceReport.swift */,
+				670559F226AF3179007982D3 /* ScanAnalysis.swift */,
 				67B83CDC26B41F2400299315 /* Notes.swift */,
 				678A8D1C26CDCBFE00EAD688 /* PropertyDetails.swift */,
 				678A8D1E26CDCF8300EAD688 /* ServiceReportOP.swift */,
@@ -450,7 +450,7 @@
 				6768B90526C33498006F5C9D /* FaultInfoCell.swift in Sources */,
 				67DE45FB26A1BE2C001E1BD7 /* Reports.swift in Sources */,
 				670559EF26AF0D17007982D3 /* checkSum.swift in Sources */,
-				670559F326AF3179007982D3 /* DeviceReport.swift in Sources */,
+				670559F326AF3179007982D3 /* ScanAnalysis.swift in Sources */,
 				675B68E425BF05F500D6686D /* SectionTitle.swift in Sources */,
 				675B68E225BF05F100D6686D /* ScannedCard.swift in Sources */,
 				675B68E025BF05EE00D6686D /* ProductCard.swift in Sources */,

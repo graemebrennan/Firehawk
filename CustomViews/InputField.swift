@@ -47,20 +47,20 @@ class InputField: UIView {
   
   override func layoutSubviews() {
     super.layoutSubviews()
-    let cornerRadius: CGFloat = 12.0
-    contentView.layer.cornerRadius = cornerRadius
-    shadowLayer.path = UIBezierPath(roundedRect: bounds,
-                                    cornerRadius: cornerRadius).cgPath
-    shadowLayer.fillColor = backgroundColor?.cgColor
-    shadowLayer.shadowColor = UIColor.darkGray.cgColor
-    shadowLayer.shadowPath = shadowLayer.path
-    shadowLayer.shadowOffset = CGSize(width: 0.0,
-                                      height: 1.8)
-    shadowLayer.shadowOpacity = 0.3
-    shadowLayer.shadowRadius = 3.0
-    contentView.layer.insertSublayer(shadowLayer, at: 0)
-    contentView.backgroundColor = .white
-    bgView.layer.cornerRadius = 8.0
+//    let cornerRadius: CGFloat = 12.0
+//    contentView.layer.cornerRadius = cornerRadius
+//    shadowLayer.path = UIBezierPath(roundedRect: bounds,
+//                                    cornerRadius: cornerRadius).cgPath
+//    shadowLayer.fillColor = backgroundColor?.cgColor
+//    shadowLayer.shadowColor = UIColor.darkGray.cgColor
+//    shadowLayer.shadowPath = shadowLayer.path
+//    shadowLayer.shadowOffset = CGSize(width: 0.0,
+//                                      height: 1.8)
+//    shadowLayer.shadowOpacity = 0.3
+//    shadowLayer.shadowRadius = 3.0
+//    contentView.layer.insertSublayer(shadowLayer, at: 0)
+//    contentView.backgroundColor = .white
+//    bgView.layer.cornerRadius = 8.0
     
   }
   

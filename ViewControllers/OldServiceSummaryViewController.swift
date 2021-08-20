@@ -11,7 +11,7 @@ import MessageUI
 import PDFKit
 
 class OldServiceSummaryViewController: UIViewController {
-
+    
     
     //coredata
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
@@ -29,15 +29,15 @@ class OldServiceSummaryViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         
         tableView.delegate = self
         tableView.dataSource = self
         
         // Do any additional setup after loading the view.
         tableView.register(UINib(nibName: "DeviceCell", bundle: nil), forCellReuseIdentifier: "DeviceCellIdentifier")
-
-
+        
+        
         
         if let allDeviceReports = serviceReport?.deviceReports?.allObjects as? [DeviceReportCD] {
             self.deviceReportList = allDeviceReports
@@ -65,7 +65,7 @@ class OldServiceSummaryViewController: UIViewController {
         for i in 0...deviceReportList!.count-1 {
             // creat and insert a new pdf page for each device
             composeDevicePagePDF(i: i)
-
+            
         }
         
         //self.pdfDocument
@@ -101,7 +101,7 @@ class OldServiceSummaryViewController: UIViewController {
         let pdfTitle = self.serviceReport?.name
         let pdfBody = pdfDeviceBody(i: i)
         let pdfHeaderImage = UIImage(named: "ReportHeader")
-       // let pdfContact = "contactTextView.text"
+        // let pdfContact = "contactTextView.text"
         
         
         let pdfCreator = PDFCreator(title: pdfTitle!, body: pdfBody, image: pdfHeaderImage!)
@@ -116,7 +116,7 @@ class OldServiceSummaryViewController: UIViewController {
         let page = newPage?.page(at: 0)
         
         self.pdfDocument.insert(page!, at: i+1 )
-       
+        
         //let newPage = PDFPage()
         
         
@@ -128,18 +128,21 @@ class OldServiceSummaryViewController: UIViewController {
         
         var bodyString = ""
         
-        
-            
         // unpack the devie scan data
-            var deviceScanData = DeviceReport(scan: self.deviceReportList![i].scan!)
-            
-            var string = """
+        var deviceScanData = ScanAnalysis(scan: self.deviceReportList![i].scan!)
+        
+        
+        var string = """
                 \(deviceReportList![i].title!)
+                -----------------------------------------------------------------
+                                        Device Information
+                -----------------------------------------------------------------
                 Device Type: \(deviceReportList![i].deviceType!)
-                Report Data: \(deviceReportList![i].date?.as_ddmmyyyy_hhmmss())
-                Serial Number: \(deviceReportList![i].serialNumber!)
                 
-                Device Health: \(deviceScanData.deviceHealthStatus!)
+                Serial Number: \(deviceReportList![i].serialNumber!)
+                Report Date: \(deviceReportList![i].date?.as_ddmmyyyy_hhmmss())
+                
+                Device Health Status: \(deviceReportList![i].note)
                 Life Remaining: \(deviceScanData.batteryLifeRemaining_YearsLeft!)
                 Replace By: \(deviceScanData.deviceReplacentDate!)
                 
@@ -153,8 +156,9 @@ class OldServiceSummaryViewController: UIViewController {
                 Serial Number: \(deviceScanData.deviceSerialNumber!)
                 Manufacture Date: \(deviceScanData.snManufactureDate!)
                 
-                Alarms
-
+                -----------------------------------------------------------------
+                                            Alarms
+                -----------------------------------------------------------------
                 High CO Alarm (+300 PPM)
                 High Alarm Count: \(String(describing: deviceScanData.highCOAlarmCount!))
                 Last Occured: \(String(describing:deviceScanData.highCOAlarmLastDate?.as_ddmmyyyy()))
@@ -170,31 +174,33 @@ class OldServiceSummaryViewController: UIViewController {
                 Pre Alarm
                 Pre Alarm Count: \(String(describing: deviceScanData.preCOAlarmCount!))
                 Last Occured: \(String(describing:deviceScanData.preCOAlarmLastDate?.as_ddmmyyyy()))
-                    
-                Faults
+                
+                -----------------------------------------------------------------
+                                            Faults
+                -----------------------------------------------------------------
                 Fault Status: \(String(describing:deviceScanData.faultFlag))
-
+                
                 Device Faults: \(String(describing:deviceScanData.deviceFault))
                 Date: \(String(describing:deviceScanData.deviceFaultDate))
-                
-                Remote Faults: \(String(describing:deviceScanData.remoteFault))
-                Date: \(String(describing:deviceScanData.remoteFaultDate))
                 
                 Battery Fault: \(String(describing:deviceScanData.batteryFault))
                 Date: \(String(describing:deviceScanData.batteryFaultDate))
                 
+                Remote Faults: \(String(describing:deviceScanData.remoteFault))
+                Date: \(String(describing:deviceScanData.remoteFaultDate))
+                
                 End Of Life: \(String(describing:deviceScanData.eol_Fault))
                 Date: \(String(describing:deviceScanData.eol_FaultDate))
-                 
-
                 
-                Aditional Notes: \(String(describing:deviceReportList![i].note))
+                -----------------------------------------------------------------
+                                            Comments
+                -----------------------------------------------------------------
+                \(String(describing:deviceReportList![i].note))
                 
-                ----------------------------------------------------------------------------------------
+                -----------------------------------------------------------------
                 """
-            bodyString.append(string)
+        bodyString.append(string)
         
-
         return bodyString
     }
     
@@ -208,25 +214,16 @@ class OldServiceSummaryViewController: UIViewController {
             return
         }
         
-        
-        //let messageBody = "<h1>Hello world</h1> normal text here"
         // send email of PDF
         let composeVC = MFMailComposeViewController()
         composeVC.mailComposeDelegate = self
-        
         composeVC.setToRecipients(["graeme_brennan@mac.com"])
         composeVC.setSubject("Contact Us / Feedback")
         composeVC.setMessageBody("wassssup", isHTML: true)
         
         //Attach pdf
-        //   if let filePath = Bundle.main.path(forResource: "TestPDF", ofType: "pdf") {
-        //      if let data = NSData(contentsOfFile: filePath) {
         composeVC.addAttachmentData(self.pdfDocument.dataRepresentation()! as Data, mimeType: "pdf" , fileName: "TestPDF")
-            //composeVC.addAttachmentData(<#T##attachment: Data##Data#>, mimeType: <#T##String#>, fileName: <#T##String#>)
-        //      }
-        //   }
-        //self.pdfDocument.dataRepresentation()
-        // Present the view controller modally.
+        
         self.present(composeVC, animated: true, completion: nil)
     }
 }
@@ -242,33 +239,41 @@ extension OldServiceSummaryViewController: UITableViewDataSource {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "DeviceCellIdentifier", for: indexPath) as! DeviceCell
         
-        // fill device nib property fields
         cell.lblName.text = self.deviceReportList?[indexPath.row].title
-        cell.lblDate.text =  self.deviceReportList?[indexPath.row].date?.as_ddmmyyyy_hhmmss()
         cell.lblSerialNumber.text = self.deviceReportList?[indexPath.row].serialNumber
+        cell.lblDate.text =  "Date: \(self.deviceReportList?[indexPath.row].date!.as_ddmmyyyy_hhmmss() ?? "Unknown")"
         cell.FaultIndicatorView.backgroundColor = getFaultColour(str: (self.deviceReportList?[indexPath.row].healthIndicator)!)
+        
+        
+        if self.deviceReportList?[indexPath.row].healthIndicator == "green" {
+            
+            cell.lblNote.text = "Device in good helth"
+        } else if self.deviceReportList?[indexPath.row].healthIndicator == "amber" {
+            cell.lblNote.text = "There may be an issue with this device"
+        } else {
+            cell.lblNote.text = "This device needs to be replaced"
+        }
         
         // add device image
         if self.deviceReportList?[indexPath.row].deviceType == "X10" {
             
-            
             cell.imageView?.image = UIImage(named: "Firehawk_FHB10_smoke_alarm.png")
-
+            
         } else if self.deviceReportList?[indexPath.row].deviceType == "CO" {
-
+            
             cell.imageView?.image = UIImage(named: "Firehawk_CO7B10Y.png")
             
         } else if self.deviceReportList?[indexPath.row].deviceType == "H10"{
-
+            
             cell.imageView?.image = UIImage(named: "Firehawk_FHH10_heat_alarm.png")
-
+            
         } else {
             print ("Error, devicetype not recognised")
         }
         
         return cell
     }
-
+    
 }
 
 extension OldServiceSummaryViewController: UITableViewDelegate {
@@ -289,12 +294,12 @@ extension OldServiceSummaryViewController: UITableViewDelegate {
         if segue.identifier == "ReportSummaryVCtoReportVC" {
             
             var deviceReportVC = segue.destination as! ReportViewController
-                
+            
             //ReportVC.scan = self.items![i].scan
             deviceReportVC.deviceReport = self.selectedDeviceReport
         }
-
-    
+        
+        
     }
     
     func getFaultColour(str : String) -> UIColor {

@@ -43,7 +43,7 @@ struct fakeData {
 struct ServiceReport {
     var name: String?
     var date: Date?
-    var deviceReports: [DeviceReport]? = []
+    var deviceReports: [ScanAnalysis]? = []
 }
 
 

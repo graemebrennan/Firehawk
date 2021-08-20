@@ -21,18 +21,21 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rbu-0q-2gR">
-                    <rect key="frame" x="16" y="16" width="31" height="18"/>
-                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="15"/>
-                    <color key="textColor" red="0.0" green="0.65000000000000002" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                    <color key="highlightedColor" red="0.0" green="0.65000000000000002" blue="0.0" alpha="1" colorSpace="deviceRGB"/>
+                    <rect key="frame" x="5" y="5" width="32.5" height="19.5"/>
+                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="16"/>
+                    <color key="textColor" red="0.64577370879999996" green="0.74906510110000002" blue="0.33715963360000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                    <color key="highlightedColor" red="0.64577370879999996" green="0.74906510110000002" blue="0.33715963360000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                 </label>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yjp-Nc-uJG">
-                    <rect key="frame" x="16" y="38" width="382" height="48"/>
+                    <rect key="frame" x="5" y="28.5" width="404" height="68.5"/>
                     <subviews>
                         <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" placeholder="Enter text here..." adjustsFontForContentSizeCategory="YES" minimumFontSize="20" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="Td6-i8-gdf">
-                            <rect key="frame" x="12" y="16" width="358" height="16"/>
+                            <rect key="frame" x="12" y="24.5" width="380" height="20"/>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="20" id="tk5-nm-SCN"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
                             <textInputTraits key="textInputTraits"/>
                         </textField>
                     </subviews>
@@ -40,7 +43,7 @@
                     <constraints>
                         <constraint firstAttribute="trailing" secondItem="Td6-i8-gdf" secondAttribute="trailing" constant="12" id="9Tq-uj-7BC"/>
                         <constraint firstItem="Td6-i8-gdf" firstAttribute="leading" secondItem="yjp-Nc-uJG" secondAttribute="leading" constant="12" id="X4B-FF-7jz"/>
-                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="30" id="YoG-jF-7gB"/>
+                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="20" id="YoG-jF-7gB"/>
                         <constraint firstItem="Td6-i8-gdf" firstAttribute="centerY" secondItem="yjp-Nc-uJG" secondAttribute="centerY" id="n7o-J5-6bD"/>
                     </constraints>
                 </view>
@@ -48,12 +51,12 @@
             <viewLayoutGuide key="safeArea" id="Pnz-k2-N7e"/>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
-                <constraint firstItem="Rbu-0q-2gR" firstAttribute="leading" secondItem="NBy-xf-XyP" secondAttribute="leading" constant="16" id="2Av-Jm-bdJ"/>
-                <constraint firstItem="Pnz-k2-N7e" firstAttribute="bottom" secondItem="yjp-Nc-uJG" secondAttribute="bottom" constant="16" id="2SE-j9-UCT"/>
+                <constraint firstItem="Rbu-0q-2gR" firstAttribute="leading" secondItem="NBy-xf-XyP" secondAttribute="leading" constant="5" id="2Av-Jm-bdJ"/>
+                <constraint firstItem="Pnz-k2-N7e" firstAttribute="bottom" secondItem="yjp-Nc-uJG" secondAttribute="bottom" constant="5" id="2SE-j9-UCT"/>
                 <constraint firstItem="yjp-Nc-uJG" firstAttribute="top" secondItem="Rbu-0q-2gR" secondAttribute="bottom" constant="4" id="ITX-qs-dBz"/>
-                <constraint firstItem="Pnz-k2-N7e" firstAttribute="trailing" secondItem="yjp-Nc-uJG" secondAttribute="trailing" constant="16" id="Qg5-9W-vY0"/>
-                <constraint firstItem="yjp-Nc-uJG" firstAttribute="leading" secondItem="Pnz-k2-N7e" secondAttribute="leading" constant="16" id="WKW-xh-VeW"/>
-                <constraint firstItem="Rbu-0q-2gR" firstAttribute="top" secondItem="NBy-xf-XyP" secondAttribute="top" constant="16" id="euB-qe-N1T"/>
+                <constraint firstItem="Pnz-k2-N7e" firstAttribute="trailing" secondItem="yjp-Nc-uJG" secondAttribute="trailing" constant="5" id="Qg5-9W-vY0"/>
+                <constraint firstItem="yjp-Nc-uJG" firstAttribute="leading" secondItem="Pnz-k2-N7e" secondAttribute="leading" constant="5" id="WKW-xh-VeW"/>
+                <constraint firstItem="Rbu-0q-2gR" firstAttribute="top" secondItem="NBy-xf-XyP" secondAttribute="top" constant="5" id="euB-qe-N1T"/>
             </constraints>
             <nil key="simulatedTopBarMetrics"/>
             <nil key="simulatedBottomBarMetrics"/>

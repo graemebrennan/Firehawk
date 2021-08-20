@@ -9,7 +9,7 @@
 
 import Foundation
 
-struct DeviceReport {
+struct ScanAnalysis {
     
     // Device Information
     var deviceType: String? // Scanned i.e captured from serial number

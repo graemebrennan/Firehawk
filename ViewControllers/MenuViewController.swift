@@ -6,36 +6,23 @@
 //
 
 import UIKit
-import FirebaseAuth
-import Firebase
-import FirebaseFirestore
 import CoreData
 
 
 class MenuViewController: UIViewController {
-
+    
     var i = 0
     
-
+    
     
     // Reference to managed core data object context
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
-   // let contextServiceReport = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+    // let contextServiceReport = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
     var selectedSeviceReport: ServiceReportCD?
     
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var NewServiceButton: UIButton!
-    @IBOutlet weak var settingButton: UIBarButtonItem!
-    
-    @IBAction func settingButtonPressed(_ sender: UIBarButtonItem) {
-        //edit user settings here
-    }
-    
-    @IBAction func logOutButtonPressed(_ sender: UIBarButtonItem) {
-        // log out and return to firestore here.
-        // unwind to home page
-    }
     
     
     var serviceReports: [ServiceReportCD]?
@@ -44,7 +31,7 @@ class MenuViewController: UIViewController {
         super.viewDidLoad()
         
         setUpElements()
-
+        
         print("viewDidLoad")
         
         tableView.delegate = self
@@ -55,11 +42,11 @@ class MenuViewController: UIViewController {
         
         // register custom cell .xib in table view
         tableView.register(UINib(nibName: "ServiceCell", bundle: nil), forCellReuseIdentifier: "ServiceCellIdentifier")
-       
+        
         
         // Get items from core data
         fetchReports()
-
+        
     }
     
     func setUpElements() {
@@ -102,14 +89,14 @@ class MenuViewController: UIViewController {
             print("error retrieving reports from core data")
         }
     }
- 
+    
     
     @IBAction func NewServicePressed(_ sender: UIButton) {
         
         // create a new service here
-//        var newServiceReport = ServiceReport(context: context)
-//        newServiceReport.name = "ServiceReportName"
-//        newServiceReport.date = Date()
+        //        var newServiceReport = ServiceReport(context: context)
+        //        newServiceReport.name = "ServiceReportName"
+        //        newServiceReport.date = Date()
         
         //create a new service object
         var newServiceReport = ServiceReport()
@@ -121,7 +108,7 @@ class MenuViewController: UIViewController {
     
     
     
-
+    
 }
 
 extension MenuViewController: UITableViewDataSource {
@@ -143,56 +130,35 @@ extension MenuViewController: UITableViewDataSource {
         
         //TODO:- Handel when properties are not, if they ever will be null.
         cell.lblName.text = serviceReport.name ?? "No Name"
-       // cell.lblAddress.text = serviceReport.houseAddress?.line1 ?? "No Address"
+        // cell.lblAddress.text = serviceReport.houseAddress?.line1 ?? "No Address"
         cell.lblAddress.text = serviceReport.houseAddress?.postcode
         cell.lblDate.text = serviceReport.date?.as_ddmmyyyy_hhmmss() ?? "Date Unkownand"
         cell.faultIndicator.backgroundColor = getFaultColour(str: "amber")
-        
-   //     cell.lblAddress.text = houseReport.houseAddress?.postcode
-//        print("deviceReport.deviceType = \(deviceReport.deviceType)")
-//        if deviceReport.deviceType == "CO" {
-//
-   //         cell.imgView.image = UIImage(named: "Firehawk_CO7B10Y.png")
-//
-//        } else if deviceReport.deviceType == "X10"{
-//
-//            cell.imgView.image = UIImage(named: "Firehawk_FHB10_smoke_alarm")
-//
-//        } else if deviceReport.deviceType == "H10"{
-//
-//            cell.imgView.image = UIImage(named: "Firehawk_FHH10_heat_alarm")
-//
-//        } else {
-//            cell.imgView.image = nil
-//        }
-        
         
         return cell
     }
     
     func tableView(_ tableView: UITableView,
-                       trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-       
+                   trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        
         let action = UIContextualAction(style: .destructive, title: "Delete") { (action, view, completionHandler) in
             
             //Which report to remove
             let reportToRemove = self.serviceReports![indexPath.row] as ServiceReportCD
             
-                // Remove the report
-                self.context.delete(reportToRemove)
-                
-                // save the data
-                do {
-                    try self.context.save()
-                } catch {
-                    print(error)
-                    print("error saving data to core data db")
-                }
-                
+            // Remove the report
+            self.context.delete(reportToRemove)
+            
+            // save the data
+            do {
+                try self.context.save()
+            } catch {
+                print(error)
+                print("error saving data to core data db")
+            }
             
             // re-fetch the data
             self.fetchReports()
-            
         }
         
         return UISwipeActionsConfiguration(actions: [action])
@@ -200,7 +166,7 @@ extension MenuViewController: UITableViewDataSource {
     
     
     @IBAction func unwindToMainViewController(_ sender: UIStoryboardSegue) {}
-
+    
     func getFaultColour(str : String) -> UIColor {
         
         switch str {
@@ -223,24 +189,22 @@ extension MenuViewController: UITableViewDelegate {
         // get selected report.
         self.selectedSeviceReport = self.serviceReports![indexPath.row]
         
-        //self.i = indexPath.row
         performSegue(withIdentifier: "MainVCToReportSummaryVC", sender: self)
         
         print( "did selected row \(indexPath.row) ")
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-
+        
         if segue.identifier == "MainVCToReportSummaryVC" {
             let ReportVC = segue.destination as! OldServiceSummaryViewController
-                
             
             ReportVC.serviceReport = self.selectedSeviceReport
-
+            
         } else if segue.identifier == "MenuVCToAutoFillAddressVC" {
-    
+            
+        }
+        
+        
     }
-    
-    
-}
 }

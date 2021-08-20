@@ -21,12 +21,13 @@
         <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="faultIndicator" optional="YES" attributeType="String"/>
         <attribute name="name" optional="YES" attributeType="String"/>
+        <attribute name="reports" optional="YES" attributeType="Transformable" valueTransformerName="[DeviceReportOP]"/>
         <relationship name="deviceReports" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="DeviceReportCD" inverseName="serviceReport" inverseEntity="DeviceReportCD"/>
         <relationship name="houseAddress" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="AddressCD" inverseName="serviceReport" inverseEntity="AddressCD"/>
     </entity>
     <elements>
         <element name="AddressCD" positionX="-44.26513671875" positionY="84.04522705078125" width="128" height="118"/>
         <element name="DeviceReportCD" positionX="-49.85205078125" positionY="-297.9091339111328" width="128" height="149"/>
-        <element name="ServiceReportCD" positionX="-268.9385375976562" positionY="-170.7649993896484" width="128" height="104"/>
+        <element name="ServiceReportCD" positionX="-268.9385375976562" positionY="-170.7649993896484" width="128" height="119"/>
     </elements>
 </model>
