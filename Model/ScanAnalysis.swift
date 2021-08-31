@@ -240,7 +240,7 @@ struct ScanAnalysis {
         }
         
         if (self.runtimeClockHours! - self.lastPlateRemovalComponent.hour!) < 4380 {
-            // device was not removed in past year or has never been removed
+            // device was removed in past year or has never been removed
             self.plateRemovalsFaultIndicator = "red"
             
         } else if (self.runtimeClockHours! - self.lastPlateRemovalComponent.hour!) <= 8760 {
@@ -311,10 +311,11 @@ struct ScanAnalysis {
             let HoursSinceLastHighCOAlarmEvent = (self.runtimeClock! - highCOAlarmLastDateInt!) * 2
             
             if HoursSinceLastHighCOAlarmEvent <= HoursInAYear {
-                // the alam happened within the last month
+                // event within the last year but not in the last month
                 self.highCOAlarmFaultIndicator = "amber"
             } else if HoursSinceLastHighCOAlarmEvent <= HoursInAMonth {
-                // event withing the last year but not in the last month
+
+                // the alam happened within the last month
                 self.highCOAlarmFaultIndicator = "red"
             } else {
                 self.highCOAlarmFaultIndicator = "green"
