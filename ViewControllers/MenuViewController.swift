@@ -70,10 +70,6 @@ class MenuViewController: UIViewController {
             
             let request = ServiceReportCD.fetchRequest() as NSFetchRequest<ServiceReportCD>
             
-            // set the filtering and sorting on the request
-            //let pred = NSPredicate(format: <#T##String#>)
-            //request.predicate = pred
-            
             // sort
             let sort = NSSortDescriptor(key: "date", ascending: false)
             request.sortDescriptors = [sort]
@@ -93,11 +89,6 @@ class MenuViewController: UIViewController {
     
     @IBAction func NewServicePressed(_ sender: UIButton) {
         
-        // create a new service here
-        //        var newServiceReport = ServiceReport(context: context)
-        //        newServiceReport.name = "ServiceReportName"
-        //        newServiceReport.date = Date()
-        
         //create a new service object
         var newServiceReport = ServiceReport()
         newServiceReport.name = "get a name"
@@ -105,10 +96,6 @@ class MenuViewController: UIViewController {
         
         performSegue(withIdentifier: "MenuVCToAutoFillAddressVC", sender: self)
     }
-    
-    
-    
-    
 }
 
 extension MenuViewController: UITableViewDataSource {
@@ -128,11 +115,10 @@ extension MenuViewController: UITableViewDataSource {
         
         // fill cell details
         
-        //TODO:- Handel when properties are not, if they ever will be null.
         cell.lblName.text = serviceReport.name ?? "No Name"
         // cell.lblAddress.text = serviceReport.houseAddress?.line1 ?? "No Address"
         cell.lblAddress.text = serviceReport.houseAddress?.postcode
-        cell.lblDate.text = serviceReport.date?.as_ddmmyyyy_hhmmss() ?? "Date Unkownand"
+        cell.lblDate.text = dateFormat(date: serviceReport.date!) ?? "Date Unkownand"
         cell.faultIndicator.backgroundColor = getFaultColour(str: "amber")
         
         return cell
@@ -206,5 +192,15 @@ extension MenuViewController: UITableViewDelegate {
         }
         
         
+    }
+    
+    func dateFormat(date: Date) -> String {
+
+        let formatter1 = DateFormatter()
+        formatter1.dateStyle = .short//"dd/mm/yyyy"
+        
+        
+        let str = formatter1.string(from: date)
+        return str
     }
 }

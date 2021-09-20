@@ -113,6 +113,7 @@ struct ScanAnalysis {
         let SNByte1Int = UInt8(SNByte1String, radix: 16)
         
         // get only first 3 bits >> to get byte value
+        let check = SNByte1Int! & 0xE0
         let deviceTypeInt = (SNByte1Int! & 0xE0) >> 5
         print("deviceTypeInt: \(deviceTypeInt)")
         let productionYearInt = SNByte1Int! & 0x1F
@@ -167,9 +168,11 @@ struct ScanAnalysis {
         var snManufactureDateComponent = DateComponents()
         
         snManufactureDateComponent.year = Int("20" + String(productionYearInt))
-        //TODO:- Add month data
+        snManufactureDateComponent.month = 12
+        //TODO:- Add month data and add to calculations for next date
         
-        let snManufactureDate = calendar.date(byAdding: snManufactureDateComponent, to: Date())
+//        let snManufactureDate = calendar.date(byAdding: snManufactureDateComponent, to: Date())
+        let snManufactureDate =  calendar.date(from: snManufactureDateComponent)
         self.snManufactureDate = snManufactureDate
         print("snManufactureDat: \(snManufactureDate!)")
         
@@ -431,8 +434,8 @@ struct ScanAnalysis {
         }
         
         //MARK:- Faults
-        let faultFlagStartIndex = scan.index(scan.startIndex, offsetBy: 64)
-        let faultFlagEndIndex = scan.index(scan.startIndex, offsetBy: 65)
+        let faultFlagStartIndex = scan.index(scan.startIndex, offsetBy: 68)
+        let faultFlagEndIndex = scan.index(scan.startIndex, offsetBy: 69)
         let faultFlagString = String(scan[faultFlagStartIndex...faultFlagEndIndex])
         let faultFlagUInt8 = UInt8(faultFlagString, radix: 16)
         self.faultFlag = faultFlagUInt8

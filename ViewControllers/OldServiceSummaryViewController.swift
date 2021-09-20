@@ -140,7 +140,7 @@ class OldServiceSummaryViewController: UIViewController {
                 Device Type: \(deviceReportList![i].deviceType!)
                 
                 Serial Number: \(deviceReportList![i].serialNumber!)
-                Report Date: \(deviceReportList![i].date?.as_ddmmyyyy_hhmmss())
+                Report Date: \( dateFormat(date: deviceReportList![i].date!) )
                 
                 Device Health Status: \(deviceReportList![i].note)
                 Life Remaining: \(deviceScanData.batteryLifeRemaining_YearsLeft!)
@@ -161,19 +161,19 @@ class OldServiceSummaryViewController: UIViewController {
                 -----------------------------------------------------------------
                 High CO Alarm (+300 PPM)
                 High Alarm Count: \(String(describing: deviceScanData.highCOAlarmCount!))
-                Last Occured: \(String(describing:deviceScanData.highCOAlarmLastDate?.as_ddmmyyyy()))
+                Last Occured: \( dateFormat(date: deviceScanData.highCOAlarmLastDate!) )
                 
                 Medium CO Alarm (>100 PPM)
                 Medium Alarm Count: \(String(describing: deviceScanData.mediumCOAlarmCount!))
-                Last Occured: \(String(describing:deviceScanData.mediumCOAlarmLastDate?.as_ddmmyyyy()))
+                Last Occured: \(dateFormat(date:deviceScanData.mediumCOAlarmLastDate!))
                 
                 Low CO Alarm (<100 PPM)
                 Low Alarm Count: \(String(describing: deviceScanData.lowCOAlarmCount!))
-                Last Occured: \(String(describing:deviceScanData.lowCOAlarmLastDate?.as_ddmmyyyy()))
+                Last Occured: \(dateFormat(date:deviceScanData.lowCOAlarmLastDate!))
                 
                 Pre Alarm
                 Pre Alarm Count: \(String(describing: deviceScanData.preCOAlarmCount!))
-                Last Occured: \(String(describing:deviceScanData.preCOAlarmLastDate?.as_ddmmyyyy()))
+                Last Occured: \(dateFormat(date: deviceScanData.preCOAlarmLastDate!))
                 
                 -----------------------------------------------------------------
                                             Faults
@@ -181,16 +181,16 @@ class OldServiceSummaryViewController: UIViewController {
                 Fault Status: \(String(describing:deviceScanData.faultFlag))
                 
                 Device Faults: \(String(describing:deviceScanData.deviceFault))
-                Date: \(String(describing:deviceScanData.deviceFaultDate))
+                Date: \(dateFormat(date: deviceScanData.deviceFaultDate!))
                 
                 Battery Fault: \(String(describing:deviceScanData.batteryFault))
-                Date: \(String(describing:deviceScanData.batteryFaultDate))
+                Date: \(dateFormat(date:deviceScanData.batteryFaultDate!))
                 
                 Remote Faults: \(String(describing:deviceScanData.remoteFault))
-                Date: \(String(describing:deviceScanData.remoteFaultDate))
+                Date: \(dateFormat(date:deviceScanData.remoteFaultDate!))
                 
                 End Of Life: \(String(describing:deviceScanData.eol_Fault))
-                Date: \(String(describing:deviceScanData.eol_FaultDate))
+                Date: \(dateFormat(date:deviceScanData.eol_FaultDate!))
                 
                 -----------------------------------------------------------------
                                             Comments
@@ -217,9 +217,9 @@ class OldServiceSummaryViewController: UIViewController {
         // send email of PDF
         let composeVC = MFMailComposeViewController()
         composeVC.mailComposeDelegate = self
-        composeVC.setToRecipients(["graeme_brennan@mac.com"])
-        composeVC.setSubject("Contact Us / Feedback")
-        composeVC.setMessageBody("wassssup", isHTML: true)
+        composeVC.setToRecipients([""])
+        composeVC.setSubject("")
+        composeVC.setMessageBody("", isHTML: true)
         
         //Attach pdf
         composeVC.addAttachmentData(self.pdfDocument.dataRepresentation()! as Data, mimeType: "pdf" , fileName: "TestPDF")
@@ -241,7 +241,7 @@ extension OldServiceSummaryViewController: UITableViewDataSource {
         
         cell.lblName.text = self.deviceReportList?[indexPath.row].title
         cell.lblSerialNumber.text = self.deviceReportList?[indexPath.row].serialNumber
-        cell.lblDate.text =  "Date: \(self.deviceReportList?[indexPath.row].date!.as_ddmmyyyy_hhmmss() ?? "Unknown")"
+        cell.lblDate.text =  "Date: \(dateFormat(date: (self.deviceReportList?[indexPath.row].date!)!) ?? "Unknown")"
         cell.FaultIndicatorView.backgroundColor = getFaultColour(str: (self.deviceReportList?[indexPath.row].healthIndicator)!)
         
         
@@ -251,7 +251,7 @@ extension OldServiceSummaryViewController: UITableViewDataSource {
         } else if self.deviceReportList?[indexPath.row].healthIndicator == "amber" {
             cell.lblNote.text = "There may be an issue with this device"
         } else {
-            cell.lblNote.text = "This device needs to be replaced"
+            cell.lblNote.text = "There is a fault with this device"
         }
         
         // add device image
@@ -342,6 +342,16 @@ extension OldServiceSummaryViewController: MFMailComposeViewControllerDelegate {
         }
         
         controller.dismiss(animated: true)
+    }
+    
+    func dateFormat(date: Date) -> String {
+
+        let formatter1 = DateFormatter()
+        formatter1.dateStyle = .short//"dd/mm/yyyy"
+        
+        
+        let str = formatter1.string(from: date)
+        return str
     }
 }
 

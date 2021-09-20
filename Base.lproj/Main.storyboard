@@ -13,67 +13,151 @@
             <objects>
                 <viewController storyboardIdentifier="BarCodeScanViewController" id="rFc-L7-zRU" customClass="ScannerViewController" customModule="FireHawk" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="suf-wx-zwk">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2Oc-Hu-d5D">
-                                <rect key="frame" x="0.0" y="718" width="414" height="90"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CmI-uc-A7W">
+                                <rect key="frame" x="0.0" y="88" width="414" height="774"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dhA-NZ-BVX">
-                                        <rect key="frame" x="30" y="10" width="354" height="50"/>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="EwO-iU-GTS">
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="774"/>
+                                    </imageView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="m5h-Ng-gAs">
+                                        <rect key="frame" x="20" y="20" width="374" height="67"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="50" id="w52-Jd-pQE"/>
+                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="50" id="lOg-z5-UgR"/>
                                         </constraints>
-                                        <state key="normal" title="SCAN"/>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="color" keyPath="shadowColor">
-                                                <color key="value" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                            </userDefinedRuntimeAttribute>
-                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                                <real key="value" value="20"/>
-                                            </userDefinedRuntimeAttribute>
-                                        </userDefinedRuntimeAttributes>
-                                        <connections>
-                                            <action selector="onPressScan:" destination="rFc-L7-zRU" eventType="touchUpInside" id="NJ0-yD-NUx"/>
-                                        </connections>
-                                    </button>
+                                        <string key="text">Please hold the alarms test button until it begins to beep. Release the button and position the phone to make the large red light to fill the screen. Tap the scan button and hold still to scan alarm data. </string>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <color key="textColor" red="0.64577370879999996" green="0.74906510110000002" blue="0.33715963360000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <view contentMode="scaleAspectFit" translatesAutoresizingMaskIntoConstraints="NO" id="VhS-uV-emn" customClass="CircleView" customModule="FireHawk" customModuleProvider="target">
+                                        <rect key="frame" x="20" y="200" width="374" height="374"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" secondItem="VhS-uV-emn" secondAttribute="height" id="fmd-y2-wmI"/>
+                                        </constraints>
+                                    </view>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2Oc-Hu-d5D">
+                                        <rect key="frame" x="0.0" y="684" width="414" height="90"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dhA-NZ-BVX">
+                                                <rect key="frame" x="30" y="10" width="354" height="50"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="50" id="w52-Jd-pQE"/>
+                                                </constraints>
+                                                <state key="normal" title="SCAN"/>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="color" keyPath="shadowColor">
+                                                        <color key="value" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                        <real key="value" value="20"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <action selector="onPressScan:" destination="rFc-L7-zRU" eventType="touchUpInside" id="NJ0-yD-NUx"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="trailing" secondItem="dhA-NZ-BVX" secondAttribute="trailing" constant="30" id="9Cg-Gn-UVc"/>
+                                            <constraint firstItem="dhA-NZ-BVX" firstAttribute="leading" secondItem="2Oc-Hu-d5D" secondAttribute="leading" constant="30" id="wG0-EJ-IZu"/>
+                                            <constraint firstAttribute="bottom" secondItem="dhA-NZ-BVX" secondAttribute="bottom" constant="30" id="xl4-6P-bau"/>
+                                            <constraint firstAttribute="height" constant="90" id="yQe-59-rTd"/>
+                                        </constraints>
+                                    </view>
                                 </subviews>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstAttribute="trailing" secondItem="dhA-NZ-BVX" secondAttribute="trailing" constant="30" id="9Cg-Gn-UVc"/>
-                                    <constraint firstItem="dhA-NZ-BVX" firstAttribute="leading" secondItem="2Oc-Hu-d5D" secondAttribute="leading" constant="30" id="wG0-EJ-IZu"/>
-                                    <constraint firstAttribute="bottom" secondItem="dhA-NZ-BVX" secondAttribute="bottom" constant="30" id="xl4-6P-bau"/>
-                                    <constraint firstAttribute="height" constant="90" id="yQe-59-rTd"/>
+                                    <constraint firstAttribute="trailing" secondItem="VhS-uV-emn" secondAttribute="trailing" constant="20" id="1Nl-Od-O8Q"/>
+                                    <constraint firstItem="2Oc-Hu-d5D" firstAttribute="leading" secondItem="CmI-uc-A7W" secondAttribute="leading" id="5mZ-Bc-7VT"/>
+                                    <constraint firstAttribute="trailing" secondItem="EwO-iU-GTS" secondAttribute="trailing" id="9Yx-mc-Zdl"/>
+                                    <constraint firstItem="EwO-iU-GTS" firstAttribute="top" secondItem="CmI-uc-A7W" secondAttribute="top" id="CLu-pj-hx5"/>
+                                    <constraint firstAttribute="bottom" secondItem="2Oc-Hu-d5D" secondAttribute="bottom" id="EJR-1O-WFI"/>
+                                    <constraint firstItem="VhS-uV-emn" firstAttribute="leading" secondItem="CmI-uc-A7W" secondAttribute="leading" constant="20" id="Fcv-PA-XED"/>
+                                    <constraint firstItem="VhS-uV-emn" firstAttribute="centerY" secondItem="CmI-uc-A7W" secondAttribute="centerY" id="Jt7-fA-hXu"/>
+                                    <constraint firstAttribute="trailing" secondItem="m5h-Ng-gAs" secondAttribute="trailing" constant="20" id="Kkn-j9-0o3"/>
+                                    <constraint firstAttribute="trailing" secondItem="2Oc-Hu-d5D" secondAttribute="trailing" id="PRT-ie-fln"/>
+                                    <constraint firstItem="VhS-uV-emn" firstAttribute="centerX" secondItem="CmI-uc-A7W" secondAttribute="centerX" id="Wy6-5A-STi"/>
+                                    <constraint firstItem="EwO-iU-GTS" firstAttribute="leading" secondItem="CmI-uc-A7W" secondAttribute="leading" id="Z1K-Bx-nHE"/>
+                                    <constraint firstItem="EwO-iU-GTS" firstAttribute="bottom" secondItem="2Oc-Hu-d5D" secondAttribute="bottom" id="ak6-rp-JoV"/>
+                                    <constraint firstItem="m5h-Ng-gAs" firstAttribute="top" secondItem="CmI-uc-A7W" secondAttribute="top" constant="20" id="gMz-H0-85G"/>
+                                    <constraint firstItem="m5h-Ng-gAs" firstAttribute="leading" secondItem="CmI-uc-A7W" secondAttribute="leading" constant="20" id="icR-ct-Xsl"/>
                                 </constraints>
                             </view>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="m5h-Ng-gAs">
-                                <rect key="frame" x="20" y="647.5" width="374" height="50.5"/>
-                                <string key="text">Hold the test button for 10 seconds and release. Position the large red light to fill the screen. Once alighned press the scan button</string>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                            <view alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Lwt-m1-qeL" userLabel="ProgressView">
+                                <rect key="frame" x="0.0" y="88" width="414" height="774"/>
+                                <subviews>
+                                    <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="bKP-WW-fyj">
+                                        <rect key="frame" x="20" y="377" width="374" height="20"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="20" id="opo-c1-PKY"/>
+                                        </constraints>
+                                    </progressView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Analysing Scan Data" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1ww-La-quI">
+                                        <rect key="frame" x="20" y="150" width="374" height="30"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="30" id="A2Q-BF-cZn"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Scan complete you can now move your phone. Please wait for report" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hYH-9F-4eq">
+                                        <rect key="frame" x="20" y="497" width="374" height="41"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="20" id="907-61-FVl"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" red="0.64577370879999996" green="0.74906510110000002" blue="0.33715963360000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="hYH-9F-4eq" secondAttribute="trailing" constant="20" id="Cju-H5-s6i"/>
+                                    <constraint firstItem="hYH-9F-4eq" firstAttribute="leading" secondItem="Lwt-m1-qeL" secondAttribute="leading" constant="20" id="HU4-Bp-0AZ"/>
+                                    <constraint firstAttribute="trailing" secondItem="bKP-WW-fyj" secondAttribute="trailing" constant="20" id="Hrs-0R-ldS"/>
+                                    <constraint firstItem="1ww-La-quI" firstAttribute="top" secondItem="Lwt-m1-qeL" secondAttribute="top" constant="150" id="IgM-a5-CCy"/>
+                                    <constraint firstItem="1ww-La-quI" firstAttribute="leading" secondItem="Lwt-m1-qeL" secondAttribute="leading" constant="20" id="PxY-Ya-AKu"/>
+                                    <constraint firstItem="bKP-WW-fyj" firstAttribute="leading" secondItem="Lwt-m1-qeL" secondAttribute="leading" constant="20" id="QvF-dP-tY0"/>
+                                    <constraint firstAttribute="trailing" secondItem="1ww-La-quI" secondAttribute="trailing" constant="20" id="WmS-iJ-RZ0"/>
+                                    <constraint firstItem="hYH-9F-4eq" firstAttribute="top" secondItem="bKP-WW-fyj" secondAttribute="bottom" constant="100" id="sEN-cH-zAu" userLabel="scan complete you can move your phone.top = Progress Bar.bottom + 150"/>
+                                    <constraint firstItem="bKP-WW-fyj" firstAttribute="centerY" secondItem="Lwt-m1-qeL" secondAttribute="centerY" id="uBz-P2-p8j"/>
+                                    <constraint firstItem="bKP-WW-fyj" firstAttribute="centerX" secondItem="Lwt-m1-qeL" secondAttribute="centerX" id="x1w-9d-3IW"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="44o-Vr-iWC"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="2Oc-Hu-d5D" firstAttribute="leading" secondItem="44o-Vr-iWC" secondAttribute="leading" id="0Wj-Db-Xbf"/>
-                            <constraint firstItem="2Oc-Hu-d5D" firstAttribute="trailing" secondItem="44o-Vr-iWC" secondAttribute="trailing" id="5g5-uU-cWJ"/>
-                            <constraint firstItem="m5h-Ng-gAs" firstAttribute="leading" secondItem="44o-Vr-iWC" secondAttribute="leading" constant="20" id="8yK-am-UNU"/>
-                            <constraint firstItem="2Oc-Hu-d5D" firstAttribute="top" secondItem="m5h-Ng-gAs" secondAttribute="bottom" constant="20" id="SA3-oy-6Bd"/>
-                            <constraint firstItem="44o-Vr-iWC" firstAttribute="trailing" secondItem="m5h-Ng-gAs" secondAttribute="trailing" constant="20" id="Tio-M5-H5w"/>
-                            <constraint firstItem="2Oc-Hu-d5D" firstAttribute="bottom" secondItem="44o-Vr-iWC" secondAttribute="bottom" id="nXR-ED-oeX"/>
+                            <constraint firstItem="Lwt-m1-qeL" firstAttribute="leading" secondItem="44o-Vr-iWC" secondAttribute="leading" id="199-Z7-PIH"/>
+                            <constraint firstItem="44o-Vr-iWC" firstAttribute="trailing" secondItem="CmI-uc-A7W" secondAttribute="trailing" id="A2d-NU-ruV"/>
+                            <constraint firstItem="44o-Vr-iWC" firstAttribute="trailing" secondItem="Lwt-m1-qeL" secondAttribute="trailing" id="Lvl-wj-qGz"/>
+                            <constraint firstItem="44o-Vr-iWC" firstAttribute="bottom" secondItem="CmI-uc-A7W" secondAttribute="bottom" id="NDd-sR-shF"/>
+                            <constraint firstItem="CmI-uc-A7W" firstAttribute="top" secondItem="44o-Vr-iWC" secondAttribute="top" id="PT7-3o-TeM"/>
+                            <constraint firstItem="44o-Vr-iWC" firstAttribute="bottom" secondItem="Lwt-m1-qeL" secondAttribute="bottom" id="SPw-Ad-uRs"/>
+                            <constraint firstItem="Lwt-m1-qeL" firstAttribute="top" secondItem="44o-Vr-iWC" secondAttribute="top" id="XSw-PN-ghy"/>
+                            <constraint firstItem="CmI-uc-A7W" firstAttribute="leading" secondItem="44o-Vr-iWC" secondAttribute="leading" id="hY6-BB-LTy"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Scanner" id="Gqn-CL-UkL"/>
                     <connections>
+                        <outlet property="ScannerView" destination="EwO-iU-GTS" id="GZB-Df-WKU"/>
+                        <outlet property="circleView" destination="VhS-uV-emn" id="AQu-w6-Qqx"/>
+                        <outlet property="progressBar" destination="bKP-WW-fyj" id="rTG-fb-uwi"/>
+                        <outlet property="progressView" destination="Lwt-m1-qeL" id="skS-b8-VTu"/>
+                        <outlet property="progressViewTopLabel" destination="1ww-La-quI" id="KCJ-lK-4bk"/>
                         <outlet property="scanButton" destination="dhA-NZ-BVX" id="NNY-3I-Cm5"/>
-                        <segue destination="BYD-q2-dH2" kind="show" identifier="scanToDeviceReport" id="Lf9-OC-PR1"/>
+                        <segue destination="BYD-q2-dH2" kind="show" identifier="ScanToDeviceReport" id="Lf9-OC-PR1"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="D1g-Pp-xfa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="6183" y="54"/>
+            <point key="canvasLocation" x="6182.608695652174" y="53.571428571428569"/>
         </scene>
         <!--Service History-->
         <scene sceneID="xCu-VN-pxG">
@@ -149,17 +233,17 @@
             <objects>
                 <viewController storyboardIdentifier="NewServiceSummaryViewController" title="New Service Summary" id="g2b-De-KsJ" customClass="NewServiceSummaryViewController" customModule="FireHawk" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="N0K-gl-Na7">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="UFi-RI-UHO">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="800"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="50" translatesAutoresizingMaskIntoConstraints="NO" id="7Zh-bx-gxi">
-                                        <rect key="frame" x="0.0" y="0.0" width="414" height="669"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="635"/>
                                         <subviews>
                                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="144" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Az4-z0-56u">
-                                                <rect key="frame" x="0.0" y="0.0" width="414" height="669"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="414" height="635"/>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                             </tableView>
                                         </subviews>
@@ -170,7 +254,7 @@
                                         </constraints>
                                     </stackView>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vLq-CP-a6A">
-                                        <rect key="frame" x="0.0" y="669" width="414" height="90"/>
+                                        <rect key="frame" x="0.0" y="635" width="414" height="90"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ElV-De-wd8">
                                                 <rect key="frame" x="30" y="10" width="354" height="50"/>
@@ -232,7 +316,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="RP5-Nv-HJe" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <exit id="koF-m3-OTG" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="7843" y="54"/>
+            <point key="canvasLocation" x="8245" y="54"/>
         </scene>
         <!--Old Service Summary-->
         <scene sceneID="kYr-5q-GAf">
@@ -670,7 +754,7 @@
             <objects>
                 <viewController storyboardIdentifier="DeviceReportViewController" title="DeviceReport" id="BYD-q2-dH2" customClass="DeviceReportViewController" customModule="FireHawk" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="aj0-ID-mrI">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3Qb-6a-mPr">
@@ -881,7 +965,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Wft-eZ-IFj" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="7014" y="54"/>
+            <point key="canvasLocation" x="7455" y="54"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="HPG-0p-RRd">
@@ -907,7 +991,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="D7t-3o-p3x"/>
+        <segue reference="Tag-ca-tSL"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="paperplane" catalog="system" width="128" height="118"/>

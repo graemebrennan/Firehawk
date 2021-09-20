@@ -36,17 +36,17 @@ class PropertyInformationViewController: UIViewController {
         inpTitle.placeholder = "Enter a title for the report"
         
         inpAddressLine1.lblTitle.text = "Address Line 1"
-        inpAddressLine1.placeholder = "Enter your street address"
+        inpAddressLine1.placeholder = "Enter first line of address"
         
         inpAddressLine2.lblTitle.text = "Address Line 2"
-        inpAddressLine2.placeholder = "Enter your street address"
+        inpAddressLine2.placeholder = "Enter second line of address"
         
-        inpZip.lblTitle.text = "Post Code"
-        inpZip.placeholder = "Enter your Post code"
+        inpZip.lblTitle.text = "Postcode"
+        inpZip.placeholder = "Enter your postcode"
         
         inpCityTown.lblTitle.text = "City"
-        inpCityTown.placeholder = "Enter your City"
-        
+        inpCityTown.placeholder = "Enter your city"
+
         setUpElements()
         
     }

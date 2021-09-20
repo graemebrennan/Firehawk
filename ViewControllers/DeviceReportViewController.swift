@@ -75,7 +75,7 @@ class DeviceReportViewController: UIViewController {
         
         
         serialNumberLabel.text = "Serial Number: \(newScanAnalysis!.deviceSerialNumber!)"
-        manufactureDate.text = "Manufacture Date: \( newScanAnalysis!.snManufactureDate!.as_ddmmyyyy())"
+        manufactureDate.text = "Manufacture Date: \(dateFormat( date: newScanAnalysis!.snManufactureDate!))"
         
         
         // lblWarning.alpha = 1
@@ -228,12 +228,13 @@ extension DeviceReportViewController: UITableViewDataSource, UITableViewDelegate
             case 0: // High Co Alarm +300PPM
                 
                 cell.title.text = "High CO Alarm (+300 PPM)"
-                cell.count.text = "Alarm Count: \(String(describing: self.newScanAnalysis!.highCOAlarmCount))"
+                cell.count.text = "Alarm Count: \(String(describing: self.newScanAnalysis!.highCOAlarmCount!))"
                 
                 if self.newScanAnalysis!.highCOAlarmCount == 0 {
                     cell.date.text = ""
                 } else {
-                    cell.date.text = "Date of Last Alarm: \(self.newScanAnalysis!.highCOAlarmLastDate!.as_ddmmyyyy())"
+                    //cell.date.text = "Date of Last Alarm: \(self.newScanAnalysis!.highCOAlarmLastDate!.as_ddmmyyyy())"
+                    cell.date.text = "Date of Last Alarm: \(dateFormat( date: self.newScanAnalysis!.highCOAlarmLastDate!))"
                 }
                 
                 cell.FaultIndicator.backgroundColor = getFaultColour(str: newScanAnalysis!.highCOAlarmFaultIndicator)
@@ -247,7 +248,8 @@ extension DeviceReportViewController: UITableViewDataSource, UITableViewDelegate
                 if self.newScanAnalysis!.mediumCOAlarmCount == 0 {
                     cell.date.text = ""
                 } else {
-                    cell.date.text = "Date of Last Alarm: \(self.newScanAnalysis!.mediumCOAlarmLastDate!.as_ddmmyyyy())"
+                   // cell.date.text = "Date of Last Alarm: \(self.newScanAnalysis!.mediumCOAlarmLastDate!.as_ddmmyyyy())"
+                    cell.date.text = "Date of Last Alarm: \(dateFormat( date: self.newScanAnalysis!.mediumCOAlarmLastDate!))"
                 }
                 
                 cell.FaultIndicator.backgroundColor = getFaultColour(str: newScanAnalysis!.mediumCOAlarmFaultIndicator)
@@ -262,7 +264,8 @@ extension DeviceReportViewController: UITableViewDataSource, UITableViewDelegate
                 if self.newScanAnalysis!.lowCOAlarmCount == 0 {
                     cell.date.text = ""
                 } else {
-                    cell.date.text = "Date of Last Alarm: \(self.newScanAnalysis!.lowCOAlarmLastDate!.as_ddmmyyyy())"
+                    //cell.date.text = "Date of Last Alarm: \(self.newScanAnalysis!.lowCOAlarmLastDate!.as_ddmmyyyy())"
+                    cell.date.text = "Date of Last Alarm: \(dateFormat( date: self.newScanAnalysis!.lowCOAlarmLastDate!))"
                 }
                 
                 cell.FaultIndicator.backgroundColor = getFaultColour(str: newScanAnalysis!.lowCOAlarmFaultIndicator)
@@ -277,7 +280,9 @@ extension DeviceReportViewController: UITableViewDataSource, UITableViewDelegate
                 if self.newScanAnalysis!.preCOAlarmCount == 0 {
                     cell.date.text = ""
                 } else {
-                    cell.date.text = "Date of Last Alarm: \(self.newScanAnalysis!.preCOAlarmLastDate!.as_ddmmyyyy())"
+                   // cell.date.text = "Date of Last Alarm: \(self.newScanAnalysis!.preCOAlarmLastDate!.as_ddmmyyyy())"
+                    cell.date.text = "Date of Last Alarm: \(dateFormat( date: self.newScanAnalysis!.preCOAlarmLastDate!))"
+                    
                 }
                 
                 cell.FaultIndicator.backgroundColor = getFaultColour(str: newScanAnalysis!.preCOAlarmFaultIndicator)
@@ -319,8 +324,9 @@ extension DeviceReportViewController: UITableViewDataSource, UITableViewDelegate
                 
                 cell.FaultIndicator.backgroundColor = getFaultColour(str: newScanAnalysis!.lifeRemainingFaultIndicator)
                 
-                cell.date.text = "Product Expiration Date: \( newScanAnalysis!.snManufactureExpiaryDate!.as_ddmmyyyy())"
-                
+                //cell.date.text = "Product Expiration Date: \( newScanAnalysis!.snManufactureExpiaryDate!.as_ddmmyyyy())"
+                //dateFormat( date:
+                cell.date.text = "Product Expiration Date: \(dateFormat( date: newScanAnalysis!.snManufactureExpiaryDate!))"
                 
             case 1: // Plate Removals
                 
@@ -332,7 +338,7 @@ extension DeviceReportViewController: UITableViewDataSource, UITableViewDelegate
                     cell.note.text = "Device has never been removed"
                 } else {
                     
-                    cell.date.text = "Last Removal Date: \(self.newScanAnalysis!.lastPlateRemovalDate!.as_ddmmyyyy())"
+                    cell.date.text = "Last Removal Date: \(dateFormat( date: self.newScanAnalysis!.lastPlateRemovalDate!))"
                     
                     if self.newScanAnalysis!.plateRemovalsFaultIndicator == "amber" {
                         cell.note.text = "Device has been removed in past year"
@@ -354,7 +360,8 @@ extension DeviceReportViewController: UITableViewDataSource, UITableViewDelegate
                 if self.newScanAnalysis!.deviceTestCount == 0 {
                     cell.date.text = " Device never tested"
                 } else {
-                    cell.date.text = "Last Test Date: \(self.newScanAnalysis!.deviceLastTestDate!.as_ddmmyyyy())"
+                    //cell.date.text = "Last Test Date: \(self.newScanAnalysis!.deviceLastTestDate!.as_ddmmyyyy())"
+                    cell.date.text = "Last Test Date: \(dateFormat( date: self.newScanAnalysis!.deviceLastTestDate!))"
                 }
                 
                 cell.FaultIndicator.backgroundColor = getFaultColour(str: newScanAnalysis!.deviceTestFaultIndicator)
@@ -420,7 +427,7 @@ extension DeviceReportViewController: UITableViewDataSource, UITableViewDelegate
                 cell.title.text = "End Of Life Fault"
                 
                 if newScanAnalysis?.eol_Fault == true {
-                    cell.note.text = "eol_Fault"
+                    cell.note.text = "End of Life Fault"
                     cell.date.text = "Last Occured \(newScanAnalysis?.eol_FaultDate)"
                     cell.FaultIndicator.backgroundColor = UIColor(rgb: 0xEA4748)
                 } else {
@@ -463,5 +470,15 @@ extension DeviceReportViewController: UITableViewDataSource, UITableViewDelegate
         default:
             return ""
         }
+    }
+    
+    func dateFormat(date: Date) -> String {
+
+        let formatter1 = DateFormatter()
+        formatter1.dateStyle = .short//"dd/mm/yyyy"
+        
+        
+        let str = formatter1.string(from: date)
+        return str
     }
 }

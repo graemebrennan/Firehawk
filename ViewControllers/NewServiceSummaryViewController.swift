@@ -141,7 +141,7 @@ class NewServiceSummaryViewController: UIViewController, UITableViewDataSource {
         
         cell.lblName.text = self.deviceReportList?[indexPath.row].title
         cell.lblSerialNumber.text = self.deviceReportList?[indexPath.row].serialNumber
-        cell.lblDate.text =  "Date: \(self.deviceReportList?[indexPath.row].date!.as_ddmmyyyy_hhmmss() ?? "Unknown")"
+        cell.lblDate.text =  "Date: \( dateFormat(date: (self.deviceReportList?[indexPath.row].date!)!) ?? "Unknown")"
         cell.FaultIndicatorView.backgroundColor = getFaultColour(str: (self.deviceReportList?[indexPath.row].healthIndicator)!)
         
         
@@ -151,7 +151,7 @@ class NewServiceSummaryViewController: UIViewController, UITableViewDataSource {
         } else if self.deviceReportList?[indexPath.row].healthIndicator == "amber" {
             cell.lblNote.text = "There may be an issue with this device"
         } else {
-            cell.lblNote.text = "This device needs to be replaced"
+            cell.lblNote.text = "There is a fault with this device"
         }
         
         // add device image
@@ -227,5 +227,15 @@ class NewServiceSummaryViewController: UIViewController, UITableViewDataSource {
             print("other segue identifier")
         }
         
+    }
+    
+    func dateFormat(date: Date) -> String {
+
+        let formatter1 = DateFormatter()
+        formatter1.dateStyle = .short//"dd/mm/yyyy"
+        
+        
+        let str = formatter1.string(from: date)
+        return str
     }
 }
