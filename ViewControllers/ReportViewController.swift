@@ -91,7 +91,7 @@ class ReportViewController: UIViewController {
             
           //  SmokeAlarmInformation(newReport: newReport!)
 
-        } else if newScanAnalysis?.deviceType == "CO" {
+        } else if newScanAnalysis?.deviceType == "CO7B 10Y" {
 
             COAlarmInformation(newReport: newScanAnalysis!)
             
@@ -112,7 +112,7 @@ class ReportViewController: UIViewController {
         
         productCard.imgView.image = UIImage(named: "Firehawk_CO7B10Y.png")
         productCard.lblTitle.text = newReport.deviceType
-        
+        productCard.lblNote.alpha = 0
   }
     
 }

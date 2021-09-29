@@ -14,7 +14,7 @@ import CoreData
 class NewServiceSummaryViewController: UIViewController, UITableViewDataSource {
     
     var newReport: DeviceReportOP?
-    var propertyDetails: PropertyDetails?
+    var propertyDetails = PropertyDetails()
     var scanCount: Int?
     
     //coredata
@@ -23,6 +23,7 @@ class NewServiceSummaryViewController: UIViewController, UITableViewDataSource {
     var serviceReports: [ServiceReportCD]? = []
     var latestRecord: ServiceReportCD?
     var deviceReportList: [DeviceReportCD]? = []
+    var houseAddress: AddressCD?
     
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var scanNewButton: UIButton!
@@ -159,7 +160,7 @@ class NewServiceSummaryViewController: UIViewController, UITableViewDataSource {
             
             cell.imageView?.image = UIImage(named: "Firehawk_FHB10_smoke_alarm.png")
             
-        } else if self.deviceReportList?[indexPath.row].deviceType == "CO" {
+        } else if self.deviceReportList?[indexPath.row].deviceType == "CO7B 10Y" {
             
             cell.imageView?.image = UIImage(named: "Firehawk_CO7B10Y.png")
             
@@ -178,15 +179,21 @@ class NewServiceSummaryViewController: UIViewController, UITableViewDataSource {
         
         var newServiceReport = ServiceReportCD(context: self.context)
         
-        newServiceReport.name = self.propertyDetails?.name
-        newServiceReport.date = self.propertyDetails?.date
+        newServiceReport.name = self.propertyDetails.name
+        newServiceReport.date = self.propertyDetails.date
         
-        newServiceReport.faultIndicator = self.propertyDetails?.faultIndicator
-        newServiceReport.houseAddress?.line1 = self.propertyDetails?.line1
-        newServiceReport.houseAddress?.line2 = self.propertyDetails?.line2
-        newServiceReport.houseAddress?.postcode = self.propertyDetails?.postcode
-        newServiceReport.houseAddress?.townCity = self.propertyDetails?.townCity
+        newServiceReport.faultIndicator = self.propertyDetails.faultIndicator
         
+        var newHouseAddress = AddressCD(context: self.context)
+        
+        newHouseAddress.line1 = self.propertyDetails.line1
+        newHouseAddress.line2 = self.propertyDetails.line2
+        newHouseAddress.postcode = self.propertyDetails.postcode
+        newHouseAddress.townCity = self.propertyDetails.townCity
+  
+        newServiceReport.houseAddress = newHouseAddress
+        
+
         // save the date to core
         do {
             try self.context.save()

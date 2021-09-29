@@ -83,7 +83,7 @@ class DeviceReportViewController: UIViewController {
         faultsTitle.lblTitle.text = "Device Faults"
         alarmsTitle.lblTitle.text = "Alarms"
         aditionalInfoTitle.lblTitle.text = "Additional Information"
-        
+        commentsTV.text = self.newScan!
         
         commentsTV.frame = CGRect(x: 0, y: 0, width: 200, height: 100)
         // AdditionalInfo.lableInputtf.text = "enter text here"
@@ -103,7 +103,7 @@ class DeviceReportViewController: UIViewController {
             
             //  SmokeAlarmInformation(newReport: newReport!)
             
-        } else if newScanAnalysis?.deviceType == "CO" {
+        } else if newScanAnalysis?.deviceType == "CO7B 10Y" {
             
             COAlarmInformation(newReport: newScanAnalysis!)
             
@@ -234,7 +234,12 @@ extension DeviceReportViewController: UITableViewDataSource, UITableViewDelegate
                     cell.date.text = ""
                 } else {
                     //cell.date.text = "Date of Last Alarm: \(self.newScanAnalysis!.highCOAlarmLastDate!.as_ddmmyyyy())"
-                    cell.date.text = "Date of Last Alarm: \(dateFormat( date: self.newScanAnalysis!.highCOAlarmLastDate!))"
+                    if self.newScanAnalysis!.highCOAlarmLastDate != nil {
+                        cell.date.text = "Date of Last Alarm: \(dateFormat( date: self.newScanAnalysis!.highCOAlarmLastDate!))"
+                        
+                    } else {
+                        cell.date.text = "Date of Last Alarm: No event date"
+                    }
                 }
                 
                 cell.FaultIndicator.backgroundColor = getFaultColour(str: newScanAnalysis!.highCOAlarmFaultIndicator)
@@ -248,8 +253,15 @@ extension DeviceReportViewController: UITableViewDataSource, UITableViewDelegate
                 if self.newScanAnalysis!.mediumCOAlarmCount == 0 {
                     cell.date.text = ""
                 } else {
+                    
+                    if self.newScanAnalysis!.highCOAlarmLastDate != nil {
+                        cell.date.text = "Date of Last Alarm: \(dateFormat( date: self.newScanAnalysis!.mediumCOAlarmLastDate!))"
+                        
+                    } else {
+                        cell.date.text = "Date of Last Alarm: No event date"
+                    }
                    // cell.date.text = "Date of Last Alarm: \(self.newScanAnalysis!.mediumCOAlarmLastDate!.as_ddmmyyyy())"
-                    cell.date.text = "Date of Last Alarm: \(dateFormat( date: self.newScanAnalysis!.mediumCOAlarmLastDate!))"
+                    
                 }
                 
                 cell.FaultIndicator.backgroundColor = getFaultColour(str: newScanAnalysis!.mediumCOAlarmFaultIndicator)
@@ -264,8 +276,15 @@ extension DeviceReportViewController: UITableViewDataSource, UITableViewDelegate
                 if self.newScanAnalysis!.lowCOAlarmCount == 0 {
                     cell.date.text = ""
                 } else {
+                    
+                    if self.newScanAnalysis!.highCOAlarmLastDate != nil {
+                        cell.date.text = "Date of Last Alarm: \(dateFormat( date: self.newScanAnalysis!.lowCOAlarmLastDate!))"
+                        
+                    } else {
+                        cell.date.text = "Date of Last Alarm: No event date"
+                    }
                     //cell.date.text = "Date of Last Alarm: \(self.newScanAnalysis!.lowCOAlarmLastDate!.as_ddmmyyyy())"
-                    cell.date.text = "Date of Last Alarm: \(dateFormat( date: self.newScanAnalysis!.lowCOAlarmLastDate!))"
+                    
                 }
                 
                 cell.FaultIndicator.backgroundColor = getFaultColour(str: newScanAnalysis!.lowCOAlarmFaultIndicator)
@@ -280,8 +299,15 @@ extension DeviceReportViewController: UITableViewDataSource, UITableViewDelegate
                 if self.newScanAnalysis!.preCOAlarmCount == 0 {
                     cell.date.text = ""
                 } else {
+                    
+                    if self.newScanAnalysis!.highCOAlarmLastDate != nil {
+                        cell.date.text = "Date of Last Alarm: \(dateFormat( date: self.newScanAnalysis!.preCOAlarmLastDate!))"
+                        
+                    } else {
+                        cell.date.text = "Date of Last Alarm: No event date"
+                    }
                    // cell.date.text = "Date of Last Alarm: \(self.newScanAnalysis!.preCOAlarmLastDate!.as_ddmmyyyy())"
-                    cell.date.text = "Date of Last Alarm: \(dateFormat( date: self.newScanAnalysis!.preCOAlarmLastDate!))"
+                    
                     
                 }
                 
@@ -462,7 +488,7 @@ extension DeviceReportViewController: UITableViewDataSource, UITableViewDelegate
         
         switch str {
         case "green":
-            return "No Alarms detected"
+            return "No recent alarms detected"
         case "amber":
             return "Alarm within the past year"
         case "red":

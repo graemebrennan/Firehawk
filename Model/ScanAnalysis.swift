@@ -78,7 +78,11 @@ struct ScanAnalysis {
     var deviceLifetimeYears: Int?
     
     var softwareVersion: String?
+    
     var checkSum: String?
+    
+    var checkSumValue: UInt8?
+    var checkSumUInt16: UInt16 = 0
     
     let HoursInAMonth = 730
     let HoursInAYear = 8760
@@ -119,6 +123,14 @@ struct ScanAnalysis {
         let productionYearInt = SNByte1Int! & 0x1F
         print("productionYearInt: \(productionYearInt)")
         
+        let SNByte2StartIndex = scan.index(scan.startIndex, offsetBy: 2)
+        let SNByte2EndIndex = scan.index(scan.startIndex, offsetBy: 3)
+        
+        let SNByte2String = String(scan[SNByte2StartIndex...SNByte2EndIndex])
+        let SNByte2Int = UInt8(SNByte2String, radix: 16)
+        
+        let productionMonth = (SNByte2Int! & 0xF0) >> 4
+
         
         switch deviceTypeInt {
         case 0:
@@ -137,7 +149,7 @@ struct ScanAnalysis {
             self.deviceLifetimeYears = 10
             
         case 3:
-            self.deviceType = "CO"
+            self.deviceType = "CO7B 10Y"
             print("deviceType: CO10Y Alarm")
             self.deviceLifetimeYears = 10
             
@@ -164,12 +176,12 @@ struct ScanAnalysis {
         let snManufactureYearString = String(scan[snManufactureYearStartIndex...snManufactureYearEndIndex])
         //let snManufactureYearInt = Int(snManufactureYearString)
         
-        //TODO:- finalise the date and create a date object from month and year.
+       
         var snManufactureDateComponent = DateComponents()
         
         snManufactureDateComponent.year = Int("20" + String(productionYearInt))
-        snManufactureDateComponent.month = 12
-        //TODO:- Add month data and add to calculations for next date
+        snManufactureDateComponent.month = Int(productionMonth)
+
         
 //        let snManufactureDate = calendar.date(byAdding: snManufactureDateComponent, to: Date())
         let snManufactureDate =  calendar.date(from: snManufactureDateComponent)
@@ -183,7 +195,7 @@ struct ScanAnalysis {
         // predict expiary date by claculating (life time - years since manufacture date) = years left from now
         var snManufactureYearsLeftComponent = DateComponents()
         snManufactureYearsLeftComponent.year = snManufactureYearsLeft
-        let snManufactureExpiaryDate = calendar.date(byAdding: snManufactureYearsLeftComponent, to: Date())
+        let snManufactureExpiaryDate = calendar.date(byAdding: snManufactureYearsLeftComponent, to: snManufactureDate!)
         self.snManufactureExpiaryDate = snManufactureExpiaryDate
         print("snManufactureExpiaryDate: \(snManufactureExpiaryDate!)")
         
@@ -271,16 +283,16 @@ struct ScanAnalysis {
             let deviceLastTestDateInt = Int(deviceLastTestDateString, radix: 16)
             
             
-            self.lastTestComponent.hour = deviceLastTestDateInt! * -2
+            self.lastTestComponent.hour = (runtimeClockInt! - deviceLastTestDateInt!) * -2
             let deviceLastTestDate = calendar.date(byAdding: lastTestComponent, to: Date())
             self.deviceLastTestDate = deviceLastTestDate
             print("deviceLastTestDate: \(deviceLastTestDate!)")
         }
         
-        if (self.runtimeClockHours! - self.lastTestComponent.hour!) > 730 {
+        if (self.lastTestComponent.hour!) > 730 {
             // the device has not been tested in a month
             self.deviceTestFaultIndicator = "red"
-        } else if (self.runtimeClockHours! - self.lastTestComponent.hour!) > 336 {
+        } else if (self.lastTestComponent.hour!) > 336 {
             // the device has not been in two weeks
             self.deviceTestFaultIndicator = "amber"
         } else {
@@ -303,26 +315,36 @@ struct ScanAnalysis {
             let highCOAlarmLastDateStartIndex = scan.index(scan.startIndex, offsetBy: 26)
             let highCOAlarmLastDateEndIndex = scan.index(scan.startIndex, offsetBy: 29)
             let highCOAlarmLastDateString = String(scan[highCOAlarmLastDateStartIndex...highCOAlarmLastDateEndIndex])
-            let highCOAlarmLastDateInt = Int(highCOAlarmLastDateString, radix: 16)
             
-            var highCOAlarmLastDateComponent = DateComponents()
-            highCOAlarmLastDateComponent.hour = highCOAlarmLastDateInt! * -2
-            let highCOAlarmLastDate = calendar.date(byAdding: highCOAlarmLastDateComponent, to: Date())
-            self.highCOAlarmLastDate = highCOAlarmLastDate
-            print("highCOAlarmLastDate: \(highCOAlarmLastDate!)")
-            
-            let HoursSinceLastHighCOAlarmEvent = (self.runtimeClock! - highCOAlarmLastDateInt!) * 2
-            
-            if HoursSinceLastHighCOAlarmEvent <= HoursInAYear {
-                // event within the last year but not in the last month
-                self.highCOAlarmFaultIndicator = "amber"
-            } else if HoursSinceLastHighCOAlarmEvent <= HoursInAMonth {
-
-                // the alam happened within the last month
-                self.highCOAlarmFaultIndicator = "red"
-            } else {
+            if highCOAlarmLastDateString == "ffff" {
+                // no date set yet
+                
                 self.highCOAlarmFaultIndicator = "green"
+                //self.highCOAlarmLastDate = nil
+                
+            } else {
+                let highCOAlarmLastDateInt = Int(highCOAlarmLastDateString, radix: 16)
+                
+                var highCOAlarmLastDateComponent = DateComponents()
+                highCOAlarmLastDateComponent.hour = (runtimeClockInt! - highCOAlarmLastDateInt!) * -2
+                let highCOAlarmLastDate = calendar.date(byAdding: highCOAlarmLastDateComponent, to: Date())
+                self.highCOAlarmLastDate = highCOAlarmLastDate
+                print("highCOAlarmLastDate: \(highCOAlarmLastDate!)")
+                
+                let HoursSinceLastHighCOAlarmEvent = (self.runtimeClock! - highCOAlarmLastDateInt!) * 2
+                
+                if HoursSinceLastHighCOAlarmEvent <= HoursInAYear {
+                    // event within the last year but not in the last month
+                    self.highCOAlarmFaultIndicator = "amber"
+                } else if HoursSinceLastHighCOAlarmEvent <= HoursInAMonth {
+
+                    // the alam happened within the last month
+                    self.highCOAlarmFaultIndicator = "red"
+                } else {
+                    self.highCOAlarmFaultIndicator = "green"
+                }
             }
+
 
         }
         
@@ -343,24 +365,31 @@ struct ScanAnalysis {
             let mediumCOAlarmLastDateString = String(scan[mediumCOAlarmLastDateStartIndex...mediumCOAlarmLastDateEndIndex])
             let mediumCOAlarmLastDateInt = Int(mediumCOAlarmLastDateString, radix: 16)
             
-            var mediumCOAlarmLastDateComponent = DateComponents()
-            mediumCOAlarmLastDateComponent.hour = mediumCOAlarmLastDateInt! * -2
-            let mediumCOAlarmLastDate = calendar.date(byAdding: mediumCOAlarmLastDateComponent, to: Date())
-            self.mediumCOAlarmLastDate = mediumCOAlarmLastDate
-            print("mediumCOAlarmLastDate: \(mediumCOAlarmLastDate!)")
-            
-            let HoursSinceLastMediumCOAlarmEvent = (self.runtimeClock! - mediumCOAlarmLastDateInt!) * 2
-            
-            if HoursSinceLastMediumCOAlarmEvent <= HoursInAYear {
-                // the alam happened within the last month
-                self.mediumCOAlarmFaultIndicator = "amber"
-            } else if HoursSinceLastMediumCOAlarmEvent <= HoursInAMonth {
-                // event withing the last year but not in the last month
-                self.mediumCOAlarmFaultIndicator = "red"
-            } else {
+            if mediumCOAlarmLastDateString == "ffff" {
+                // no date set yet
+                
                 self.mediumCOAlarmFaultIndicator = "green"
+                //self.highCOAlarmLastDate = nil
+                
+            } else {
+                var mediumCOAlarmLastDateComponent = DateComponents()
+                mediumCOAlarmLastDateComponent.hour = (runtimeClockInt! - mediumCOAlarmLastDateInt!) * -2
+                let mediumCOAlarmLastDate = calendar.date(byAdding: mediumCOAlarmLastDateComponent, to: Date())
+                self.mediumCOAlarmLastDate = mediumCOAlarmLastDate
+                print("mediumCOAlarmLastDate: \(mediumCOAlarmLastDate!)")
+                
+                let HoursSinceLastMediumCOAlarmEvent = (self.runtimeClock! - mediumCOAlarmLastDateInt!) * 2
+                
+                if HoursSinceLastMediumCOAlarmEvent <= HoursInAYear {
+                    // the alam happened within the last month
+                    self.mediumCOAlarmFaultIndicator = "amber"
+                } else if HoursSinceLastMediumCOAlarmEvent <= HoursInAMonth {
+                    // event withing the last year but not in the last month
+                    self.mediumCOAlarmFaultIndicator = "red"
+                } else {
+                    self.mediumCOAlarmFaultIndicator = "green"
+                }
             }
-
         }
         //MARK:- LowCOAlarm
         let lowCOAlarmCountStartIndex = scan.index(scan.startIndex, offsetBy: 36)
@@ -379,24 +408,31 @@ struct ScanAnalysis {
             let lowCOAlarmLastDateString = String(scan[lowCOAlarmLastDateStartIndex...lowCOAlarmLastDateEndIndex])
             let lowCOAlarmLastDateInt = Int(lowCOAlarmLastDateString, radix: 16)
             
-            var lowCOAlarmLastDateComponent = DateComponents()
-            lowCOAlarmLastDateComponent.hour = lowCOAlarmLastDateInt! * -2
-            let lowCOAlarmLastDate = calendar.date(byAdding: lowCOAlarmLastDateComponent, to: Date())
-            self.lowCOAlarmLastDate = lowCOAlarmLastDate
-            print("lowCOAlarmLastDate: \(lowCOAlarmLastDate!)")
-            
-            let HoursSinceLastLowCOAlarmEvent = (self.runtimeClock! - lowCOAlarmLastDateInt!) * 2
-            
-            if HoursSinceLastLowCOAlarmEvent <= HoursInAYear {
-                // the alam happened within the last month
-                self.lowCOAlarmFaultIndicator = "amber"
-            } else if HoursSinceLastLowCOAlarmEvent <= HoursInAMonth {
-                // event withing the last year but not in the last month
-                self.lowCOAlarmFaultIndicator = "red"
-            } else {
-                self.lowCOAlarmFaultIndicator = "green"
+            if lowCOAlarmLastDateString == "ffff" {
+                // no date set yet
                 
-
+                self.lowCOAlarmFaultIndicator = "green"
+                //self.highCOAlarmLastDate = nil
+                
+            } else {
+                var lowCOAlarmLastDateComponent = DateComponents()
+                lowCOAlarmLastDateComponent.hour = (runtimeClockInt! - lowCOAlarmLastDateInt!) * -2
+                let lowCOAlarmLastDate = calendar.date(byAdding: lowCOAlarmLastDateComponent, to: Date())
+                self.lowCOAlarmLastDate = lowCOAlarmLastDate
+                print("lowCOAlarmLastDate: \(lowCOAlarmLastDate!)")
+                
+                let HoursSinceLastLowCOAlarmEvent = (self.runtimeClock! - lowCOAlarmLastDateInt!) * 2
+                
+                if HoursSinceLastLowCOAlarmEvent <= HoursInAYear {
+                    // the alam happened within the last month
+                    self.lowCOAlarmFaultIndicator = "amber"
+                } else if HoursSinceLastLowCOAlarmEvent <= HoursInAMonth {
+                    // event withing the last year but not in the last month
+                    self.lowCOAlarmFaultIndicator = "red"
+                } else {
+                    self.lowCOAlarmFaultIndicator = "green"
+                    
+                }
             }
         }
         
@@ -416,20 +452,28 @@ struct ScanAnalysis {
             let preCOAlarmLastDateString = String(scan[preCOAlarmLastDateStartIndex...preCOAlarmmLastDateEndIndex])
             let preCOAlarmLastDateInt = Int(preCOAlarmLastDateString, radix: 16)
             
-            var preCOAlarmLastDateComponent = DateComponents()
-            preCOAlarmLastDateComponent.hour = preCOAlarmLastDateInt! * -2
-            self.preCOAlarmLastDate = calendar.date(byAdding: preCOAlarmLastDateComponent, to: Date())
-            
-            let HoursSinceLastPreCOAlarmEvent = (self.runtimeClock! - preCOAlarmLastDateInt!) * 2
-            
-            if HoursSinceLastPreCOAlarmEvent <= HoursInAYear {
-                // the alam happened within the last month
-                self.preCOAlarmFaultIndicator = "amber"
-            } else if HoursSinceLastPreCOAlarmEvent <= HoursInAMonth {
-                // event withing the last year but not in the last month
-                self.preCOAlarmFaultIndicator = "red"
-            } else {
+            if preCOAlarmLastDateString == "ffff" {
+                // no date set yet
+                
                 self.preCOAlarmFaultIndicator = "green"
+                //self.highCOAlarmLastDate = nil
+                
+            } else {
+                var preCOAlarmLastDateComponent = DateComponents()
+                preCOAlarmLastDateComponent.hour = (runtimeClockInt! - preCOAlarmLastDateInt!) * -2
+                self.preCOAlarmLastDate = calendar.date(byAdding: preCOAlarmLastDateComponent, to: Date())
+                
+                let HoursSinceLastPreCOAlarmEvent = (self.runtimeClock! - preCOAlarmLastDateInt!) * 2
+                
+                if HoursSinceLastPreCOAlarmEvent <= HoursInAYear {
+                    // the alam happened within the last month
+                    self.preCOAlarmFaultIndicator = "amber"
+                } else if HoursSinceLastPreCOAlarmEvent <= HoursInAMonth {
+                    // event withing the last year but not in the last month
+                    self.preCOAlarmFaultIndicator = "red"
+                } else {
+                    self.preCOAlarmFaultIndicator = "green"
+                }
             }
         }
         
@@ -449,7 +493,7 @@ struct ScanAnalysis {
             let batteryFaultDateInt = Int(batteryFaultDateString, radix: 16)
             
             var batteryFaultDateComponent = DateComponents()
-            batteryFaultDateComponent.hour = batteryFaultDateInt! * -2
+            batteryFaultDateComponent.hour = (runtimeClockInt! - batteryFaultDateInt!) * -2
             var batteryFaultDate = calendar.date(byAdding: batteryFaultDateComponent, to: Date())
             self.batteryFaultDate = batteryFaultDate
             
@@ -468,7 +512,7 @@ struct ScanAnalysis {
             let deviceFaultDateInt = Int(deviceFaultDateString, radix: 16)
             
             var deviceFaultDateComponent = DateComponents()
-            deviceFaultDateComponent.hour = deviceFaultDateInt! * -2
+            deviceFaultDateComponent.hour = (runtimeClockInt! - deviceFaultDateInt!) * -2
             self.deviceFaultDate = calendar.date(byAdding: deviceFaultDateComponent, to: Date())
         } else {
             self.deviceFaultDate = nil
@@ -485,7 +529,7 @@ struct ScanAnalysis {
             let eol_FaultDateInt = Int(eol_FaultDateString, radix: 16)
             
             var eol_FaultDateComponent = DateComponents()
-            eol_FaultDateComponent.hour = eol_FaultDateInt! * -2
+            eol_FaultDateComponent.hour = (runtimeClockInt! - eol_FaultDateInt!) * -2
             self.eol_FaultDate = calendar.date(byAdding: eol_FaultDateComponent, to: Date())
         } else {
             self.eol_FaultDate = nil
@@ -502,7 +546,7 @@ struct ScanAnalysis {
             let remoteFaultDateInt = Int(remoteFaultDateString, radix: 16)
             
             var remoteFaultDateComponent = DateComponents()
-            remoteFaultDateComponent.hour = remoteFaultDateInt! * -2
+            remoteFaultDateComponent.hour = (runtimeClockInt! - remoteFaultDateInt!) * -2
             self.remoteFaultDate = calendar.date(byAdding: remoteFaultDateComponent, to: Date())
         } else {
             self.remoteFaultDate = nil
@@ -511,8 +555,8 @@ struct ScanAnalysis {
         print("self.remoteFaultDate: \(self.remoteFaultDate)")
         
         //MARK:- batteryVoltage
-        let batteryVoltageStartIndex = scan.index(scan.startIndex, offsetBy: 66)
-        let batteryVoltageEndIndex = scan.index(scan.startIndex, offsetBy: 67)
+        let batteryVoltageStartIndex = scan.index(scan.startIndex, offsetBy: 70)
+        let batteryVoltageEndIndex = scan.index(scan.startIndex, offsetBy: 71)
         let batteryVoltageString = String(scan[batteryVoltageStartIndex...batteryVoltageEndIndex])
         let batteryChargeInt = Int(batteryVoltageString, radix: 16)
         
@@ -576,8 +620,8 @@ struct ScanAnalysis {
         print("self.deviceLifeRemaining_HoursLeft: \(self.deviceLifeRemaining_HoursLeft)")
         
         //MARK:- Software Version
-        let softwateVersionStartIndex = scan.index(scan.startIndex, offsetBy: 68)
-        let softwateVersionEndIndex = scan.index(scan.startIndex, offsetBy: 69)
+        let softwateVersionStartIndex = scan.index(scan.startIndex, offsetBy: 72)
+        let softwateVersionEndIndex = scan.index(scan.startIndex, offsetBy: 73)
         let softwateVersionString = String(scan[softwateVersionStartIndex...softwateVersionEndIndex])
         self.softwareVersion = softwateVersionString
         print("Software Verson String= \(softwateVersionString)")
@@ -585,10 +629,11 @@ struct ScanAnalysis {
         //TODO:- how do i use software version string, do i worry no or work this ot when we need to scan two versions.
         
         //MARK:- Check Sum
-        let checkSumStartIndex = scan.index(scan.startIndex, offsetBy: 70)
-        let checkSumEndIndex = scan.index(scan.startIndex, offsetBy: 71)
-        let checkSumString = String(scan[softwateVersionStartIndex...softwateVersionEndIndex])
+        let checkSumStartIndex = scan.index(scan.startIndex, offsetBy: 74)
+        let checkSumEndIndex = scan.index(scan.startIndex, offsetBy: 75)
+        let checkSumString = String(scan[checkSumStartIndex...checkSumEndIndex])
         self.checkSum = checkSumString
+        self.checkSumValue = UInt8(checkSumString, radix: 16)
         
         print("checkSum String= \(checkSumString)")
 
@@ -609,7 +654,27 @@ struct ScanAnalysis {
             print("No System Faults")
         }
         
+        
+        var checkIntTemp = 0
+        
+        //checksum
+        for i in stride(from: 0, to: scan.count - 2, by: 2) {
+            let byteStartIndex = scan.index(scan.startIndex, offsetBy: i)
+            let byteEndIndex = scan.index(scan.startIndex, offsetBy: i+1)
 
+            let byteString = String(scan[byteStartIndex...byteEndIndex])
+            let byteInt = UInt16(byteString, radix: 16)
+            
+            self.checkSumUInt16 = (self.checkSumUInt16 + byteInt!) & 0x00FF
+            print("Check sum value = \(self.checkSumUInt16)    ,\(checkIntTemp) + \(byteInt!) ")
+            
+            checkIntTemp = Int(self.checkSumUInt16)
+        }
+        
+        if self.checkSumValue! == self.checkSumUInt16 {
+            print("bad Check sum!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+        }
+        
         
         //MARK:- Device Health Marker
         

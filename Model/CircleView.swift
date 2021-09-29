@@ -22,7 +22,7 @@ class CircleView: UIView {
         // cos(θ) = x / r  ==> x = r * cos(θ)
         // sin(θ) = y / r  ==> y = r * sin(θ)
         
-        let radius: Double = Double(rect.width) / 2 - 20
+        let radius: Double = Double(rect.width) / 2 - 2
         
         let center = CGPoint(x: rect.width / 2, y: rect.height / 2)
         

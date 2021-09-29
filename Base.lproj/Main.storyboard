@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="JMC-Cp-enU">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19162" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="JMC-Cp-enU">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19144"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -27,13 +28,19 @@
                                         <constraints>
                                             <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="50" id="lOg-z5-UgR"/>
                                         </constraints>
-                                        <string key="text">Please hold the alarms test button until it begins to beep. Release the button and position the phone to make the large red light to fill the screen. Tap the scan button and hold still to scan alarm data. </string>
+                                        <string key="text">Please hold down test button until the alarm begins to beep. Release the button and position the camera to fill the green circle with the red light. Tap the scan button and hold phone still to scan the alarm.</string>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <color key="textColor" red="0.64577370879999996" green="0.74906510110000002" blue="0.33715963360000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                        <color key="textColor" red="0.0" green="1" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Error please retry scan" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="URN-BA-3cz">
+                                        <rect key="frame" x="121" y="92" width="172" height="21"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" systemColor="systemRedColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <view contentMode="scaleAspectFit" translatesAutoresizingMaskIntoConstraints="NO" id="VhS-uV-emn" customClass="CircleView" customModule="FireHawk" customModuleProvider="target">
-                                        <rect key="frame" x="20" y="200" width="374" height="374"/>
+                                        <rect key="frame" x="5" y="185" width="404" height="404"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="VhS-uV-emn" secondAttribute="height" id="fmd-y2-wmI"/>
@@ -72,12 +79,13 @@
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstAttribute="trailing" secondItem="VhS-uV-emn" secondAttribute="trailing" constant="20" id="1Nl-Od-O8Q"/>
+                                    <constraint firstAttribute="trailing" secondItem="VhS-uV-emn" secondAttribute="trailing" constant="5" id="1Nl-Od-O8Q"/>
                                     <constraint firstItem="2Oc-Hu-d5D" firstAttribute="leading" secondItem="CmI-uc-A7W" secondAttribute="leading" id="5mZ-Bc-7VT"/>
                                     <constraint firstAttribute="trailing" secondItem="EwO-iU-GTS" secondAttribute="trailing" id="9Yx-mc-Zdl"/>
                                     <constraint firstItem="EwO-iU-GTS" firstAttribute="top" secondItem="CmI-uc-A7W" secondAttribute="top" id="CLu-pj-hx5"/>
                                     <constraint firstAttribute="bottom" secondItem="2Oc-Hu-d5D" secondAttribute="bottom" id="EJR-1O-WFI"/>
-                                    <constraint firstItem="VhS-uV-emn" firstAttribute="leading" secondItem="CmI-uc-A7W" secondAttribute="leading" constant="20" id="Fcv-PA-XED"/>
+                                    <constraint firstItem="VhS-uV-emn" firstAttribute="leading" secondItem="CmI-uc-A7W" secondAttribute="leading" constant="5" id="Fcv-PA-XED"/>
+                                    <constraint firstItem="URN-BA-3cz" firstAttribute="centerX" secondItem="CmI-uc-A7W" secondAttribute="centerX" id="HBv-NX-iTk"/>
                                     <constraint firstItem="VhS-uV-emn" firstAttribute="centerY" secondItem="CmI-uc-A7W" secondAttribute="centerY" id="Jt7-fA-hXu"/>
                                     <constraint firstAttribute="trailing" secondItem="m5h-Ng-gAs" secondAttribute="trailing" constant="20" id="Kkn-j9-0o3"/>
                                     <constraint firstAttribute="trailing" secondItem="2Oc-Hu-d5D" secondAttribute="trailing" id="PRT-ie-fln"/>
@@ -86,16 +94,14 @@
                                     <constraint firstItem="EwO-iU-GTS" firstAttribute="bottom" secondItem="2Oc-Hu-d5D" secondAttribute="bottom" id="ak6-rp-JoV"/>
                                     <constraint firstItem="m5h-Ng-gAs" firstAttribute="top" secondItem="CmI-uc-A7W" secondAttribute="top" constant="20" id="gMz-H0-85G"/>
                                     <constraint firstItem="m5h-Ng-gAs" firstAttribute="leading" secondItem="CmI-uc-A7W" secondAttribute="leading" constant="20" id="icR-ct-Xsl"/>
+                                    <constraint firstItem="URN-BA-3cz" firstAttribute="top" secondItem="m5h-Ng-gAs" secondAttribute="bottom" constant="5" id="xC1-eO-wRE"/>
                                 </constraints>
                             </view>
                             <view alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Lwt-m1-qeL" userLabel="ProgressView">
                                 <rect key="frame" x="0.0" y="88" width="414" height="774"/>
                                 <subviews>
                                     <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="bKP-WW-fyj">
-                                        <rect key="frame" x="20" y="377" width="374" height="20"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="20" id="opo-c1-PKY"/>
-                                        </constraints>
+                                        <rect key="frame" x="20" y="385" width="374" height="4"/>
                                     </progressView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Analysing Scan Data" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1ww-La-quI">
                                         <rect key="frame" x="20" y="150" width="374" height="30"/>
@@ -107,7 +113,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Scan complete you can now move your phone. Please wait for report" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hYH-9F-4eq">
-                                        <rect key="frame" x="20" y="497" width="374" height="41"/>
+                                        <rect key="frame" x="20" y="489" width="374" height="41"/>
                                         <constraints>
                                             <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="20" id="907-61-FVl"/>
                                         </constraints>
@@ -144,7 +150,13 @@
                             <constraint firstItem="CmI-uc-A7W" firstAttribute="leading" secondItem="44o-Vr-iWC" secondAttribute="leading" id="hY6-BB-LTy"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Scanner" id="Gqn-CL-UkL"/>
+                    <navigationItem key="navigationItem" title="Scanner" id="Gqn-CL-UkL">
+                        <barButtonItem key="rightBarButtonItem" title="Support" id="kxR-HZ-ImU">
+                            <connections>
+                                <action selector="supportPressed:" destination="rFc-L7-zRU" id="NIs-lm-XqX"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="ScannerView" destination="EwO-iU-GTS" id="GZB-Df-WKU"/>
                         <outlet property="circleView" destination="VhS-uV-emn" id="AQu-w6-Qqx"/>
@@ -152,6 +164,7 @@
                         <outlet property="progressView" destination="Lwt-m1-qeL" id="skS-b8-VTu"/>
                         <outlet property="progressViewTopLabel" destination="1ww-La-quI" id="KCJ-lK-4bk"/>
                         <outlet property="scanButton" destination="dhA-NZ-BVX" id="NNY-3I-Cm5"/>
+                        <outlet property="scanErrorLabel" destination="URN-BA-3cz" id="4Hm-1X-V0b"/>
                         <segue destination="BYD-q2-dH2" kind="show" identifier="ScanToDeviceReport" id="Lf9-OC-PR1"/>
                     </connections>
                 </viewController>
@@ -1000,6 +1013,9 @@
         </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemRedColor">
+            <color red="1" green="0.23137254901960785" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

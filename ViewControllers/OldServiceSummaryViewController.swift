@@ -70,19 +70,23 @@ class OldServiceSummaryViewController: UIViewController {
         
         //self.pdfDocument
         showMailComposer()
-        
+        self.serviceReport?.houseAddress?.line1
     }
     
     func composeCoverPagePDF() {
         
         let pdfTitle = self.serviceReport?.name
         let pdfBody = """
-                        \(self.serviceReport?.date)
-                        \(self.serviceReport?.houseAddress?.line1)
-                        \(self.serviceReport?.houseAddress?.line2)
-                        \(self.serviceReport?.houseAddress?.townCity)
-                        \(self.serviceReport?.houseAddress?.postcode)
-                        """
+                    
+                        Property Address:
+                            Line 1:   \(self.serviceReport?.houseAddress?.line1 ?? "Unknown")
+                            Line 2:   \(self.serviceReport?.houseAddress?.line2 ?? "Unknown")
+                            City:     \(self.serviceReport?.houseAddress?.townCity ?? "Unknown")
+                            Postcode: \(self.serviceReport?.houseAddress?.postcode ?? " Unknown")
+                    
+                        Report Date:\
+                        \(self.dateFormat(date: (self.serviceReport?.date)!) )
+                    """
         let pdfHeaderImage = UIImage(named: "Logo")
         
         let pdfCreator = PDFCoverCreator(title: pdfTitle!, body: pdfBody, image: pdfHeaderImage!)
@@ -94,9 +98,6 @@ class OldServiceSummaryViewController: UIViewController {
     }
     
     func composeDevicePagePDF(i: Int) {
-        print("creating new PDF page")
-        
-        //let newPage = PDFPage()
         
         let pdfTitle = self.serviceReport?.name
         let pdfBody = pdfDeviceBody(i: i)
@@ -135,14 +136,14 @@ class OldServiceSummaryViewController: UIViewController {
         var string = """
                 \(deviceReportList![i].title!)
                 -----------------------------------------------------------------
-                                        Device Information
+                Device Information
                 -----------------------------------------------------------------
                 Device Type: \(deviceReportList![i].deviceType!)
                 
                 Serial Number: \(deviceReportList![i].serialNumber!)
                 Report Date: \( dateFormat(date: deviceReportList![i].date!) )
                 
-                Device Health Status: \(deviceReportList![i].note)
+                Device Health Status: \(deviceReportList![i].healthIndicator!)
                 Life Remaining: \(deviceScanData.batteryLifeRemaining_YearsLeft!)
                 Replace By: \(deviceScanData.deviceReplacentDate!)
                 
@@ -155,9 +156,8 @@ class OldServiceSummaryViewController: UIViewController {
                 Manufacture Details
                 Serial Number: \(deviceScanData.deviceSerialNumber!)
                 Manufacture Date: \(deviceScanData.snManufactureDate!)
-                
                 -----------------------------------------------------------------
-                                            Alarms
+                Alarms
                 -----------------------------------------------------------------
                 High CO Alarm (+300 PPM)
                 High Alarm Count: \(String(describing: deviceScanData.highCOAlarmCount!))
@@ -174,9 +174,8 @@ class OldServiceSummaryViewController: UIViewController {
                 Pre Alarm
                 Pre Alarm Count: \(String(describing: deviceScanData.preCOAlarmCount!))
                 Last Occured: \(dateFormat(date: deviceScanData.preCOAlarmLastDate!))
-                
                 -----------------------------------------------------------------
-                                            Faults
+                Faults
                 -----------------------------------------------------------------
                 Fault Status: \(String(describing:deviceScanData.faultFlag))
                 
@@ -191,9 +190,8 @@ class OldServiceSummaryViewController: UIViewController {
                 
                 End Of Life: \(String(describing:deviceScanData.eol_Fault))
                 Date: \(dateFormat(date:deviceScanData.eol_FaultDate!))
-                
                 -----------------------------------------------------------------
-                                            Comments
+                Comments
                 -----------------------------------------------------------------
                 \(String(describing:deviceReportList![i].note))
                 
@@ -218,11 +216,11 @@ class OldServiceSummaryViewController: UIViewController {
         let composeVC = MFMailComposeViewController()
         composeVC.mailComposeDelegate = self
         composeVC.setToRecipients([""])
-        composeVC.setSubject("")
+        composeVC.setSubject("Firehawk Service Report")
         composeVC.setMessageBody("", isHTML: true)
         
         //Attach pdf
-        composeVC.addAttachmentData(self.pdfDocument.dataRepresentation()! as Data, mimeType: "pdf" , fileName: "TestPDF")
+        composeVC.addAttachmentData(self.pdfDocument.dataRepresentation()! as Data, mimeType: "pdf" , fileName: "FireHawkServiceReport.pdf")
         
         self.present(composeVC, animated: true, completion: nil)
     }
@@ -259,7 +257,7 @@ extension OldServiceSummaryViewController: UITableViewDataSource {
             
             cell.imageView?.image = UIImage(named: "Firehawk_FHB10_smoke_alarm.png")
             
-        } else if self.deviceReportList?[indexPath.row].deviceType == "CO" {
+        } else if self.deviceReportList?[indexPath.row].deviceType == "CO7B 10Y" {
             
             cell.imageView?.image = UIImage(named: "Firehawk_CO7B10Y.png")
             

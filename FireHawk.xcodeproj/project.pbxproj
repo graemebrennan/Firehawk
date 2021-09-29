@@ -50,6 +50,7 @@
 		678A8D1D26CDCBFE00EAD688 /* PropertyDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 678A8D1C26CDCBFE00EAD688 /* PropertyDetails.swift */; };
 		678A8D1F26CDCF8300EAD688 /* ServiceReportOP.swift in Sources */ = {isa = PBXBuildFile; fileRef = 678A8D1E26CDCF8300EAD688 /* ServiceReportOP.swift */; };
 		678A8D2126CDD28E00EAD688 /* DeviceReportOP.swift in Sources */ = {isa = PBXBuildFile; fileRef = 678A8D2026CDD28E00EAD688 /* DeviceReportOP.swift */; };
+		67A1A15026FE18A40078A136 /* FrameSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67A1A14F26FE18A40078A136 /* FrameSettings.swift */; };
 		67CAC12D262785A40041894D /* MultiLineInputField.xib in Resources */ = {isa = PBXBuildFile; fileRef = 67CAC12C262785A40041894D /* MultiLineInputField.xib */; };
 		67CAC1302627889A0041894D /* MultiLineInputField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67CAC12F2627889A0041894D /* MultiLineInputField.swift */; };
 		67CAC134262799970041894D /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67CAC133262799970041894D /* Constants.swift */; };
@@ -94,6 +95,7 @@
 		678A8D1C26CDCBFE00EAD688 /* PropertyDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PropertyDetails.swift; sourceTree = "<group>"; };
 		678A8D1E26CDCF8300EAD688 /* ServiceReportOP.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceReportOP.swift; sourceTree = "<group>"; };
 		678A8D2026CDD28E00EAD688 /* DeviceReportOP.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceReportOP.swift; sourceTree = "<group>"; };
+		67A1A14F26FE18A40078A136 /* FrameSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FrameSettings.swift; sourceTree = "<group>"; };
 		67CAC12C262785A40041894D /* MultiLineInputField.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MultiLineInputField.xib; sourceTree = "<group>"; };
 		67CAC12F2627889A0041894D /* MultiLineInputField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiLineInputField.swift; sourceTree = "<group>"; };
 		67CAC133262799970041894D /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
@@ -183,6 +185,7 @@
 				672AB24B26E13D7100539414 /* CircleView.swift */,
 				672AB24D26E13E3700539414 /* RGBAPixel.swift */,
 				672AB24F26E13EF700539414 /* Lines.swift */,
+				67A1A14F26FE18A40078A136 /* FrameSettings.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -437,6 +440,7 @@
 			files = (
 				675B68FD25BF061800D6686D /* AppDelegate.swift in Sources */,
 				675B68F025BF061200D6686D /* ScannerViewController.swift in Sources */,
+				67A1A15026FE18A40078A136 /* FrameSettings.swift in Sources */,
 				675B68F325BF061200D6686D /* PropertyInformationViewController.swift in Sources */,
 				6709DDF425EE76FB00FF5BF3 /* Scan.swift in Sources */,
 				675B68F425BF061200D6686D /* DeviceReportViewController.swift in Sources */,
@@ -637,10 +641,11 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.graemebrennan.FireHawk;
+				MARKETING_VERSION = 0.1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.graemebrennan.FirehawkDataScan;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 1;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
@@ -657,10 +662,11 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.graemebrennan.FireHawk;
+				MARKETING_VERSION = 0.1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.graemebrennan.FirehawkDataScan;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 1;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};

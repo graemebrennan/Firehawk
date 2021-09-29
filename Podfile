@@ -10,5 +10,6 @@ target 'FireHawk' do
 	# add the Firebase pod for Google Analytics
 
 	pod 'IQKeyboardManagerSwift'
+  pod 'Device'
   
 end
