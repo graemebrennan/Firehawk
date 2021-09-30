@@ -652,8 +652,8 @@
             filePath = "ViewControllers/ScannerViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "335"
-            endingLineNumber = "335"
+            startingLineNumber = "346"
+            endingLineNumber = "346"
             landmarkName = "frameProcesser(uiImage:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -668,8 +668,8 @@
             filePath = "ViewControllers/ScannerViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "331"
-            endingLineNumber = "331"
+            startingLineNumber = "342"
+            endingLineNumber = "342"
             landmarkName = "frameProcesser(uiImage:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -700,8 +700,8 @@
             filePath = "ViewControllers/ScannerViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "322"
-            endingLineNumber = "322"
+            startingLineNumber = "333"
+            endingLineNumber = "333"
             landmarkName = "frameProcesser(uiImage:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -732,8 +732,8 @@
             filePath = "ViewControllers/ScannerViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "371"
-            endingLineNumber = "371"
+            startingLineNumber = "382"
+            endingLineNumber = "382"
             landmarkName = "frameProcesser(uiImage:)"
             landmarkType = "7">
             <Locations>
@@ -1068,8 +1068,8 @@
             filePath = "ViewControllers/ScannerViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "344"
-            endingLineNumber = "344"
+            startingLineNumber = "355"
+            endingLineNumber = "355"
             landmarkName = "frameProcesser(uiImage:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1084,8 +1084,8 @@
             filePath = "ViewControllers/ScannerViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "386"
-            endingLineNumber = "386"
+            startingLineNumber = "397"
+            endingLineNumber = "397"
             landmarkName = "frameProcesser(uiImage:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1125,22 +1125,6 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "5E4CC85A-5D5D-4F17-A3B6-7AC55E909421"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Model/ScannerFunctions.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "154"
-            endingLineNumber = "154"
-            landmarkName = "init(uiImage:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             uuid = "AECB47D9-D549-4D77-907E-E0297B6938ED"
             shouldBeEnabled = "No"
             ignoreCount = "0"
@@ -1148,8 +1132,8 @@
             filePath = "ViewControllers/ScannerViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "391"
-            endingLineNumber = "391"
+            startingLineNumber = "402"
+            endingLineNumber = "402"
             landmarkName = "frameProcesser(uiImage:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1164,10 +1148,10 @@
             filePath = "ViewControllers/ScannerViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "400"
-            endingLineNumber = "400"
-            landmarkName = "ScannerViewController"
-            landmarkType = "3">
+            startingLineNumber = "411"
+            endingLineNumber = "411"
+            landmarkName = "frameProcesser(uiImage:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -1180,8 +1164,8 @@
             filePath = "ViewControllers/ScannerViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "399"
-            endingLineNumber = "399"
+            startingLineNumber = "410"
+            endingLineNumber = "410"
             landmarkName = "frameProcesser(uiImage:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1196,8 +1180,8 @@
             filePath = "ViewControllers/ScannerViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "283"
-            endingLineNumber = "283"
+            startingLineNumber = "294"
+            endingLineNumber = "294"
             landmarkName = "captureOutput(_:didOutput:from:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1260,8 +1244,8 @@
             filePath = "ViewControllers/ScannerViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "579"
-            endingLineNumber = "579"
+            startingLineNumber = "603"
+            endingLineNumber = "603"
             landmarkName = "prepare(for:sender:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1356,8 +1340,8 @@
             filePath = "ViewControllers/ScannerViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "415"
-            endingLineNumber = "415"
+            startingLineNumber = "426"
+            endingLineNumber = "426"
             landmarkName = "SetScanExposureSettings()"
             landmarkType = "7">
          </BreakpointContent>
@@ -1372,8 +1356,8 @@
             filePath = "ViewControllers/ScannerViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "416"
-            endingLineNumber = "416"
+            startingLineNumber = "427"
+            endingLineNumber = "427"
             landmarkName = "SetScanExposureSettings()"
             landmarkType = "7">
          </BreakpointContent>
@@ -1388,8 +1372,8 @@
             filePath = "ViewControllers/ScannerViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "263"
-            endingLineNumber = "263"
+            startingLineNumber = "270"
+            endingLineNumber = "270"
             landmarkName = "captureOutput(_:didOutput:from:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1404,8 +1388,8 @@
             filePath = "ViewControllers/ScannerViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "266"
-            endingLineNumber = "266"
+            startingLineNumber = "273"
+            endingLineNumber = "273"
             landmarkName = "captureOutput(_:didOutput:from:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1414,7 +1398,7 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "2062F6DB-5912-46DD-8A50-045653BA525F"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ViewControllers/OldServiceSummaryViewController.swift"
@@ -1452,8 +1436,8 @@
             filePath = "ViewControllers/ScannerViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "635"
-            endingLineNumber = "635"
+            startingLineNumber = "659"
+            endingLineNumber = "659"
             landmarkName = "composeCameraDataPagePDF()"
             landmarkType = "7">
          </BreakpointContent>
@@ -1468,8 +1452,8 @@
             filePath = "ViewControllers/ScannerViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "638"
-            endingLineNumber = "638"
+            startingLineNumber = "662"
+            endingLineNumber = "662"
             landmarkName = "composeCameraDataPagePDF()"
             landmarkType = "7">
          </BreakpointContent>
@@ -1484,8 +1468,8 @@
             filePath = "ViewControllers/ScannerViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "659"
-            endingLineNumber = "659"
+            startingLineNumber = "683"
+            endingLineNumber = "683"
             landmarkName = "composeCameraDataPagePDF()"
             landmarkType = "7">
          </BreakpointContent>
@@ -1510,7 +1494,7 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "86F9AF90-56B0-429E-AC77-AED9F6735611"
-            shouldBeEnabled = "No"
+            shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Model/ScannerFunctions.swift"
@@ -1727,6 +1711,54 @@
             startingLineNumber = "309"
             endingLineNumber = "309"
             landmarkName = "init(scan:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "D6D058A7-9975-4AA2-87FD-AB9536AA9772"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Model/ScanAnalysis.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "270"
+            endingLineNumber = "270"
+            landmarkName = "init(scan:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "BB0022EA-D3A4-414D-8125-E7C3BBA1BD21"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ViewControllers/ScannerViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "455"
+            endingLineNumber = "455"
+            landmarkName = "SetScanExposureSettings()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "6268150E-99C0-44BB-A01D-C1204694C554"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ViewControllers/OldServiceSummaryViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "87"
+            endingLineNumber = "87"
+            landmarkName = "composeCoverPagePDF()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

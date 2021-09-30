@@ -96,9 +96,9 @@ class ScanningFunctions2 {
         
         
         let filter = CIFilter(name: "CIColorControls")!
-        //        filter.setValue(5, forKey: kCIInputSaturationKey)
-        //        filter.setValue(3, forKey: kCIInputBrightnessKey)
-        //        filter.setValue(2, forKey: kCIInputContrastKey)
+//        filter.setValue(1.5, forKey: kCIInputSaturationKey)
+//        filter.setValue(1, forKey: kCIInputBrightnessKey)
+//        filter.setValue(5, forKey: kCIInputContrastKey)
         //
         filter.setValue(self.ciImage, forKey: kCIInputImageKey)
         
@@ -138,7 +138,7 @@ class ScanningFunctions2 {
             self.IdentifyLineType()
             self.CalculatePacketWidth()
             
-      //      self.DrawPacketLimits()
+            self.DrawPacketLimits()
             
             if self.preambleIndex.count > 0 {
                 self.SamplePacket()
@@ -150,8 +150,8 @@ class ScanningFunctions2 {
 //       //     print("not enogh lines")
 //        }
         
-//        self.FindROI()
-//        self.BuildOutputImage()
+        self.FindROI()
+        self.BuildOutputImage()
         
         // deallocate memory for pixle array
         rawData.deallocate()
@@ -418,19 +418,19 @@ class ScanningFunctions2 {
                 binaryString.append("1")
                 
                 // draw inspection spot
-                //                for i in 0..<20
-                //                {
-                //                    pixels[(width/2) - i - 30 + ((startIndex + row + 1) * width)] = RGBAPixel(rawVal: 0xAA00FFFF)
-                //                }
+                                for i in 0..<20
+                                {
+                                    pixels[(width/2) - i - 30 + ((startIndex + row + 1) * width)] = RGBAPixel(rawVal: 0xAA00FFFF)
+                                }
                 
             } else{
                 // we have a binary 0
                 binaryString.append("0")
                 // draw inspection spot
-                //                for i in 0..<20
-                //                {
-                //                    pixels[(width/2) + i - 30 + ((startIndex + row + 1) * width)] = RGBAPixel(rawVal: 0xAA00FFFF)
-                //                }
+                                for i in 0..<20
+                                {
+                                    pixels[(width/2) + i - 30 + ((startIndex + row + 1) * width)] = RGBAPixel(rawVal: 0xAA00FFFF)
+                                }
             }
             
             

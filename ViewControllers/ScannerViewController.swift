@@ -100,7 +100,7 @@ class ScannerViewController: UIViewController, AVCaptureVideoDataOutputSampleBuf
         self.counter = 0
         self.seguePerformed = false
         
-        self.scanErrorLabel.alpha = 1
+        self.scanErrorLabel.alpha = 0
         
         // run the capture session
         captureSession.startRunning()
@@ -186,8 +186,15 @@ class ScannerViewController: UIViewController, AVCaptureVideoDataOutputSampleBuf
         guard captureSession.canAddOutput(videoOutput) else { fatalError("Error adding Video Output to capture session") }
         
         //Set Capture Session Presets - need to experiment with this.
-        captureSession.sessionPreset = .hd1920x1080
+//        captureSession.sessionPreset = .low
+//        captureSession.sessionPreset = .medium
+        captureSession.sessionPreset = .high
+//        captureSession.sessionPreset = .photo
+//        captureSession.sessionPreset = .qHD960x540
+//        captureSession.sessionPreset = .hd1920x1080
+//        captureSession.sessionPreset = .hd4K3840x2160
         
+
         
         //Add output to the session
         captureSession.addOutput(videoOutput)
@@ -266,11 +273,15 @@ class ScannerViewController: UIViewController, AVCaptureVideoDataOutputSampleBuf
 //                    print("uiImage.size.height = \(uiImage.size.height)")
 //                    print("output = \(output.connections)")
 //
-//                    print("videoDevice.iso = \(videoDevice.iso)")
-//                    print("videoDevice.exposureDuration = \(videoDevice.exposureDuration)")
-//
-//                    print("sampleBuffer.formatDescription = \(sampleBuffer.formatDescription)")
-//                    print("sampleBuffer.duration = \(sampleBuffer.duration)")
+                    print("videoDevice.iso = \(videoDevice.iso)")
+                    print("videoDevice.exposureDuration = \(videoDevice.exposureDuration)")
+                      print("videoDevice.isAdjustingExposure = \(videoDevice.isAdjustingExposure)")
+                    print("videoDevice.minExposureTargetBias = \(videoDevice.minExposureTargetBias)")
+                    print("videoDevice.maxExposureTargetBias = \(videoDevice.maxExposureTargetBias)")
+                    
+                    print("sampleBuffer.formatDescription = \(sampleBuffer.formatDescription)")
+                    print("sampleBuffer.duration = \(sampleBuffer.duration)")
+                    print("sampleBuffer.duration = \(sampleBuffer.numSamples)")
                     
                     //var frameInfo = FrameSettings(Iso: Int(videoDevice.iso), width: Int(uiImage.size.width), height: Int(uiImage.size.height), image: uiImage)
        
@@ -410,7 +421,7 @@ class ScannerViewController: UIViewController, AVCaptureVideoDataOutputSampleBuf
             self.scanErrorLabel.text = "error accessing camera"
         }
         
-        let exposureTime = CMTimeGetSeconds(self.videoDevice.activeFormat.minExposureDuration)
+        let exposureTime = 0.00002//CMTimeGetSeconds(self.videoDevice.activeFormat.minExposureDuration)
         
         print("exposureTime = \(exposureTime)")
         
@@ -420,7 +431,7 @@ class ScannerViewController: UIViewController, AVCaptureVideoDataOutputSampleBuf
 //        let durationX2 = CMTime.init(seconds: (exposureTime * 2), preferredTimescale: 1_000_000)
 //        let durationX4 = CMTime.init(seconds: (exposureTime * 4), preferredTimescale: 1_000_000)
         
-        try videoDevice.setExposureModeCustom(duration: duration, iso: 200, completionHandler: nil )
+        try videoDevice.setExposureModeCustom(duration: duration, iso: 80, completionHandler: nil )
         
         videoDevice.videoZoomFactor = 1.0
         
@@ -428,28 +439,41 @@ class ScannerViewController: UIViewController, AVCaptureVideoDataOutputSampleBuf
         
         videoDevice.automaticallyAdjustsVideoHDREnabled = false
         
-//        var formats = videoDevice.formats
-//        
-//        print("videoDevice.activeFormat = \(videoDevice.activeFormat)")
-//        
-//        for i in 0..<formats.count {
-//            print("videoDevice.formats[\(i)] = \(formats[i])")
-//        }
-//        
-//        
-//        videoDevice.activeFormat = formats[44]
+        var formats = videoDevice.formats
+        
+        print("videoDevice.activeFormat = \(videoDevice.activeFormat)")
+        
+        for i in 0..<formats.count {
+            print("videoDevice.formats[\(i)] = \(formats[i])")
+        }
         
         
-   //     videoDevice.activeDepthDataFormat
-   //     videoDevice.activeDepthDataMinFrameDuration = CMTimeMake(value: 1, timescale: 30)
-        //print("videoDevice.formats = \(videoDevice.formats)")
-//        print("videoDevice.activeVideoMaxFrameDuration = \(videoDevice.activeVideoMaxFrameDuration)")
-//        print("videoDevice.activeVideoMinFrameDuration = \(videoDevice.activeVideoMinFrameDuration)")
-//        print("videoDevice.activeMaxExposureDuration = \(videoDevice.activeMaxExposureDuration)")
-//        print("videoDevice.exposureMode = \(videoDevice.exposureMode.rawValue)")
-//        print("videoDevice.isAdjustingExposure = \(videoDevice.isAdjustingExposure)")
-//        print("videoDevice.exposureDuration = \(videoDevice.exposureDuration)")
-//        print("videoDevice.activeDepthDataMinFrameDuration = \(videoDevice.activeDepthDataMinFrameDuration)")
+//        videoDevice.activeVideoMinFrameDuration = CMTimeMake(value: 1, timescale: 60)
+//        videoDevice.activeVideoMaxFrameDuration = CMTimeMake(value: 1, timescale: 60)
+
+        // Set the device's min/max frame duration.
+
+        print("duration = \(duration)")
+//        videoDevice.activeDepthDataFormat
+//        videoDevice.activeDepthDataMinFrameDuration = CMTimeMake(value: 1, timescale: 30)
+        print("videoDevice.activeformats = \(videoDevice.activeFormat)")
+        print("videoDevice.activeVideoMaxFrameDuration = \(videoDevice.activeVideoMaxFrameDuration)")
+        print("videoDevice.activeVideoMinFrameDuration = \(videoDevice.activeVideoMinFrameDuration)")
+        print("videoDevice.activeMaxExposureDuration = \(videoDevice.activeMaxExposureDuration)")
+        print("videoDevice.exposureMode = \(videoDevice.exposureMode.rawValue)")
+        print("videoDevice.isAdjustingExposure = \(videoDevice.isAdjustingExposure)")
+        print("videoDevice.exposureDuration = \(videoDevice.exposureDuration)")
+        print("videoDevice.activeDepthDataMinFrameDuration = \(videoDevice.activeDepthDataMinFrameDuration)")
+        
+        print("----------------  Exposure -----------------")
+        print("videoDevice.isAdjustingExposure = \(videoDevice.isAdjustingExposure)")
+        print("videoDevice.minExposureTargetBias = \(videoDevice.minExposureTargetBias)")
+        print("videoDevice.maxExposureTargetBias = \(videoDevice.maxExposureTargetBias)")
+        print("videoDevice.modelID = \(videoDevice.modelID)")
+        
+        
+        print("videoDevice.activeDepthDataMinFrameDuration = \(videoDevice.activeDepthDataMinFrameDuration)")
+        print("videoDevice.activeDepthDataMinFrameDuration = \(videoDevice.activeDepthDataMinFrameDuration)")
     }
     
     func ReSetScanExposureSettings() {

@@ -139,19 +139,25 @@ extension ReportViewController: UITableViewDataSource, UITableViewDelegate {
         
         if tableView == AlarmsTableView {
             
+            //            cell = tableView.dequeueReusableCell(withIdentifier: "AlarmInfoCellIdentifier", for: indexPath) as! AlarmInfoCell
             let cell = tableView.dequeueReusableCell(withIdentifier: "AlarmInfoCellIdentifier", for: indexPath) as! AlarmInfoCell
             
             switch indexPath.row {
             case 0: // High Co Alarm +300PPM
-
                 
                 cell.title.text = "High CO Alarm (+300 PPM)"
-                cell.count.text = "Alarm Count: \(String(describing: self.newScanAnalysis!.highCOAlarmCount))"
+                cell.count.text = "Alarm Count: \(String(describing: self.newScanAnalysis!.highCOAlarmCount!))"
                 
                 if self.newScanAnalysis!.highCOAlarmCount == 0 {
                     cell.date.text = ""
                 } else {
-                    cell.date.text = "Date of Last Alarm: \( dateFormat(date: self.newScanAnalysis!.highCOAlarmLastDate!) )"
+                    //cell.date.text = "Date of Last Alarm: \(self.newScanAnalysis!.highCOAlarmLastDate!.as_ddmmyyyy())"
+                    if self.newScanAnalysis!.highCOAlarmLastDate != nil {
+                        cell.date.text = "Date of Last Alarm: \(dateFormat( date: self.newScanAnalysis!.highCOAlarmLastDate!))"
+                        
+                    } else {
+                        cell.date.text = "Date of Last Alarm: No event date"
+                    }
                 }
                 
                 cell.FaultIndicator.backgroundColor = getFaultColour(str: newScanAnalysis!.highCOAlarmFaultIndicator)
@@ -165,12 +171,20 @@ extension ReportViewController: UITableViewDataSource, UITableViewDelegate {
                 if self.newScanAnalysis!.mediumCOAlarmCount == 0 {
                     cell.date.text = ""
                 } else {
-                    cell.date.text = "Date of Last Alarm: \(dateFormat(date: self.newScanAnalysis!.mediumCOAlarmLastDate!))"
+                    
+                    if self.newScanAnalysis!.mediumCOAlarmLastDate != nil {
+                        cell.date.text = "Date of Last Alarm: \(dateFormat( date: self.newScanAnalysis!.mediumCOAlarmLastDate!))"
+                        
+                    } else {
+                        cell.date.text = "Date of Last Alarm: No event date"
+                    }
+                   // cell.date.text = "Date of Last Alarm: \(self.newScanAnalysis!.mediumCOAlarmLastDate!.as_ddmmyyyy())"
+                    
                 }
                 
                 cell.FaultIndicator.backgroundColor = getFaultColour(str: newScanAnalysis!.mediumCOAlarmFaultIndicator)
                 cell.note.text = getFaultNote(str: newScanAnalysis!.mediumCOAlarmFaultIndicator)
-
+                
                 
             case 2: // Low Co Alarm +300PPM
                 
@@ -180,12 +194,20 @@ extension ReportViewController: UITableViewDataSource, UITableViewDelegate {
                 if self.newScanAnalysis!.lowCOAlarmCount == 0 {
                     cell.date.text = ""
                 } else {
-                    cell.date.text = "Date of Last Alarm: \( dateFormat(date: self.newScanAnalysis!.lowCOAlarmLastDate!) )"
+                    
+                    if self.newScanAnalysis!.lowCOAlarmLastDate != nil {
+                        cell.date.text = "Date of Last Alarm: \(dateFormat( date: self.newScanAnalysis!.lowCOAlarmLastDate!))"
+                        
+                    } else {
+                        cell.date.text = "Date of Last Alarm: No event date"
+                    }
+                    //cell.date.text = "Date of Last Alarm: \(self.newScanAnalysis!.lowCOAlarmLastDate!.as_ddmmyyyy())"
+                    
                 }
                 
                 cell.FaultIndicator.backgroundColor = getFaultColour(str: newScanAnalysis!.lowCOAlarmFaultIndicator)
                 cell.note.text = getFaultNote(str: newScanAnalysis!.lowCOAlarmFaultIndicator)
-
+                
                 
             case 3: // Pre Alarm
                 
@@ -195,15 +217,26 @@ extension ReportViewController: UITableViewDataSource, UITableViewDelegate {
                 if self.newScanAnalysis!.preCOAlarmCount == 0 {
                     cell.date.text = ""
                 } else {
-                    cell.date.text = "Date of Last Alarm: \( dateFormat(date:self.newScanAnalysis!.preCOAlarmLastDate!) )"
+                    
+                    if self.newScanAnalysis!.preCOAlarmLastDate != nil {
+                        cell.date.text = "Date of Last Alarm: \(dateFormat( date: self.newScanAnalysis!.preCOAlarmLastDate!))"
+                        
+                    } else {
+                        cell.date.text = "Date of Last Alarm: No event date"
+                    }
+                   // cell.date.text = "Date of Last Alarm: \(self.newScanAnalysis!.preCOAlarmLastDate!.as_ddmmyyyy())"
+                    
+                    
                 }
                 
                 cell.FaultIndicator.backgroundColor = getFaultColour(str: newScanAnalysis!.preCOAlarmFaultIndicator)
                 cell.note.text = getFaultNote(str: newScanAnalysis!.preCOAlarmFaultIndicator)
-
+                
+                
             default:
                 print("something went wrong here")
-                     
+                
+                
             }
             
             return cell

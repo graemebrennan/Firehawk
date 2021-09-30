@@ -132,7 +132,7 @@ class OldServiceSummaryViewController: UIViewController {
         // unpack the devie scan data
         var deviceScanData = ScanAnalysis(scan: self.deviceReportList![i].scan!)
         
-        
+        //TODO:- need to check for nil dates before trying to use them in the report. this is causig a crash if no date is available.
         var string = """
                 \(deviceReportList![i].title!)
                 -----------------------------------------------------------------
@@ -201,6 +201,19 @@ class OldServiceSummaryViewController: UIViewController {
         
         return bodyString
     }
+    
+    
+//    func getDateText(date: Date) -> String {
+//        
+//        var str = "No date value"
+//        
+//        if date != nil {
+//            str = dateFormat(date:deviceScanData.lowCOAlarmLastDate!
+//        }
+//        
+//        return str
+//    }
+    
     
     func showMailComposer() {
         

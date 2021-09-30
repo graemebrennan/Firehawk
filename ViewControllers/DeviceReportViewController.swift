@@ -254,7 +254,7 @@ extension DeviceReportViewController: UITableViewDataSource, UITableViewDelegate
                     cell.date.text = ""
                 } else {
                     
-                    if self.newScanAnalysis!.highCOAlarmLastDate != nil {
+                    if self.newScanAnalysis!.mediumCOAlarmLastDate != nil {
                         cell.date.text = "Date of Last Alarm: \(dateFormat( date: self.newScanAnalysis!.mediumCOAlarmLastDate!))"
                         
                     } else {
@@ -277,7 +277,7 @@ extension DeviceReportViewController: UITableViewDataSource, UITableViewDelegate
                     cell.date.text = ""
                 } else {
                     
-                    if self.newScanAnalysis!.highCOAlarmLastDate != nil {
+                    if self.newScanAnalysis!.lowCOAlarmLastDate != nil {
                         cell.date.text = "Date of Last Alarm: \(dateFormat( date: self.newScanAnalysis!.lowCOAlarmLastDate!))"
                         
                     } else {
@@ -300,7 +300,7 @@ extension DeviceReportViewController: UITableViewDataSource, UITableViewDelegate
                     cell.date.text = ""
                 } else {
                     
-                    if self.newScanAnalysis!.highCOAlarmLastDate != nil {
+                    if self.newScanAnalysis!.preCOAlarmLastDate != nil {
                         cell.date.text = "Date of Last Alarm: \(dateFormat( date: self.newScanAnalysis!.preCOAlarmLastDate!))"
                         
                     } else {
