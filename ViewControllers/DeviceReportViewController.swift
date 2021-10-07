@@ -422,7 +422,7 @@ extension DeviceReportViewController: UITableViewDataSource, UITableViewDelegate
             switch indexPath.row {
             case 0:
                 
-                cell.title.text = "Battery Fault        \(newScanAnalysis!.batteryVoltage!)V"
+                cell.title.text = "Battery Fault               \(newScanAnalysis!.batteryVoltage!)V"
                 
                 if newScanAnalysis?.batteryFault == true {
                     cell.date.text = "Last Occured \(newScanAnalysis!.batteryFaultDate!)"

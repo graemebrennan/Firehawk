@@ -254,17 +254,17 @@ struct ScanAnalysis {
             print("lastPlateRemovalDate: \(lastPlateRemovalDate!)")
         }
         
-        if (self.runtimeClockHours! - self.lastPlateRemovalComponent.hour!) < 4380 {
-            // device was removed in past year or has never been removed
-            self.plateRemovalsFaultIndicator = "red"
-            
-        } else if (self.runtimeClockHours! - self.lastPlateRemovalComponent.hour!) <= 8760 {
-            // device was removed in past year
-            self.plateRemovalsFaultIndicator = "amber"
-        } else {
-            self.plateRemovalsFaultIndicator = "green"
-        }
-        
+//        if (self.runtimeClockHours! - self.lastPlateRemovalComponent.hour!) < 4380 {
+//            // device was removed in past year or has never been removed
+//            self.plateRemovalsFaultIndicator = "red"
+//
+//        } else if (self.runtimeClockHours! - self.lastPlateRemovalComponent.hour!) <= 8760 {
+//            // device was removed in past year
+//            self.plateRemovalsFaultIndicator = "amber"
+//        } else {
+//            self.plateRemovalsFaultIndicator = "green"
+//        }
+//
 
         //MARK:- DeviceTest
         let deviceTestCountStartIndex = scan.index(scan.startIndex, offsetBy: 18)
@@ -289,15 +289,15 @@ struct ScanAnalysis {
             print("deviceLastTestDate: \(deviceLastTestDate!)")
         }
         
-        if (self.lastTestComponent.hour!) > 730 {
-            // the device has not been tested in a month
-            self.deviceTestFaultIndicator = "red"
-        } else if (self.lastTestComponent.hour!) > 336 {
-            // the device has not been in two weeks
-            self.deviceTestFaultIndicator = "amber"
-        } else {
-            self.deviceTestFaultIndicator = "green"
-        }
+//        if (self.lastTestComponent.hour!) > 730 {
+//            // the device has not been tested in a month
+//            self.deviceTestFaultIndicator = "red"
+//        } else if (self.lastTestComponent.hour!) > 336 {
+//            // the device has not been in two weeks
+//            self.deviceTestFaultIndicator = "amber"
+//        } else {
+//            self.deviceTestFaultIndicator = "green"
+//        }
 
         
         //MARK:- HighCOAlarm
@@ -560,7 +560,7 @@ struct ScanAnalysis {
         let batteryVoltageString = String(scan[batteryVoltageStartIndex...batteryVoltageEndIndex])
         let batteryChargeInt = Int(batteryVoltageString, radix: 16)
         
-        let batteryVoltageFloat = Float(batteryChargeInt! + 100) * 0.01
+        let batteryVoltageFloat = Float(batteryChargeInt! + 128) * 0.01
         self.batteryVoltage = batteryVoltageFloat
         
         print("self.batteryVoltage: \(self.batteryVoltage)")

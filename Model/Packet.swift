@@ -9,7 +9,7 @@ import Foundation
 
 struct Packet {
 //an array for each frame
-    var rawData = [Frame?](repeating: Frame(), count: 38)
+    var rawData = [Frame?](repeating: Frame(), count: 39)
     var length: Int?
     var decodedData: String?
     var complete = false
