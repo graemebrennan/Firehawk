@@ -30,7 +30,8 @@ class ReportViewController: UIViewController {
     
     @IBOutlet weak var serialNumberLabel: UILabel!
     @IBOutlet weak var manufactureDate: UILabel!
-
+    @IBOutlet weak var peakCOLabel: UILabel!
+    
     @IBOutlet weak var productCard: ProductCard!
     
     @IBOutlet weak var commentsTV: UITextView!
@@ -63,11 +64,9 @@ class ReportViewController: UIViewController {
         
         self.newScanAnalysis = ScanAnalysis(scan: (self.deviceReport!.scan!))
         
-        
-        serialNumberLabel.text = "Serial Number: \(newScanAnalysis!.deviceSerialNumber!)"
-        manufactureDate.text = "Manufacture Date: \( dateFormat(date: newScanAnalysis!.snManufactureDate!) )"
-        
-        
+        serialNumberLabel.text = "  Serial Number: \(newScanAnalysis!.deviceSerialNumber!)"
+        manufactureDate.text = "  Manufacture Date: \(dateFormat( date: newScanAnalysis!.snManufactureDate!))"
+        peakCOLabel.text = "  Peak CO Reading: \(newScanAnalysis!.peakCO!)"
        
       deviceInformationTitle.lblTitle.text = "Device Information"
       faultsTitle.lblTitle.text = "Device Faults"

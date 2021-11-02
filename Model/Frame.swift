@@ -20,4 +20,6 @@ struct Frame {
     
     var outputImage: UIImage?
     var str: String?
+    
+    var buffer: CMSampleBuffer?
 }

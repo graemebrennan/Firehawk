@@ -23,6 +23,19 @@ class OldServiceSummaryViewController: UIViewController {
     var serviceReport: ServiceReportCD?
     var selectedDeviceReport: DeviceReportCD?
     
+    // report date variables
+    var deviceReportDateStringArray: [String] = []
+    var highCOAlarmLastDateString = ""
+    var mediumCOAlarmLastDateString = ""
+    var lowCOAlarmLastDateString = ""
+    var preCOAlarmLastDateString = ""
+    var deviceFaultDateString = ""
+    var batteryFaultDateString = ""
+    var remoteFaultDateString = ""
+    var eol_FaultDateString = ""
+    
+    var deviceScanData: ScanAnalysis?
+    
     @IBOutlet weak var tableView: UITableView!
     
     var pdfDocument: PDFDocument!
@@ -70,7 +83,7 @@ class OldServiceSummaryViewController: UIViewController {
         
         //self.pdfDocument
         showMailComposer()
-        self.serviceReport?.houseAddress?.line1
+        //self.serviceReport?.houseAddress?.line1
     }
     
     func composeCoverPagePDF() {
@@ -130,11 +143,14 @@ class OldServiceSummaryViewController: UIViewController {
         var bodyString = ""
         
         // unpack the devie scan data
-        var deviceScanData = ScanAnalysis(scan: self.deviceReportList![i].scan!)
+        self.deviceScanData = ScanAnalysis(scan: self.deviceReportList![i].scan!)
+        self.prepReportDates()
         
-        //TODO:- need to check for nil dates before trying to use them in the report. this is causig a crash if no date is available.
-        var string = """
-                \(deviceReportList![i].title!)
+        if self.deviceScanData != nil {
+            
+   
+            let string = """
+                \(deviceReportList![i].title ?? "No Report Title")
                 -----------------------------------------------------------------
                 Device Information
                 -----------------------------------------------------------------
@@ -144,52 +160,52 @@ class OldServiceSummaryViewController: UIViewController {
                 Report Date: \( dateFormat(date: deviceReportList![i].date!) )
                 
                 Device Health Status: \(deviceReportList![i].healthIndicator!)
-                Life Remaining: \(deviceScanData.batteryLifeRemaining_YearsLeft!)
-                Replace By: \(deviceScanData.deviceReplacentDate!)
+                Life Remaining: \(deviceScanData!.batteryLifeRemaining_YearsLeft!)
+                Replace By: \(deviceScanData!.deviceReplacentDate!)
                 
-                Removals From Mounting Plate: \(deviceScanData.plateRemovals!)
+                Removals From Mounting Plate: \(deviceScanData!.plateRemovals!)
                 
                 Device Tests:
-                Device Test Count: \(deviceScanData.deviceTestCount!)
-                Last Test Date: \(deviceScanData.deviceLastTestDate!)
+                Device Test Count: \(deviceScanData!.deviceTestCount!)
+                Last Test Date: \(deviceScanData!.deviceLastTestDate!)
                 
                 Manufacture Details
-                Serial Number: \(deviceScanData.deviceSerialNumber!)
-                Manufacture Date: \(deviceScanData.snManufactureDate!)
+                Serial Number: \(deviceScanData!.deviceSerialNumber!)
+                Manufacture Date: \(deviceScanData!.snManufactureDate!)
                 -----------------------------------------------------------------
                 Alarms
                 -----------------------------------------------------------------
                 High CO Alarm (+300 PPM)
-                High Alarm Count: \(String(describing: deviceScanData.highCOAlarmCount!))
-                Last Occured: \( dateFormat(date: deviceScanData.highCOAlarmLastDate!) )
+                High Alarm Count: \(String(describing: deviceScanData!.highCOAlarmCount!))
+                Last Occured: \(self.highCOAlarmLastDateString)
                 
                 Medium CO Alarm (>100 PPM)
-                Medium Alarm Count: \(String(describing: deviceScanData.mediumCOAlarmCount!))
-                Last Occured: \(dateFormat(date:deviceScanData.mediumCOAlarmLastDate!))
+                Medium Alarm Count: \(String(describing: deviceScanData!.mediumCOAlarmCount!))
+                Last Occured: \(self.mediumCOAlarmLastDateString)
                 
                 Low CO Alarm (<100 PPM)
-                Low Alarm Count: \(String(describing: deviceScanData.lowCOAlarmCount!))
-                Last Occured: \(dateFormat(date:deviceScanData.lowCOAlarmLastDate!))
+                Low Alarm Count: \(String(describing: deviceScanData!.lowCOAlarmCount!))
+                Last Occured: \(self.lowCOAlarmLastDateString)
                 
                 Pre Alarm
-                Pre Alarm Count: \(String(describing: deviceScanData.preCOAlarmCount!))
-                Last Occured: \(dateFormat(date: deviceScanData.preCOAlarmLastDate!))
+                Pre Alarm Count: \(String(describing: deviceScanData!.preCOAlarmCount!))
+                Last Occured: \(self.preCOAlarmLastDateString)
                 -----------------------------------------------------------------
                 Faults
                 -----------------------------------------------------------------
-                Fault Status: \(String(describing:deviceScanData.faultFlag))
+                Fault Status: \(String(describing:deviceScanData!.faultFlag))
                 
-                Device Faults: \(String(describing:deviceScanData.deviceFault))
-                Date: \(dateFormat(date: deviceScanData.deviceFaultDate!))
+                Device Faults: \(String(describing:deviceScanData!.deviceFault))
+                Date: \(self.deviceFaultDateString)
                 
-                Battery Fault: \(String(describing:deviceScanData.batteryFault))
-                Date: \(dateFormat(date:deviceScanData.batteryFaultDate!))
+                Battery Fault: \(String(describing:deviceScanData!.batteryFault))
+                Date: \(self.batteryFaultDateString)
                 
-                Remote Faults: \(String(describing:deviceScanData.remoteFault))
-                Date: \(dateFormat(date:deviceScanData.remoteFaultDate!))
+                Remote Faults: \(String(describing:deviceScanData!.remoteFault))
+                Date: \(self.remoteFaultDateString)
                 
-                End Of Life: \(String(describing:deviceScanData.eol_Fault))
-                Date: \(dateFormat(date:deviceScanData.eol_FaultDate!))
+                End Of Life: \(String(describing:deviceScanData!.eol_Fault))
+                Date: \(self.eol_FaultDateString)
                 -----------------------------------------------------------------
                 Comments
                 -----------------------------------------------------------------
@@ -197,9 +213,13 @@ class OldServiceSummaryViewController: UIViewController {
                 
                 -----------------------------------------------------------------
                 """
+
         bodyString.append(string)
         
         return bodyString
+        } else {
+            return "Failure to load service reports"
+        }
     }
     
     
@@ -213,7 +233,60 @@ class OldServiceSummaryViewController: UIViewController {
 //        
 //        return str
 //    }
-    
+    func prepReportDates() {
+        for i in 0..<deviceReportList!.count {
+            deviceReportDateStringArray.append(dateFormat(date: deviceReportList![i].date!))
+        }
+        
+        if self.deviceScanData!.highCOAlarmLastDate != nil {
+            highCOAlarmLastDateString = dateFormat(date: deviceScanData!.highCOAlarmLastDate!)
+        } else {
+            highCOAlarmLastDateString = "No date data"
+        }
+        if self.deviceScanData!.mediumCOAlarmLastDate != nil {
+            mediumCOAlarmLastDateString = dateFormat(date:deviceScanData!.mediumCOAlarmLastDate!)
+        } else {
+            mediumCOAlarmLastDateString = "No date data"
+        }
+        if self.deviceScanData!.lowCOAlarmLastDate != nil {
+            self.lowCOAlarmLastDateString = dateFormat(date:deviceScanData!.lowCOAlarmLastDate!)
+        } else {
+            self.lowCOAlarmLastDateString = "No date data"
+        }
+        if self.deviceScanData!.preCOAlarmLastDate != nil {
+            self.preCOAlarmLastDateString = dateFormat(date: deviceScanData!.preCOAlarmLastDate!)
+        } else {
+            self.preCOAlarmLastDateString = "No date data"
+        }
+        if self.deviceScanData!.deviceFaultDate != nil {
+            self.deviceFaultDateString = dateFormat(date: deviceScanData!.deviceFaultDate!)
+        } else {
+            self.deviceFaultDateString = "No date data"
+        }
+        if self.deviceScanData!.batteryFaultDate != nil {
+            self.batteryFaultDateString = dateFormat(date:deviceScanData!.batteryFaultDate!)
+        } else {
+            self.batteryFaultDateString = "No date data"
+        }
+        if self.deviceScanData!.remoteFaultDate != nil {
+            self.remoteFaultDateString = dateFormat(date:deviceScanData!.remoteFaultDate!)
+        } else {
+            self.remoteFaultDateString = "No date data"
+        }
+        if self.deviceScanData!.eol_FaultDate != nil {
+            self.eol_FaultDateString = dateFormat(date:deviceScanData!.eol_FaultDate!)
+        } else {
+            self.eol_FaultDateString = "No date data"
+        }
+        
+        mediumCOAlarmLastDateString = ""
+        lowCOAlarmLastDateString = ""
+        preCOAlarmLastDateString = ""
+        deviceFaultDateString = ""
+        batteryFaultDateString = ""
+        remoteFaultDateString = ""
+        eol_FaultDateString = ""
+    }
     
     func showMailComposer() {
         
@@ -252,7 +325,7 @@ extension OldServiceSummaryViewController: UITableViewDataSource {
         
         cell.lblName.text = self.deviceReportList?[indexPath.row].title
         cell.lblSerialNumber.text = self.deviceReportList?[indexPath.row].serialNumber
-        cell.lblDate.text =  "Date: \(dateFormat(date: (self.deviceReportList?[indexPath.row].date!)!) ?? "Unknown")"
+        cell.lblDate.text =  "Date: \(dateFormat(date: (self.deviceReportList?[indexPath.row].date!)!) )"
         cell.FaultIndicatorView.backgroundColor = getFaultColour(str: (self.deviceReportList?[indexPath.row].healthIndicator)!)
         
         
@@ -304,7 +377,7 @@ extension OldServiceSummaryViewController: UITableViewDelegate {
         
         if segue.identifier == "ReportSummaryVCtoReportVC" {
             
-            var deviceReportVC = segue.destination as! ReportViewController
+            let deviceReportVC = segue.destination as! ReportViewController
             
             //ReportVC.scan = self.items![i].scan
             deviceReportVC.deviceReport = self.selectedDeviceReport

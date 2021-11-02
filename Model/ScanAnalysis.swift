@@ -92,6 +92,8 @@ struct ScanAnalysis {
     
     var deviceFaultIndicator = "off"
     
+    var peakCO: Float?
+    
     init(scan: String) { // initialise parameters from scan
         
         // current calender for scan time reference
@@ -239,6 +241,7 @@ struct ScanAnalysis {
        
         if  plateRemovalInt == 0 {
             self.lastPlateRemovalDate = nil
+            self.plateRemovalsFaultIndicator = "green"
         } else {
             let lastPlateRemovalDateStartIndex = scan.index(scan.startIndex, offsetBy: 14)
             let lastPlateRemovalDateEndIndex = scan.index(scan.startIndex, offsetBy: 17)
@@ -248,27 +251,29 @@ struct ScanAnalysis {
             // create date componant
            // self.lastPlateRemovalComponent = DateComponents()
             // set hours value, int is clock ticks every two hours so multiply by 2 to get hours, '-' to count back from current time
-            self.lastPlateRemovalComponent.hour = lastPlateRemovalDateInt! * -2
+            self.lastPlateRemovalComponent.hour = (runtimeClockInt! - lastPlateRemovalDateInt!) * -2
             // set date of event by adding negative value to current date
             self.lastPlateRemovalDate = calendar.date(byAdding: lastPlateRemovalComponent, to: Date())
             print("lastPlateRemovalDate: \(lastPlateRemovalDate!)")
+            
+                    if (self.lastPlateRemovalComponent.hour!) < 4380 {
+                        // device was removed in past year or has never been removed
+                        self.plateRemovalsFaultIndicator = "red"
+            
+                    } else if (self.lastPlateRemovalComponent.hour!) <= 8760 {
+                        // device was removed in past year
+                        self.plateRemovalsFaultIndicator = "amber"
+                    } else {
+                        self.plateRemovalsFaultIndicator = "green"
+                    }
         }
         
-//        if (self.runtimeClockHours! - self.lastPlateRemovalComponent.hour!) < 4380 {
-//            // device was removed in past year or has never been removed
-//            self.plateRemovalsFaultIndicator = "red"
-//
-//        } else if (self.runtimeClockHours! - self.lastPlateRemovalComponent.hour!) <= 8760 {
-//            // device was removed in past year
-//            self.plateRemovalsFaultIndicator = "amber"
-//        } else {
-//            self.plateRemovalsFaultIndicator = "green"
-//        }
+
 //
 
         //MARK:- DeviceTest
         let deviceTestCountStartIndex = scan.index(scan.startIndex, offsetBy: 18)
-        let deviceTestCountEndIndex = scan.index(scan.startIndex, offsetBy: 19)
+        let deviceTestCountEndIndex = scan.index(scan.startIndex, offsetBy: 21)
         let deviceTestCountString = String(scan[deviceTestCountStartIndex...deviceTestCountEndIndex])
         let deviceTestCountInt = Int(deviceTestCountString, radix: 16)
         self.deviceTestCount = deviceTestCountInt
@@ -276,9 +281,10 @@ struct ScanAnalysis {
 
         if  deviceTestCountInt == 0 {
             self.deviceLastTestDate = nil
+            self.deviceTestFaultIndicator = "green"
         } else {
-            let deviceLastTestDateStartIndex = scan.index(scan.startIndex, offsetBy: 20)
-            let deviceLastTestDateEndIndex = scan.index(scan.startIndex, offsetBy: 23)
+            let deviceLastTestDateStartIndex = scan.index(scan.startIndex, offsetBy: 22)
+            let deviceLastTestDateEndIndex = scan.index(scan.startIndex, offsetBy: 25)
             let deviceLastTestDateString = String(scan[deviceLastTestDateStartIndex...deviceLastTestDateEndIndex])
             let deviceLastTestDateInt = Int(deviceLastTestDateString, radix: 16)
             
@@ -287,22 +293,24 @@ struct ScanAnalysis {
             let deviceLastTestDate = calendar.date(byAdding: lastTestComponent, to: Date())
             self.deviceLastTestDate = deviceLastTestDate
             print("deviceLastTestDate: \(deviceLastTestDate!)")
+            
+            if (self.lastTestComponent.hour!) > 730 {
+                // the device has not been tested in a month
+                self.deviceTestFaultIndicator = "red"
+            } else if (self.lastTestComponent.hour!) > 336 {
+                // the device has not been in two weeks
+                self.deviceTestFaultIndicator = "amber"
+            } else {
+                self.deviceTestFaultIndicator = "green"
+            }
         }
         
-//        if (self.lastTestComponent.hour!) > 730 {
-//            // the device has not been tested in a month
-//            self.deviceTestFaultIndicator = "red"
-//        } else if (self.lastTestComponent.hour!) > 336 {
-//            // the device has not been in two weeks
-//            self.deviceTestFaultIndicator = "amber"
-//        } else {
-//            self.deviceTestFaultIndicator = "green"
-//        }
+
 
         
         //MARK:- HighCOAlarm
-        let highCOAlarmCountStartIndex = scan.index(scan.startIndex, offsetBy: 24)
-        let highCOAlarmCountEndIndex = scan.index(scan.startIndex, offsetBy: 25)
+        let highCOAlarmCountStartIndex = scan.index(scan.startIndex, offsetBy: 26)
+        let highCOAlarmCountEndIndex = scan.index(scan.startIndex, offsetBy: 27)
         let highCOAlarmCountString = String(scan[highCOAlarmCountStartIndex...highCOAlarmCountEndIndex])
         let highCOAlarmCountInt = Int(highCOAlarmCountString, radix: 16)
         self.highCOAlarmCount = highCOAlarmCountInt
@@ -312,8 +320,8 @@ struct ScanAnalysis {
             self.highCOAlarmLastDate = nil
             self.highCOAlarmFaultIndicator = "green"
         } else {
-            let highCOAlarmLastDateStartIndex = scan.index(scan.startIndex, offsetBy: 26)
-            let highCOAlarmLastDateEndIndex = scan.index(scan.startIndex, offsetBy: 29)
+            let highCOAlarmLastDateStartIndex = scan.index(scan.startIndex, offsetBy: 28)
+            let highCOAlarmLastDateEndIndex = scan.index(scan.startIndex, offsetBy: 31)
             let highCOAlarmLastDateString = String(scan[highCOAlarmLastDateStartIndex...highCOAlarmLastDateEndIndex])
             
             if highCOAlarmLastDateString == "ffff" {
@@ -349,8 +357,8 @@ struct ScanAnalysis {
         }
         
         //MARK:- MediumCOAlarm
-        let mediumCOAlarmCountStartIndex = scan.index(scan.startIndex, offsetBy: 30)
-        let mediumCOAlarmCountEndIndex = scan.index(scan.startIndex, offsetBy: 31)
+        let mediumCOAlarmCountStartIndex = scan.index(scan.startIndex, offsetBy: 32)
+        let mediumCOAlarmCountEndIndex = scan.index(scan.startIndex, offsetBy: 33)
         let mediumCOAlarmCountString = String(scan[mediumCOAlarmCountStartIndex...mediumCOAlarmCountEndIndex])
         let mediumCOAlarmCount = Int(mediumCOAlarmCountString, radix: 16)
         self.mediumCOAlarmCount = mediumCOAlarmCount
@@ -360,8 +368,8 @@ struct ScanAnalysis {
             self.mediumCOAlarmLastDate = nil
             self.mediumCOAlarmFaultIndicator = "green"
         } else {
-            let mediumCOAlarmLastDateStartIndex = scan.index(scan.startIndex, offsetBy: 32)
-            let mediumCOAlarmLastDateEndIndex = scan.index(scan.startIndex, offsetBy: 35)
+            let mediumCOAlarmLastDateStartIndex = scan.index(scan.startIndex, offsetBy: 34)
+            let mediumCOAlarmLastDateEndIndex = scan.index(scan.startIndex, offsetBy: 37)
             let mediumCOAlarmLastDateString = String(scan[mediumCOAlarmLastDateStartIndex...mediumCOAlarmLastDateEndIndex])
             let mediumCOAlarmLastDateInt = Int(mediumCOAlarmLastDateString, radix: 16)
             
@@ -392,8 +400,8 @@ struct ScanAnalysis {
             }
         }
         //MARK:- LowCOAlarm
-        let lowCOAlarmCountStartIndex = scan.index(scan.startIndex, offsetBy: 36)
-        let lowCOAlarmCountEndIndex = scan.index(scan.startIndex, offsetBy: 37)
+        let lowCOAlarmCountStartIndex = scan.index(scan.startIndex, offsetBy: 38)
+        let lowCOAlarmCountEndIndex = scan.index(scan.startIndex, offsetBy: 39)
         let lowCOAlarmCountString = String(scan[lowCOAlarmCountStartIndex...lowCOAlarmCountEndIndex])
         let lowCOAlarmCount = Int(lowCOAlarmCountString, radix: 16)
         self.lowCOAlarmCount = lowCOAlarmCount
@@ -403,8 +411,8 @@ struct ScanAnalysis {
             self.lowCOAlarmLastDate = nil
             self.lowCOAlarmFaultIndicator = "green"
         } else {
-            let lowCOAlarmLastDateStartIndex = scan.index(scan.startIndex, offsetBy: 38)
-            let lowCOAlarmLastDateEndIndex = scan.index(scan.startIndex, offsetBy: 41)
+            let lowCOAlarmLastDateStartIndex = scan.index(scan.startIndex, offsetBy: 40)
+            let lowCOAlarmLastDateEndIndex = scan.index(scan.startIndex, offsetBy: 43)
             let lowCOAlarmLastDateString = String(scan[lowCOAlarmLastDateStartIndex...lowCOAlarmLastDateEndIndex])
             let lowCOAlarmLastDateInt = Int(lowCOAlarmLastDateString, radix: 16)
             
@@ -437,8 +445,8 @@ struct ScanAnalysis {
         }
         
         //MARK:- PreCOAlarm
-        let preCOAlarmCountStartIndex = scan.index(scan.startIndex, offsetBy: 42)
-        let preCOAlarmCountEndIndex = scan.index(scan.startIndex, offsetBy: 43)
+        let preCOAlarmCountStartIndex = scan.index(scan.startIndex, offsetBy: 44)
+        let preCOAlarmCountEndIndex = scan.index(scan.startIndex, offsetBy: 45)
         let preCOAlarmCountString = String(scan[preCOAlarmCountStartIndex])
         let preCOAlarmCountInt = Int(preCOAlarmCountString, radix: 16)
         self.preCOAlarmCount = preCOAlarmCountInt
@@ -447,8 +455,8 @@ struct ScanAnalysis {
             self.preCOAlarmLastDate = nil
             self.preCOAlarmFaultIndicator = "green"
         } else {
-            let preCOAlarmLastDateStartIndex = scan.index(scan.startIndex, offsetBy: 44)
-            let preCOAlarmmLastDateEndIndex = scan.index(scan.startIndex, offsetBy: 47)
+            let preCOAlarmLastDateStartIndex = scan.index(scan.startIndex, offsetBy: 46)
+            let preCOAlarmmLastDateEndIndex = scan.index(scan.startIndex, offsetBy: 49)
             let preCOAlarmLastDateString = String(scan[preCOAlarmLastDateStartIndex...preCOAlarmmLastDateEndIndex])
             let preCOAlarmLastDateInt = Int(preCOAlarmLastDateString, radix: 16)
             
@@ -478,8 +486,8 @@ struct ScanAnalysis {
         }
         
         //MARK:- Faults
-        let faultFlagStartIndex = scan.index(scan.startIndex, offsetBy: 68)
-        let faultFlagEndIndex = scan.index(scan.startIndex, offsetBy: 69)
+        let faultFlagStartIndex = scan.index(scan.startIndex, offsetBy: 70)
+        let faultFlagEndIndex = scan.index(scan.startIndex, offsetBy: 71)
         let faultFlagString = String(scan[faultFlagStartIndex...faultFlagEndIndex])
         let faultFlagUInt8 = UInt8(faultFlagString, radix: 16)
         self.faultFlag = faultFlagUInt8
@@ -487,8 +495,8 @@ struct ScanAnalysis {
         if (faultFlagUInt8! & 0x01) != 0x01
         {
             //MARK:- batteryFaultDate
-            let batteryFaultDateStartIndex = scan.index(scan.startIndex, offsetBy: 48)
-            let batteryFaultDateEndIndex = scan.index(scan.startIndex, offsetBy: 51)
+            let batteryFaultDateStartIndex = scan.index(scan.startIndex, offsetBy: 50)
+            let batteryFaultDateEndIndex = scan.index(scan.startIndex, offsetBy: 53)
             let batteryFaultDateString = String(scan[batteryFaultDateStartIndex...batteryFaultDateEndIndex])
             let batteryFaultDateInt = Int(batteryFaultDateString, radix: 16)
             
@@ -506,8 +514,8 @@ struct ScanAnalysis {
         if (faultFlagUInt8! & 0x02) != 0x02
         {
             //MARK:- deviceFaultDate
-            let deviceFaultDateStartIndex = scan.index(scan.startIndex, offsetBy: 52)
-            let deviceFaultDateEndIndex = scan.index(scan.startIndex, offsetBy: 55)
+            let deviceFaultDateStartIndex = scan.index(scan.startIndex, offsetBy: 54)
+            let deviceFaultDateEndIndex = scan.index(scan.startIndex, offsetBy: 57)
             let deviceFaultDateString = String(scan[deviceFaultDateStartIndex...deviceFaultDateEndIndex])
             let deviceFaultDateInt = Int(deviceFaultDateString, radix: 16)
             
@@ -523,8 +531,8 @@ struct ScanAnalysis {
         if (faultFlagUInt8! & 0x04) != 0x04
         {
             //MARK:- eol_FaultDate
-            let eol_FaultDateStartIndex = scan.index(scan.startIndex, offsetBy: 56)
-            let eol_FaultDateEndIndex = scan.index(scan.startIndex, offsetBy: 59)
+            let eol_FaultDateStartIndex = scan.index(scan.startIndex, offsetBy: 58)
+            let eol_FaultDateEndIndex = scan.index(scan.startIndex, offsetBy: 61)
             let eol_FaultDateString = String(scan[eol_FaultDateStartIndex...eol_FaultDateEndIndex])
             let eol_FaultDateInt = Int(eol_FaultDateString, radix: 16)
             
@@ -540,8 +548,8 @@ struct ScanAnalysis {
         if (faultFlagUInt8! & 0x08) != 0x08
         {
             //MARK:- remoteFaultDate
-            let remoteFaultDateStartIndex = scan.index(scan.startIndex, offsetBy: 60)
-            let remoteFaultDateEndIndex = scan.index(scan.startIndex, offsetBy: 63)
+            let remoteFaultDateStartIndex = scan.index(scan.startIndex, offsetBy: 62)
+            let remoteFaultDateEndIndex = scan.index(scan.startIndex, offsetBy: 65)
             let remoteFaultDateString = String(scan[remoteFaultDateStartIndex...remoteFaultDateEndIndex])
             let remoteFaultDateInt = Int(remoteFaultDateString, radix: 16)
             
@@ -554,9 +562,20 @@ struct ScanAnalysis {
         
         print("self.remoteFaultDate: \(self.remoteFaultDate)")
         
+        //MARK:- PeakCO
+        let peakCOStartIndex = scan.index(scan.startIndex, offsetBy: 66)
+        let peakCOEndIndex = scan.index(scan.startIndex, offsetBy: 69)
+        let peakCOString = String(scan[peakCOStartIndex...peakCOEndIndex])
+        let peakCOInt = Int(peakCOString, radix: 16)
+        
+        let peakCOFloat = Float(peakCOInt! + 128) * 0.01
+        self.peakCO = peakCOFloat
+        
+        print("self.peakCO: \(self.peakCO)")
+        
         //MARK:- batteryVoltage
-        let batteryVoltageStartIndex = scan.index(scan.startIndex, offsetBy: 70)
-        let batteryVoltageEndIndex = scan.index(scan.startIndex, offsetBy: 71)
+        let batteryVoltageStartIndex = scan.index(scan.startIndex, offsetBy: 72)
+        let batteryVoltageEndIndex = scan.index(scan.startIndex, offsetBy: 73)
         let batteryVoltageString = String(scan[batteryVoltageStartIndex...batteryVoltageEndIndex])
         let batteryChargeInt = Int(batteryVoltageString, radix: 16)
         
@@ -620,8 +639,8 @@ struct ScanAnalysis {
         print("self.deviceLifeRemaining_HoursLeft: \(self.deviceLifeRemaining_HoursLeft)")
         
         //MARK:- Software Version
-        let softwateVersionStartIndex = scan.index(scan.startIndex, offsetBy: 72)
-        let softwateVersionEndIndex = scan.index(scan.startIndex, offsetBy: 73)
+        let softwateVersionStartIndex = scan.index(scan.startIndex, offsetBy: 74)
+        let softwateVersionEndIndex = scan.index(scan.startIndex, offsetBy: 75)
         let softwateVersionString = String(scan[softwateVersionStartIndex...softwateVersionEndIndex])
         self.softwareVersion = softwateVersionString
         print("Software Verson String= \(softwateVersionString)")
@@ -629,8 +648,8 @@ struct ScanAnalysis {
         //TODO:- how do i use software version string, do i worry no or work this ot when we need to scan two versions.
         
         //MARK:- Check Sum
-        let checkSumStartIndex = scan.index(scan.startIndex, offsetBy: 74)
-        let checkSumEndIndex = scan.index(scan.startIndex, offsetBy: 75)
+        let checkSumStartIndex = scan.index(scan.startIndex, offsetBy: 76)
+        let checkSumEndIndex = scan.index(scan.startIndex, offsetBy: 77)
         let checkSumString = String(scan[checkSumStartIndex...checkSumEndIndex])
         self.checkSum = checkSumString
         self.checkSumValue = UInt8(checkSumString, radix: 16)
