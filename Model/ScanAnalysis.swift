@@ -92,7 +92,7 @@ struct ScanAnalysis {
     
     var deviceFaultIndicator = "off"
     
-    var peakCO: Float?
+    var peakCO: Int?
     
     init(scan: String) { // initialise parameters from scan
         
@@ -568,8 +568,8 @@ struct ScanAnalysis {
         let peakCOString = String(scan[peakCOStartIndex...peakCOEndIndex])
         let peakCOInt = Int(peakCOString, radix: 16)
         
-        let peakCOFloat = Float(peakCOInt! + 128) * 0.01
-        self.peakCO = peakCOFloat
+      
+        self.peakCO = peakCOInt
         
         print("self.peakCO: \(self.peakCO)")
         

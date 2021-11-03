@@ -54,6 +54,8 @@ class ScanningFunctions2 {
     var lowerLightThreshold = 0
     var totalPacketTime = 0
     
+    var widestLineWidth = 0
+    
     var outImage: [UIImage] = []
     //var packet = Packet()
     
@@ -135,7 +137,8 @@ class ScanningFunctions2 {
             
             if lines.count > 15 {
                 
-                self.FindLindWidthAverage()
+                //self.FindLindWidthAverage()
+                self.FindWidestRedLine()
                 self.IdentifyLineType()
                 self.CalculatePacketWidth()
                 
@@ -336,12 +339,41 @@ class ScanningFunctions2 {
         redLineWidthAverage = redLineWidthTotal / lines.count
     }
     
+    
+    func FindWidestRedLine() {
+        // find the location of the preamble lines
+        for i in 0..<lines.count {
+            
+//            //calculate average line width
+//            redLineWidthTotal += lines[i].width
+//
+//            // find big red preamble lines
+//            widthcheck = lines[i].width
+//
+//            //TODO:- try make preamble identifier more reliable
+////            if lines[i].width > widestLine {
+////                self.widestLine = lines[i].width
+////            }
+            
+            // find max line width
+            if lines[i].width > self.widestLineWidth {
+                self.widestLineWidth = lines[i].width
+            }
+
+            
+        }
+        
+//        redLineWidthAverage = redLineWidthTotal / lines.count
+        
+    }
+    
     func IdentifyLineType() {
         
         for i in 0..<lines.count {
 
             //calculate average line width
-            if ((lines[i].width) > (2 * redLineWidthAverage) + 3 ) && (lines[i].position == "high")
+            //if ((lines[i].width) > (2 * redLineWidthAverage) + 3 ) && (lines[i].position == "high")
+            if ((lines[i].width) > Int(0.8 * Double(self.widestLineWidth))) && (lines[i].position == "high")
             {
                 lines[i].type = "Preamble"
                 preambleIndex.append(i)
@@ -677,6 +709,7 @@ class ScanningFunctions3 {
     var redLineWidthTotal = 0
     var widthcheck = 0
     var widestLine = 0
+    var smallestBlackLine = 100
     
     var startIndex = 0
     var endIndex = 0
@@ -736,9 +769,9 @@ class ScanningFunctions3 {
             
             
             let filter = CIFilter(name: "CIColorControls")!
-//            filter.setValue(2, forKey: kCIInputSaturationKey)
-//            filter.setValue(0.5, forKey: kCIInputBrightnessKey)
-//            filter.setValue(3, forKey: kCIInputContrastKey)
+            filter.setValue(2, forKey: kCIInputSaturationKey)
+            filter.setValue(0.5, forKey: kCIInputBrightnessKey)
+            filter.setValue(3, forKey: kCIInputContrastKey)
             //
             filter.setValue(ciImage, forKey: kCIInputImageKey)
             
@@ -779,6 +812,7 @@ class ScanningFunctions3 {
             if lines.count > 15 {
                 
                 self.FindWidestRedLine()
+                self.FindThinestBlackLine()
                 self.IdentifyLineType()
                 self.CalculatePacketWidth()
                 
@@ -824,8 +858,8 @@ class ScanningFunctions3 {
         var lightValue = 0
         var lightAvg = 0
         
-        var focusStartHeight = 0//Int(Float(height) * 0.2)
-        var focusEndHeight = Int(Float(height))
+        var focusStartHeight = Int(Float(height) * 0.2)
+        var focusEndHeight = Int(Float(height) * 0.8)
         
         var focusStartWidth = Int(Float(width) * 0.2)
         var focusEndWidth = Int(Float(width) * 0.8)
@@ -880,9 +914,9 @@ class ScanningFunctions3 {
         
         for j in focusStartHeight..<focusEndHeight {
             
-            for i in stride(from: focusStartWidth, through: focusEndWidth, by: 100) {
-                p = self.pixels![(i) + j * (self.width)]
-                //self.pixels[(i) + j * (self.width)] = RGBAPixel(rawVal: 0xAA00FFFF)
+         //   for i in stride(from: focusStartWidth, through: focusEndWidth, by: 100) {
+                p = self.pixels![(self.width/2) + j * (self.width)]
+                self.pixels![(self.width/2) + j * (self.width)] = RGBAPixel(rawVal: 0xAA00FFFF)
                 
                 // averageValue of a row
                 pred = Int(p.red)
@@ -891,7 +925,7 @@ class ScanningFunctions3 {
                
                 rowTotalValue = rowTotalValue + Int(p.red)
                 count = count + 1
-            }
+         //   }
             
             //print("p.red\(j) = \(pred)")
             
@@ -923,6 +957,8 @@ class ScanningFunctions3 {
                         lines.append(Lines(start: focusStartHeight, end: j, width: (j-focusStartHeight), position: "N/A", type: nil))
                     }
                     col = j
+                    
+
                     
                 }
                 
@@ -984,17 +1020,49 @@ class ScanningFunctions3 {
 ////            }
             
             // find max line width
-            if lines[i].width > self.widestLineWidth {
-                self.widestLineWidth = lines[i].width
+            if lines[i].position == "high" {
+                
+                
+                if lines[i].width > self.widestLineWidth {
+                    self.widestLineWidth = lines[i].width
+                }
             }
-
             
         }
         
 //        redLineWidthAverage = redLineWidthTotal / lines.count
         
     }
-    
+    func FindThinestBlackLine() {
+        // find the location of the preamble lines
+        for i in 0..<lines.count {
+            
+//            //calculate average line width
+//            redLineWidthTotal += lines[i].width
+//
+//            // find big red preamble lines
+//            widthcheck = lines[i].width
+//
+//            //TODO:- try make preamble identifier more reliable
+////            if lines[i].width > widestLine {
+////                self.widestLine = lines[i].width
+////            }
+            
+            // find max line width
+            if lines[i].position == "low" && lines[i].width > 3 {
+                
+                print("self.smallestBlackLine = \(self.smallestBlackLine)")
+                if lines[i].width < self.smallestBlackLine {
+                    self.smallestBlackLine = lines[i].width
+                    print("self.smallestBlackLine = \(self.smallestBlackLine)")
+                }
+            }
+            
+        }
+        
+//        redLineWidthAverage = redLineWidthTotal / lines.count
+        
+    }
     func IdentifyLineType() {
         
         for i in 0..<lines.count {
@@ -1030,20 +1098,33 @@ class ScanningFunctions3 {
                 // find centre preamble
                 centerPreamble = preambleIndex.count / 2
                 
-                
-                startIndex = lines[preambleIndex[centerPreamble]].start + (lines[preambleIndex[centerPreamble]].width / 2)
-                endIndex = lines[preambleIndex[centerPreamble+1]].start + (lines[preambleIndex[centerPreamble+1]].width / 2)
-                
+                if lines[preambleIndex[centerPreamble]].start < self.height/2 {
+                    startIndex = lines[preambleIndex[centerPreamble]].start + (lines[preambleIndex[centerPreamble]].width / 2)
+                    endIndex = lines[preambleIndex[centerPreamble+1]].start + (lines[preambleIndex[centerPreamble+1]].width / 2)
+                } else {
+                    startIndex = lines[preambleIndex[centerPreamble]].start + (lines[preambleIndex[centerPreamble]].width / 2)
+                    endIndex = lines[preambleIndex[centerPreamble-1]].start + (lines[preambleIndex[centerPreamble-1]].width / 2)
+                }
+
+//                startIndex = lines[preambleIndex[centerPreamble]].start + (lines[preambleIndex[centerPreamble]].width / 2)
+//                endIndex = lines[preambleIndex[centerPreamble+1]].start + (lines[preambleIndex[centerPreamble+1]].width / 2)
+
                 
             }else if preambleIndex.count == 2 {
-                centerPreamble = 0
                 
-                startIndex = lines[preambleIndex[centerPreamble]].start + (lines[preambleIndex[centerPreamble]].width / 2)
-                endIndex = lines[preambleIndex[centerPreamble+1]].start + (lines[preambleIndex[centerPreamble+1]].width / 2)
+                startIndex = lines[preambleIndex[0]].start + (lines[preambleIndex[0]].width / 2)
+                endIndex = lines[preambleIndex[1]].start + (lines[preambleIndex[1]].width / 2)
                 
             }else {
                 
             }
+            
+            print("startIndex = \(self.startIndex)")
+            print("endIndex = \(self.endIndex)")
+            print("centerPreamble = \(centerPreamble)")
+            print("lines[preambleIndex[centerPreamble]].start = \(lines[preambleIndex[centerPreamble]].start)")
+            
+            
             
             self.totalPacketTime = endIndex - startIndex
             
@@ -1162,14 +1243,41 @@ class ScanningFunctions3 {
     func SamplePacket2() {
         let preambleWidth = lines[preambleIndex[centerPreamble]].width
 
-        let twoBitWidth_max = Int((Float(preambleWidth/2)) * 1.5)
-        let twoBitWidth_min = Int((Float(preambleWidth/2)) * 1)
+        let twoBitWidthRed_max = Int((Float(preambleWidth/2)) * 1.5)
+        let twoBitWidthRed_min = Int((Float(preambleWidth/2)) * 1)
         
-        let bitWidth_max = twoBitWidth_min - 1
-        let bitWidth_min = Int((Float(preambleWidth)/4) * 0.5)
+        let bitWidthRed_max = twoBitWidthRed_min - 1
+        let bitWidthRed_min = Int((Float(preambleWidth)/4) * 0.5)
         
-        let firstPreambleIndex = preambleIndex[centerPreamble]
-        let secondPreambleIndex = preambleIndex[centerPreamble + 1]
+//        let twoBitWidthBlack_max = Int((Float(self.smallestBlackLine * 2)) * 1.8)
+//        let twoBitWidthBlack_min = Int((Float(self.smallestBlackLine * 2)) * 1.2)
+//
+//        let bitWidthBlack_max = twoBitWidthBlack_min
+//        let bitWidthBlack_min = Int((Float(self.smallestBlackLine)) * 0.8)
+        
+        let twoBitWidthBlack_max = Int((Float(preambleWidth)) * 0.4)
+        let twoBitWidthBlack_min = Int((Float(preambleWidth)) * 0.2)
+        
+        let bitWidthBlack_max = twoBitWidthBlack_min
+        let bitWidthBlack_min = Int((Float(preambleWidth)) * 0.06)
+        
+        print("twoBitWidthBlack_max = \(twoBitWidthBlack_max)")
+        print("twoBitWidthBlack_min = \(twoBitWidthBlack_min)")
+        
+        print("bitWidthBlack_max = \(bitWidthBlack_max)")
+        print("bitWidthBlack_min = \(bitWidthBlack_min)")
+        
+        var firstPreambleIndex = 0
+        var secondPreambleIndex = 0
+        
+        if lines[preambleIndex[centerPreamble]].start < self.height/2 {
+            firstPreambleIndex = preambleIndex[centerPreamble]
+            secondPreambleIndex = preambleIndex[centerPreamble + 1]
+        } else {
+            firstPreambleIndex = preambleIndex[centerPreamble - 1 ]
+            secondPreambleIndex = preambleIndex[centerPreamble]
+        }
+
         let numberOfLines = secondPreambleIndex - firstPreambleIndex
         
         var currentLineWidth = 0
@@ -1185,33 +1293,33 @@ class ScanningFunctions3 {
             currentLinePosition = lines[firstPreambleIndex + i].position!
             // skip over the first line if low. if double low ad the first bit
             if i == 1 {
-                if (currentLinePosition == "low") && (currentLineWidth > twoBitWidth_min) {
+                if (currentLinePosition == "low") && (currentLineWidth > twoBitWidthBlack_min) {
                     self.binaryString.append("0")
                 }
             } else if i == (numberOfLines - 1) {
                 //this is the last line, avoid adding two 00s if double 0 or ignor this line if just a single low
-                if (currentLinePosition == "low") && (currentLineWidth > twoBitWidth_min) {
+                if (currentLinePosition == "low") && (currentLineWidth > twoBitWidthBlack_min) {
                     self.binaryString.append("0")
                 }
                 
             } else {
-                if (currentLinePosition == "low") && (currentLineWidth > twoBitWidth_min) {
+                if (currentLinePosition == "low") && (currentLineWidth > twoBitWidthBlack_min) {
                     self.binaryString.append("00")
-                } else if (currentLinePosition == "high") && (currentLineWidth > twoBitWidth_min) {
+                } else if (currentLinePosition == "high") && (currentLineWidth >= twoBitWidthRed_min) {
                     self.binaryString.append("11")
-                } else if (currentLinePosition == "low") && (currentLineWidth > bitWidth_min) && (currentLineWidth < bitWidth_max) {
+                } else if (currentLinePosition == "low") && (currentLineWidth >= bitWidthBlack_min) && (currentLineWidth < bitWidthBlack_max) {
                     self.binaryString.append("0")
-                } else if (currentLinePosition == "high") && (currentLineWidth > bitWidth_min) && (currentLineWidth < bitWidth_max) {
+                } else if (currentLinePosition == "high") && (currentLineWidth > bitWidthRed_min) && (currentLineWidth < bitWidthRed_max) {
                     self.binaryString.append("1")
                 }
             }
             
-//            print("")
-//            print("binaryString = \(binaryString)")
-//            print("currentLineWidth = \(currentLineWidth)")
-//            print("currentLinePosition = \(currentLinePosition)")
-//            print("currentLinePosition = \(currentLinePosition)")
-//            print("")
+            print("")
+            print("binaryString = \(binaryString)")
+            print("currentLineWidth = \(currentLineWidth)")
+            print("currentLinePosition = \(currentLinePosition)")
+
+            print("")
         }
         
         print("Binary String = \(self.binaryString)")

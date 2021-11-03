@@ -157,9 +157,9 @@ class ScannerViewController: UIViewController, AVCaptureVideoDataOutputSampleBuf
         if self.fps == 30 {
             
      
-        instructionLable.text = "Press and hold down the Display button untill the alarm beeps. Release button and position the camera over the red light, hold close enought to fill the green circle. Press the scan button to begin data read"
+        instructionLable.text = "Press and hold down the Test/Silence button untill the alarm beeps. Release button and position the camera over the red light, hold close enought to fill the green circle. Press the scan button to begin data read"
         } else {
-            instructionLable.text = "Press and hold down the Test/Silence button untill the alarm beeps. Release button and position the camera over the red light, hold close enought to fill the green circle. Press the scan button to begin data read"
+            instructionLable.text = "Press and hold down the Display button untill the alarm beeps. Release button and position the camera over the red light, hold close enought to fill the green circle. Press the scan button to begin data read"
         }
         
     }
@@ -529,7 +529,7 @@ class ScannerViewController: UIViewController, AVCaptureVideoDataOutputSampleBuf
        
         do {
       
-            try videoDevice.setExposureModeCustom(duration: duration, iso: 200, completionHandler: nil )
+            try videoDevice.setExposureModeCustom(duration: duration, iso: 100, completionHandler: nil )
             print("Exposure Mode Set Ok")
         } catch {
             print("Error Setting Exposure Mode")
@@ -722,11 +722,11 @@ class ScannerViewController: UIViewController, AVCaptureVideoDataOutputSampleBuf
         
         print("ProcessImage")
         
-        let imageMaster = ScanningFunctions2(uiImage: uiImage)
-        
-       // self.scannedImageArray.append((self.ImageMaster?.outImage[1])!)
-            
 
+        
+        if self.fps == 30 {
+            
+             let imageMaster = ScanningFunctions2(uiImage: uiImage)
             
             if imageMaster.binaryString.isEmpty || imageMaster.byteData == nil || imageMaster.byteNum == nil {
                 
@@ -749,6 +749,41 @@ class ScannerViewController: UIViewController, AVCaptureVideoDataOutputSampleBuf
                 //self.ImageMaster = nil
                 return outputFrame
             }
+            
+        } else if self.fps == 60 {
+            
+             let imageMaster = ScanningFunctions3(uiImage: uiImage)
+            
+            if imageMaster.binaryString.isEmpty || imageMaster.byteData == nil || imageMaster.byteNum == nil {
+                
+                outputFrame.HexVal = "Corrupt Scan Data"
+                
+                
+                // bad scan ned to restart
+                self.badScan = true
+                //self.ImageMaster = nil
+                
+                return outputFrame
+                
+            } else {
+                
+                outputFrame.rawBinaryString = imageMaster.binaryString
+                outputFrame.HexVal = imageMaster.byteData
+                outputFrame.packetNum = Int(imageMaster.byteNum!)
+                
+                //outputFrame.outputImage = imageMaster.outImage[0]
+                //self.ImageMaster = nil
+                return outputFrame
+            }
+        } else {
+            return outputFrame
+        }
+        
+       // let imageMaster = ScanningFunctions3(uiImage: uiImage)
+       // self.scannedImageArray.append((self.ImageMaster?.outImage[1])!)
+            
+
+
         
         
         

@@ -556,8 +556,8 @@
             filePath = "Model/ScannerFunctions.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "167"
-            endingLineNumber = "167"
+            startingLineNumber = "170"
+            endingLineNumber = "170"
             landmarkName = "init(uiImage:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -572,8 +572,8 @@
             filePath = "Model/ScannerFunctions.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "271"
-            endingLineNumber = "271"
+            startingLineNumber = "274"
+            endingLineNumber = "274"
             landmarkName = "DecodeImage()"
             landmarkType = "7">
          </BreakpointContent>
@@ -588,8 +588,8 @@
             filePath = "Model/ScannerFunctions.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "289"
-            endingLineNumber = "289"
+            startingLineNumber = "292"
+            endingLineNumber = "292"
             landmarkName = "DecodeImage()"
             landmarkType = "7">
          </BreakpointContent>
@@ -604,8 +604,8 @@
             filePath = "Model/ScannerFunctions.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "521"
-            endingLineNumber = "521"
+            startingLineNumber = "553"
+            endingLineNumber = "553"
             landmarkName = "SamplePacket()"
             landmarkType = "7">
          </BreakpointContent>
@@ -620,8 +620,8 @@
             filePath = "Model/ScannerFunctions.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "591"
-            endingLineNumber = "591"
+            startingLineNumber = "623"
+            endingLineNumber = "623"
             landmarkName = "ManchesterDecoder(encodedString:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -636,8 +636,8 @@
             filePath = "Model/ScannerFunctions.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "590"
-            endingLineNumber = "590"
+            startingLineNumber = "622"
+            endingLineNumber = "622"
             landmarkName = "ManchesterDecoder(encodedString:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -684,8 +684,8 @@
             filePath = "Model/ScannerFunctions.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "569"
-            endingLineNumber = "569"
+            startingLineNumber = "601"
+            endingLineNumber = "601"
             landmarkName = "SamplePacketBackup()"
             landmarkType = "7">
          </BreakpointContent>
@@ -716,8 +716,8 @@
             filePath = "Model/ScannerFunctions.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "527"
-            endingLineNumber = "527"
+            startingLineNumber = "559"
+            endingLineNumber = "559"
             landmarkName = "SamplePacketBackup()"
             landmarkType = "7">
          </BreakpointContent>
@@ -732,8 +732,8 @@
             filePath = "Model/ScannerFunctions.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "496"
-            endingLineNumber = "496"
+            startingLineNumber = "528"
+            endingLineNumber = "528"
             landmarkName = "SamplePacket()"
             landmarkType = "7">
          </BreakpointContent>
@@ -748,8 +748,8 @@
             filePath = "Model/ScannerFunctions.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "518"
-            endingLineNumber = "518"
+            startingLineNumber = "550"
+            endingLineNumber = "550"
             landmarkName = "SamplePacket()"
             landmarkType = "7">
          </BreakpointContent>
@@ -972,8 +972,8 @@
             filePath = "Model/ScannerFunctions.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "186"
-            endingLineNumber = "186"
+            startingLineNumber = "189"
+            endingLineNumber = "189"
             landmarkName = "FindSignalThresholds()"
             landmarkType = "7">
          </BreakpointContent>
@@ -988,8 +988,8 @@
             filePath = "Model/ScannerFunctions.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "185"
-            endingLineNumber = "185"
+            startingLineNumber = "188"
+            endingLineNumber = "188"
             landmarkName = "FindSignalThresholds()"
             landmarkType = "7">
          </BreakpointContent>
@@ -1052,8 +1052,8 @@
             filePath = "ViewControllers/ScannerViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "781"
-            endingLineNumber = "781"
+            startingLineNumber = "816"
+            endingLineNumber = "816"
             landmarkName = "prepare(for:sender:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1148,8 +1148,8 @@
             filePath = "ViewControllers/ScannerViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "840"
-            endingLineNumber = "840"
+            startingLineNumber = "875"
+            endingLineNumber = "875"
             landmarkName = "composeCameraDataPagePDF()"
             landmarkType = "7">
          </BreakpointContent>
@@ -1164,8 +1164,8 @@
             filePath = "ViewControllers/ScannerViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "843"
-            endingLineNumber = "843"
+            startingLineNumber = "878"
+            endingLineNumber = "878"
             landmarkName = "composeCameraDataPagePDF()"
             landmarkType = "7">
          </BreakpointContent>
@@ -1180,8 +1180,8 @@
             filePath = "ViewControllers/ScannerViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "864"
-            endingLineNumber = "864"
+            startingLineNumber = "899"
+            endingLineNumber = "899"
             landmarkName = "composeCameraDataPagePDF()"
             landmarkType = "7">
          </BreakpointContent>
@@ -1196,8 +1196,8 @@
             filePath = "Model/ScannerFunctions.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "612"
-            endingLineNumber = "612"
+            startingLineNumber = "644"
+            endingLineNumber = "644"
             landmarkName = "BuildOutputImage()"
             landmarkType = "7">
          </BreakpointContent>
@@ -1212,8 +1212,8 @@
             filePath = "Model/ScannerFunctions.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "166"
-            endingLineNumber = "166"
+            startingLineNumber = "169"
+            endingLineNumber = "169"
             landmarkName = "init(uiImage:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1436,8 +1436,8 @@
             filePath = "Model/ScannerFunctions.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1098"
-            endingLineNumber = "1098"
+            startingLineNumber = "1179"
+            endingLineNumber = "1179"
             landmarkName = "SamplePacket()"
             landmarkType = "7">
          </BreakpointContent>
@@ -1452,8 +1452,8 @@
             filePath = "Model/ScannerFunctions.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1130"
-            endingLineNumber = "1130"
+            startingLineNumber = "1211"
+            endingLineNumber = "1211"
             landmarkName = "SamplePacket()"
             landmarkType = "7">
          </BreakpointContent>
@@ -1532,8 +1532,8 @@
             filePath = "Model/ScannerFunctions.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1343"
-            endingLineNumber = "1343"
+            startingLineNumber = "1451"
+            endingLineNumber = "1451"
             landmarkName = "BuildOutputImage()"
             landmarkType = "7">
          </BreakpointContent>
@@ -1548,8 +1548,8 @@
             filePath = "Model/ScannerFunctions.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1321"
-            endingLineNumber = "1321"
+            startingLineNumber = "1429"
+            endingLineNumber = "1429"
             landmarkName = "ManchesterDecoder(encodedString:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1580,8 +1580,8 @@
             filePath = "Model/ScannerFunctions.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "771"
-            endingLineNumber = "771"
+            startingLineNumber = "804"
+            endingLineNumber = "804"
             landmarkName = "init(uiImage:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1596,8 +1596,8 @@
             filePath = "Model/ScannerFunctions.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "775"
-            endingLineNumber = "775"
+            startingLineNumber = "808"
+            endingLineNumber = "808"
             landmarkName = "init(uiImage:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1612,8 +1612,8 @@
             filePath = "Model/ScannerFunctions.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1189"
-            endingLineNumber = "1189"
+            startingLineNumber = "1297"
+            endingLineNumber = "1297"
             landmarkName = "SamplePacket2()"
             landmarkType = "7">
          </BreakpointContent>
@@ -1628,8 +1628,8 @@
             filePath = "Model/ScannerFunctions.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1187"
-            endingLineNumber = "1187"
+            startingLineNumber = "1295"
+            endingLineNumber = "1295"
             landmarkName = "SamplePacket2()"
             landmarkType = "7">
          </BreakpointContent>
@@ -1644,8 +1644,8 @@
             filePath = "Model/ScannerFunctions.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1217"
-            endingLineNumber = "1217"
+            startingLineNumber = "1325"
+            endingLineNumber = "1325"
             landmarkName = "SamplePacket2()"
             landmarkType = "7">
          </BreakpointContent>
@@ -1660,8 +1660,8 @@
             filePath = "Model/ScannerFunctions.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1221"
-            endingLineNumber = "1221"
+            startingLineNumber = "1329"
+            endingLineNumber = "1329"
             landmarkName = "SamplePacket2()"
             landmarkType = "7">
          </BreakpointContent>
@@ -1676,8 +1676,8 @@
             filePath = "Model/ScannerFunctions.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1227"
-            endingLineNumber = "1227"
+            startingLineNumber = "1335"
+            endingLineNumber = "1335"
             landmarkName = "SamplePacket2()"
             landmarkType = "7">
          </BreakpointContent>
@@ -1756,25 +1756,9 @@
             filePath = "Model/ScannerFunctions.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "701"
-            endingLineNumber = "701"
+            startingLineNumber = "734"
+            endingLineNumber = "734"
             landmarkName = "init(uiImage:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "B7C76C09-B055-4EF9-A007-6C0ABF02ED97"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "ViewControllers/ScannerViewController.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "731"
-            endingLineNumber = "731"
-            landmarkName = "ProcessImage(uiImage:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1788,8 +1772,8 @@
             filePath = "Model/ScannerFunctions.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "705"
-            endingLineNumber = "705"
+            startingLineNumber = "738"
+            endingLineNumber = "738"
             landmarkName = "init(uiImage:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1804,8 +1788,8 @@
             filePath = "Model/ScannerFunctions.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "761"
-            endingLineNumber = "761"
+            startingLineNumber = "794"
+            endingLineNumber = "794"
             landmarkName = "init(uiImage:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1820,8 +1804,8 @@
             filePath = "Model/ScannerFunctions.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "760"
-            endingLineNumber = "760"
+            startingLineNumber = "793"
+            endingLineNumber = "793"
             landmarkName = "init(uiImage:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1852,8 +1836,8 @@
             filePath = "Model/ScannerFunctions.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "827"
-            endingLineNumber = "827"
+            startingLineNumber = "861"
+            endingLineNumber = "861"
             landmarkName = "FindSignalThresholds()"
             landmarkType = "7">
          </BreakpointContent>
@@ -1868,8 +1852,8 @@
             filePath = "Model/ScannerFunctions.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "467"
-            endingLineNumber = "467"
+            startingLineNumber = "499"
+            endingLineNumber = "499"
             landmarkName = "SamplePacket()"
             landmarkType = "7">
          </BreakpointContent>
@@ -1884,8 +1868,8 @@
             filePath = "Model/ScannerFunctions.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "492"
-            endingLineNumber = "492"
+            startingLineNumber = "524"
+            endingLineNumber = "524"
             landmarkName = "SamplePacket()"
             landmarkType = "7">
          </BreakpointContent>
@@ -1948,8 +1932,8 @@
             filePath = "Model/ScannerFunctions.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "161"
-            endingLineNumber = "161"
+            startingLineNumber = "164"
+            endingLineNumber = "164"
             landmarkName = "init(uiImage:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -2044,8 +2028,8 @@
             filePath = "Model/ScannerFunctions.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "148"
-            endingLineNumber = "148"
+            startingLineNumber = "151"
+            endingLineNumber = "151"
             landmarkName = "init(uiImage:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -2060,24 +2044,8 @@
             filePath = "Model/ScannerFunctions.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "156"
-            endingLineNumber = "156"
-            landmarkName = "init(uiImage:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "4AD28382-D77E-4B6D-81DE-F3205869494F"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Model/ScannerFunctions.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "144"
-            endingLineNumber = "144"
+            startingLineNumber = "159"
+            endingLineNumber = "159"
             landmarkName = "init(uiImage:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -2092,8 +2060,8 @@
             filePath = "Model/ScannerFunctions.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "791"
-            endingLineNumber = "791"
+            startingLineNumber = "825"
+            endingLineNumber = "825"
             landmarkName = "init(uiImage:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -2108,8 +2076,8 @@
             filePath = "Model/ScannerFunctions.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "794"
-            endingLineNumber = "794"
+            startingLineNumber = "828"
+            endingLineNumber = "828"
             landmarkName = "init(uiImage:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -2124,8 +2092,8 @@
             filePath = "Model/ScannerFunctions.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "802"
-            endingLineNumber = "802"
+            startingLineNumber = "836"
+            endingLineNumber = "836"
             landmarkName = "init(uiImage:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -2140,8 +2108,8 @@
             filePath = "Model/ScannerFunctions.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "790"
-            endingLineNumber = "790"
+            startingLineNumber = "824"
+            endingLineNumber = "824"
             landmarkName = "init(uiImage:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -2156,9 +2124,73 @@
             filePath = "Model/ScannerFunctions.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "807"
-            endingLineNumber = "807"
+            startingLineNumber = "841"
+            endingLineNumber = "841"
             landmarkName = "init(uiImage:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "6FF505D9-10D6-4549-BA53-0DB62C403363"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Model/ScannerFunctions.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "1296"
+            endingLineNumber = "1296"
+            landmarkName = "SamplePacket2()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "CBA5704F-1881-48DA-A6A4-E1B226EC39B2"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Model/ScannerFunctions.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "1289"
+            endingLineNumber = "1289"
+            landmarkName = "SamplePacket2()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "B6727DD8-580D-4E85-A98D-5670800D01B1"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Model/ScannerFunctions.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "1036"
+            endingLineNumber = "1036"
+            landmarkName = "FindThinestBlackLine()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "56BF1D82-0AE3-4C7A-85E0-E2FCABBAED10"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Model/ScannerFunctions.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "1058"
+            endingLineNumber = "1058"
+            landmarkName = "FindThinestBlackLine()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
