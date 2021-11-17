@@ -159,19 +159,19 @@ class OldServiceSummaryViewController: UIViewController {
                 Serial Number: \(deviceReportList![i].serialNumber!)
                 Report Date: \( dateFormat(date: deviceReportList![i].date!) )
                 
-                Device Health Status: \(deviceReportList![i].healthIndicator!)
+                Device Health Status: \(getDeviceFaultStatus(colour: deviceReportList![i].healthIndicator!))
                 Life Remaining: \(deviceScanData!.batteryLifeRemaining_YearsLeft!)
-                Replace By: \(deviceScanData!.deviceReplacentDate!)
+                Replace By: \(dateFormat(date:deviceScanData!.deviceReplacentDate!))
                 
                 Removals From Mounting Plate: \(deviceScanData!.plateRemovals!)
                 
-                Device Tests:
+                Device Tests
                 Device Test Count: \(deviceScanData!.deviceTestCount!)
-                Last Test Date: \(deviceScanData!.deviceLastTestDate!)
+                Last Test Date: \(dateFormat(date:deviceScanData!.deviceLastTestDate!))
                 
                 Manufacture Details
                 Serial Number: \(deviceScanData!.deviceSerialNumber!)
-                Manufacture Date: \(deviceScanData!.snManufactureDate!)
+                Manufacture Date: \(dateFormat(date:deviceScanData!.snManufactureDate!))
                 -----------------------------------------------------------------
                 Alarms
                 -----------------------------------------------------------------
@@ -195,13 +195,13 @@ class OldServiceSummaryViewController: UIViewController {
                 -----------------------------------------------------------------
                 Fault Status: \(String(describing:deviceScanData!.faultFlag))
                 
-                Device Faults: \(String(describing:deviceScanData!.deviceFault))
+                Device Faults: \(String(describing:deviceScanData!.deviceFault!))
                 Date: \(self.deviceFaultDateString)
                 
-                Battery Fault: \(String(describing:deviceScanData!.batteryFault))
+                Battery Fault: \(String(describing:deviceScanData!.batteryFault!))
                 Date: \(self.batteryFaultDateString)
                 
-                Remote Faults: \(String(describing:deviceScanData!.remoteFault))
+                Remote Faults: \(String(describing:deviceScanData!.remoteFault!))
                 Date: \(self.remoteFaultDateString)
                 
                 End Of Life: \(String(describing:deviceScanData!.eol_Fault))
@@ -309,6 +309,18 @@ class OldServiceSummaryViewController: UIViewController {
         composeVC.addAttachmentData(self.pdfDocument.dataRepresentation()! as Data, mimeType: "pdf" , fileName: "FireHawkServiceReport.pdf")
         
         self.present(composeVC, animated: true, completion: nil)
+    }
+    
+    func getDeviceFaultStatus(colour: String) -> String {
+        if colour == "red" {
+            return "Device in fault condition"
+        } else if colour == "green" {
+            return "Device in good condition"
+        } else {
+            return "Device has a health warning"
+        }
+            
+        
     }
 }
 

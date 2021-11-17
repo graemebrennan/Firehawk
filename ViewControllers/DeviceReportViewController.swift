@@ -14,7 +14,9 @@ class DeviceReportViewController: UIViewController {
     var newScan: String?
     var propertyDetails = PropertyDetails() // valid only on first scan
     var scanCount: Int?
-    
+    var testScan = "75a01003000c080002000f000201ffff03ffff05ffff07ffffffffffffffffffff0000ffb2a388"
+    var testScan2 = "75a0000300510800020010000c00ffff00ffff00ffff020000002500100048ffff000004b6a2dc"
+    var testScan3 = "75a00005ff151eff150016ff1504ff1502ff1501000909ff15ff150001ff15ffff000804aca260"
     // build here
     var propertyReport = ServiceReportOP()
     var newScanAnalysis: ScanAnalysis?
@@ -72,12 +74,12 @@ class DeviceReportViewController: UIViewController {
         GeneralInfoTableView.register(UINib(nibName: "AlarmInfoCell", bundle: nil), forCellReuseIdentifier: "AlarmInfoCellIdentifier")
         // Unpack the scan data
         
-        self.newScanAnalysis = ScanAnalysis(scan: newScan!)
-        
+      self.newScanAnalysis = ScanAnalysis(scan: newScan!)
+//        self.newScanAnalysis = ScanAnalysis(scan: testScan3)
         
         serialNumberLabel.text = "  Serial Number: \(newScanAnalysis!.deviceSerialNumber!)"
         manufactureDate.text = "  Manufacture Date: \(dateFormat( date: newScanAnalysis!.snManufactureDate!))"
-        peakCOLabel.text = "  Peak CO Reading: \(newScanAnalysis!.peakCO!)"
+        peakCOLabel.text = "  Peak CO Reading: \(newScanAnalysis!.peakCO!) PPM"
         
         // lblWarning.alpha = 1
         deviceInformationTitle.lblTitle.text = "Device Information"
@@ -425,7 +427,7 @@ extension DeviceReportViewController: UITableViewDataSource, UITableViewDelegate
                     
                 }
                 
-                cell.FaultIndicator.backgroundColor = getFaultColour(str: newScanAnalysis!.plateRemovalsFaultIndicator)
+                cell.FaultIndicator.backgroundColor = getFaultColour(str: newScanAnalysis?.plateRemovalsFaultIndicator ?? "red")
                 
             case 2: // Device Test History
                 
@@ -473,8 +475,14 @@ extension DeviceReportViewController: UITableViewDataSource, UITableViewDelegate
                 
                 cell.title.text = "Battery Fault               \(newScanAnalysis!.batteryVoltage!)V"
                 
+                print("newScanAnalysis?.batteryFault = \(newScanAnalysis?.batteryFault)")
                 if newScanAnalysis?.batteryFault == true {
-                    cell.date.text = "Last Occured \(newScanAnalysis!.batteryFaultDate!)"
+                    if newScanAnalysis?.batteryFaultDate != nil {
+                        cell.date.text = "Last Occured \(dateFormat( date: self.newScanAnalysis!.batteryFaultDate!))"
+                    } else {
+                        cell.date.text = "Event Date Unknown"
+                    }
+                    
                     cell.note.text = "Battery Fault"
                     cell.FaultIndicator.backgroundColor = UIColor(rgb: 0xEA4748)
                 } else {
@@ -489,7 +497,14 @@ extension DeviceReportViewController: UITableViewDataSource, UITableViewDelegate
                 
                 if newScanAnalysis?.deviceFault == true {
                     cell.note.text = "Device Fault"
-                    cell.date.text = "Last Occured  \(newScanAnalysis?.deviceFaultDate)"
+                
+                    if newScanAnalysis?.deviceFaultDate != nil {
+                        cell.date.text = "Last Occured  \(dateFormat( date: self.newScanAnalysis!.deviceFaultDate!))"
+                    } else {
+                        cell.date.text = "Event Date Unknown"
+                    }
+                    
+                    
                     cell.FaultIndicator.backgroundColor = UIColor(rgb: 0xEA4748)
                 } else {
                     cell.date.text = " - "
@@ -503,7 +518,14 @@ extension DeviceReportViewController: UITableViewDataSource, UITableViewDelegate
                 
                 if newScanAnalysis?.eol_Fault == true {
                     cell.note.text = "End of Life Fault"
-                    cell.date.text = "Last Occured \(newScanAnalysis?.eol_FaultDate)"
+                    
+                    if newScanAnalysis?.eol_FaultDate != nil {
+                        cell.date.text = "Last Occured \(dateFormat( date: self.newScanAnalysis!.eol_FaultDate!))"
+                    } else {
+                        cell.date.text = "Event Date Unknown"
+                    }
+                    
+                    
                     cell.FaultIndicator.backgroundColor = UIColor(rgb: 0xEA4748)
                 } else {
                     cell.date.text = " - "

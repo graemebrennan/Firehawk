@@ -1274,8 +1274,14 @@ class ScanningFunctions3 {
             firstPreambleIndex = preambleIndex[centerPreamble]
             secondPreambleIndex = preambleIndex[centerPreamble + 1]
         } else {
-            firstPreambleIndex = preambleIndex[centerPreamble - 1 ]
-            secondPreambleIndex = preambleIndex[centerPreamble]
+            if centerPreamble == 0 {
+                firstPreambleIndex = preambleIndex[centerPreamble]
+                secondPreambleIndex = preambleIndex[centerPreamble + 1]
+            } else {
+                firstPreambleIndex = preambleIndex[centerPreamble - 1 ]
+                secondPreambleIndex = preambleIndex[centerPreamble]
+            }
+
         }
 
         let numberOfLines = secondPreambleIndex - firstPreambleIndex

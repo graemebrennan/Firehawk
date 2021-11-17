@@ -84,6 +84,8 @@ class ScannerViewController: UIViewController, AVCaptureVideoDataOutputSampleBuf
     
     var crossCheckArray: [Int] = []
     
+    var badCheckSum = false
+    
     @IBOutlet weak var scanButton: UIButton!
     @IBOutlet weak var ScannerView: UIImageView!
     @IBOutlet weak var circleView: CircleView!
@@ -295,7 +297,7 @@ class ScannerViewController: UIViewController, AVCaptureVideoDataOutputSampleBuf
         return uiImage
     }
     
-    func captureOutput(_ captureOutput: AVCaptureOutput!, didDrop sampleBuffer: CMSampleBuffer!, from connection: AVCaptureConnection!) {
+    func captureOutput(_ captureOutput: AVCaptureOutput, didDrop sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection) {
        
         if self.scanEnded != true {
             droppedFrames += 1
@@ -402,7 +404,7 @@ class ScannerViewController: UIViewController, AVCaptureVideoDataOutputSampleBuf
                     }
 
                     // complete scan
-                    if self.progressBar.progress == 1 && self.seguePerformed == false {
+                    if self.progressBar.progress == 1 && self.seguePerformed == false && self.badCheckSum == false{
 
                         var scanString = ""
                         // build scan string
@@ -413,30 +415,29 @@ class ScannerViewController: UIViewController, AVCaptureVideoDataOutputSampleBuf
                         }
 
                         self.newScan = scanString
-
-                        self.seguePerformed = true
-
-                        self.performSegue(withIdentifier: "ScanToDeviceReport", sender: self)
-
+                        
+                        if self.checkScanCheckSum(str: scanString) {
+                            
+                            self.seguePerformed = true
+                            print( " CheckSum OK ")
+                            self.performSegue(withIdentifier: "ScanToDeviceReport", sender: self)
+                        } else {
+                            
+                            print( " Bad CheckSum ")
+                            self.badCheckSum = true
+                            
+                            //TODO Reset the captured array
+                            self.resetPacketFrameValues()
+                        }
                     }
 
                     print( " self.frameProcessCount = \(self.counter) ")
 
                     // didnt get all the frames, there is something wrong
-                    if self.progressBar.progress < 1 && self.counter == 79 {
+                    if (self.progressBar.progress < 1 && self.counter == 79) || self.badCheckSum == true {
                         print( " there is a problem ")
 
-                        self.scanErrorLabel.alpha = 1
-
-                        self.counter = 0
-
-                        self.ReSetScanExposureSettings()
-
-                        self.progressView.alpha = 0
-
-                        self.setupCrossCheckArray()
-                        self.FrameCapturCount = 0
-                        self.scanEnded = false
+                        self.badScanReset()
                     }
                 }
                 
@@ -444,6 +445,69 @@ class ScannerViewController: UIViewController, AVCaptureVideoDataOutputSampleBuf
             }
         }
     }
+    
+    func resetPacketFrameValues() {
+        for i in 0 ..< 39 {
+
+            self.packet.rawData[i]?.HexVal = nil
+            
+        }
+        print("Packet has been reset")
+    }
+    
+    
+    func badScanReset() {
+        self.scanErrorLabel.alpha = 1
+
+        self.counter = 0
+
+        self.ReSetScanExposureSettings()
+
+        self.progressView.alpha = 0
+
+        self.setupCrossCheckArray()
+        self.FrameCapturCount = 0
+        self.scanEnded = false
+        self.badCheckSum = false
+    }
+    
+    func checkScanCheckSum(str: String) -> Bool {
+        
+        //MARK:- Check Sum
+        let checkSumStartIndex = str.index(str.startIndex, offsetBy: 76)
+        let checkSumEndIndex = str.index(str.startIndex, offsetBy: 77)
+        let checkSumString = String(str[checkSumStartIndex...checkSumEndIndex])
+        let checkSumUInt8 = UInt8(checkSumString, radix: 16)
+        
+        print("checkSum String= \(checkSumString)")
+
+        var checkIntTemp: UInt16 = 0
+        
+        //checksum
+        for i in stride(from: 0, to: str.count - 2, by: 2) {
+            let byteStartIndex = str.index(str.startIndex, offsetBy: i)
+            let byteEndIndex = str.index(str.startIndex, offsetBy: i+1)
+
+            let byteString = String(str[byteStartIndex...byteEndIndex])
+            let byteInt = UInt16(byteString, radix: 16)
+            
+            print("Check sum value = \(checkIntTemp) + \(byteInt!) = \((checkIntTemp + byteInt!))")
+            
+            checkIntTemp = (checkIntTemp + byteInt!)// & 0x00FF
+        }
+        
+        checkIntTemp = (checkIntTemp & 0x00FF)
+        
+        if UInt8(checkIntTemp) == checkSumUInt8 {
+            
+            print("Good Check Sum")
+            return true
+        } else {
+            return false
+        }
+
+    }
+    
     
     func EndFrameProcessor() {
         print("captureOutput:  end of scan")
