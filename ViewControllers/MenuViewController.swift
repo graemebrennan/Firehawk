@@ -102,7 +102,7 @@ extension MenuViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        print("items to be reloaded = \(self.serviceReports?.count)")
+        print("items to be reloaded = \(String(describing: self.serviceReports?.count))")
         return self.serviceReports?.count ?? 0
         
     }
@@ -118,7 +118,7 @@ extension MenuViewController: UITableViewDataSource {
         cell.lblName.text = serviceReport.name ?? "No Name"
         // cell.lblAddress.text = serviceReport.houseAddress?.line1 ?? "No Address"
         cell.lblAddress.text = serviceReport.houseAddress?.postcode
-        cell.lblDate.text = dateFormat(date: serviceReport.date!) ?? "Date Unkownand"
+        cell.lblDate.text = dateFormat(date: serviceReport.date!) 
         cell.faultIndicator.backgroundColor = getFaultColour(str: "amber")
         
         return cell

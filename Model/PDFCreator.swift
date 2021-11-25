@@ -307,7 +307,7 @@ class PDFDebugCreator: NSObject {
       // 5
       context.beginPage()
       // 6
-      let titleBottom = addTitle(pageRect: pageRect)
+      //let titleBottom = addTitle(pageRect: pageRect)
       addBodyText(pageRect: pageRect)
       
 //      let context = context.cgContext

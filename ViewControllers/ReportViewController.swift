@@ -355,7 +355,7 @@ extension ReportViewController: UITableViewDataSource, UITableViewDelegate {
 
                 if newScanAnalysis?.deviceFault == true {
                     cell.note.text = "Device Fault"
-                    cell.date.text = "Last Occured  \(newScanAnalysis?.deviceFaultDate)"
+                    cell.date.text = "Last Occured  \(String(describing: newScanAnalysis?.deviceFaultDate))"
                     cell.FaultIndicator.backgroundColor = UIColor(rgb: 0xEA4748)
                 } else {
                     cell.date.text = " - "
@@ -369,7 +369,7 @@ extension ReportViewController: UITableViewDataSource, UITableViewDelegate {
                 
                 if newScanAnalysis?.eol_Fault == true {
                     cell.note.text = "eol_Fault"
-                    cell.date.text = "Last Occured \(newScanAnalysis?.eol_FaultDate)"
+                    cell.date.text = "Last Occured \(String(describing: newScanAnalysis?.eol_FaultDate))"
                     cell.FaultIndicator.backgroundColor = UIColor(rgb: 0xEA4748)
                 } else {
                     cell.date.text = " - "

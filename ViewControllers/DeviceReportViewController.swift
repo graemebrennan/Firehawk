@@ -89,10 +89,10 @@ class DeviceReportViewController: UIViewController {
         
 
         
-        for i in stride(from: 0, to: self.newScan!.count, by: 2) {
-            
-        }
-        
+//        for _ in stride(from: 0, to: self.newScan!.count, by: 2) {
+//            
+//        }
+//        
         commentsTV.text = """
                           1: \(self.packet!.rawData[0]!.HexVal!)
                           2: \(self.packet!.rawData[1]!.HexVal!)
@@ -475,7 +475,7 @@ extension DeviceReportViewController: UITableViewDataSource, UITableViewDelegate
                 
                 cell.title.text = "Battery Fault               \(newScanAnalysis!.batteryVoltage!)V"
                 
-                print("newScanAnalysis?.batteryFault = \(newScanAnalysis?.batteryFault)")
+                print("newScanAnalysis?.batteryFault = \(String(describing: newScanAnalysis?.batteryFault))")
                 if newScanAnalysis?.batteryFault == true {
                     if newScanAnalysis?.batteryFaultDate != nil {
                         cell.date.text = "Last Occured \(dateFormat( date: self.newScanAnalysis!.batteryFaultDate!))"

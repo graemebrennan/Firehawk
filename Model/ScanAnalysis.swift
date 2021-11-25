@@ -103,7 +103,7 @@ struct ScanAnalysis {
         self.deviceFault = true
         self.eol_Fault = true
         self.remoteFault = true
-        var deviceLifetime = 0
+        //var deviceLifetime = 0
         
         //MARK:- SerialNumber
         let serialNumberStartIndex = scan.index(scan.startIndex, offsetBy: 0)
@@ -119,7 +119,7 @@ struct ScanAnalysis {
         let SNByte1Int = UInt8(SNByte1String, radix: 16)
         
         // get only first 3 bits >> to get byte value
-        let check = SNByte1Int! & 0xE0
+        //let check = SNByte1Int! & 0xE0
         let deviceTypeInt = (SNByte1Int! & 0xE0) >> 5
         print("deviceTypeInt: \(deviceTypeInt)")
         let productionYearInt = SNByte1Int! & 0x1F
@@ -173,9 +173,9 @@ struct ScanAnalysis {
         
         //MARK:- fix this, can pull year from within sn no need to pull from string. alkso cant do this directly
         //TODO:- need to get month information to add production month, i dont need the year here as i have it above in first byte.
-        let snManufactureYearStartIndex = scan.index(scan.startIndex, offsetBy: 2)
-        let snManufactureYearEndIndex = scan.index(scan.startIndex, offsetBy: 7)
-        let snManufactureYearString = String(scan[snManufactureYearStartIndex...snManufactureYearEndIndex])
+        //let snManufactureYearStartIndex = scan.index(scan.startIndex, offsetBy: 2)
+        //let snManufactureYearEndIndex = scan.index(scan.startIndex, offsetBy: 7)
+        //let snManufactureYearString = String(scan[snManufactureYearStartIndex...snManufactureYearEndIndex])
         //let snManufactureYearInt = Int(snManufactureYearString)
         
        
@@ -518,14 +518,14 @@ struct ScanAnalysis {
                 
                 var batteryFaultDateComponent = DateComponents()
                 batteryFaultDateComponent.hour = (runtimeClockInt! - batteryFaultDateInt!) * -2
-                var batteryFaultDate = calendar.date(byAdding: batteryFaultDateComponent, to: Date())
+                let batteryFaultDate = calendar.date(byAdding: batteryFaultDateComponent, to: Date())
                 self.batteryFaultDate = batteryFaultDate
             }
         } else {
             self.batteryFaultDate = nil
         }
        
-        print("self.batteryFaultDate: \(self.batteryFaultDate)")
+        print("self.batteryFaultDate: \(String(describing: self.batteryFaultDate))")
        
         if (self.faultFlag & 0x02) == 0x02
         {
@@ -550,7 +550,7 @@ struct ScanAnalysis {
             self.deviceFaultDate = nil
         }
         
-        print("self.deviceFaultDate: \(self.deviceFaultDate)")
+        print("self.deviceFaultDate: \(String(describing: self.deviceFaultDate))")
         
         if (self.faultFlag & 0x04) == 0x04
         {
@@ -576,7 +576,7 @@ struct ScanAnalysis {
             self.eol_FaultDate = nil
         }
         
-        print("self.eol_FaultDate: \(self.eol_FaultDate)")
+        print("self.eol_FaultDate: \(String(describing: self.eol_FaultDate))")
         
         if (self.faultFlag & 0x08) == 0x08
         {
@@ -601,7 +601,7 @@ struct ScanAnalysis {
             self.remoteFaultDate = nil
         }
         
-        print("self.remoteFaultDate: \(self.remoteFaultDate)")
+        print("self.remoteFaultDate: \(String(describing: self.remoteFaultDate))")
         
         //MARK:- PeakCO
         let peakCOStartIndex = scan.index(scan.startIndex, offsetBy: 66)
@@ -612,7 +612,7 @@ struct ScanAnalysis {
       
         self.peakCO = peakCOInt
         
-        print("self.peakCO: \(self.peakCO)")
+        print("self.peakCO: \(String(describing: self.peakCO))")
         
         //MARK:- batteryVoltage
         let batteryVoltageStartIndex = scan.index(scan.startIndex, offsetBy: 72)
@@ -623,7 +623,7 @@ struct ScanAnalysis {
         let batteryVoltageFloat = Float(batteryChargeInt! + 128) * 0.01
         self.batteryVoltage = batteryVoltageFloat
         
-        print("self.batteryVoltage: \(self.batteryVoltage)")
+        print("self.batteryVoltage: \(String(describing: self.batteryVoltage))")
         
         if batteryVoltageFloat <= 2.00 {
             print("flatBattery")
@@ -633,14 +633,14 @@ struct ScanAnalysis {
             self.batteryChargePercentage = batteryChargePercentage
         }
         
-        print("self.batteryChargePercentage = \(self.batteryChargePercentage)")
+        print("self.batteryChargePercentage = \(String(describing: self.batteryChargePercentage))")
         
         //TODO:- complete batery condition filtering and move to replacemnet dates 27/07/2021
         let batteryLifeRemaining_YearsLeft = Float(self.deviceLifetimeYears!) * self.batteryChargePercentage!
         let batteryLifeRemaining_HoursLeft = batteryLifeRemaining_YearsLeft * (365 * 24)
         self.batteryLifeRemaining_YearsLeft = batteryLifeRemaining_YearsLeft
        
-        print("self.batteryLifeRemaining_YearsLeft: \(self.batteryLifeRemaining_YearsLeft)")
+        print("self.batteryLifeRemaining_YearsLeft: \(String(describing: self.batteryLifeRemaining_YearsLeft))")
         
         var batteryLifeRemaining_ReplacentDateComponent = DateComponents()
         batteryLifeRemaining_ReplacentDateComponent.hour = Int(batteryLifeRemaining_HoursLeft)
@@ -651,7 +651,7 @@ struct ScanAnalysis {
         
         self.batteryLifeRemaining_ReplacentDate = batteryLifeRemaining_ReplacentDate
         
-        print("self.batteryLifeRemaining_ReplacentDate: \(self.batteryLifeRemaining_ReplacentDate)")
+        print("self.batteryLifeRemaining_ReplacentDate: \(String(describing: self.batteryLifeRemaining_ReplacentDate))")
         
         if (plateRemovalInt == 0) {
             var maufactureDateComponent = DateComponents()
@@ -661,7 +661,7 @@ struct ScanAnalysis {
             self.maufactureDate = snManufactureDate
         }
         
-        print("self.maufactureDate: \(self.maufactureDate)")
+        print("self.maufactureDate: \(String(describing: self.maufactureDate))")
         
         // use soonest expirey prediction for report
         if batteryLifeRemaining_ReplacentDate! < snManufactureExpiaryDate! {
@@ -676,8 +676,8 @@ struct ScanAnalysis {
             self.deviceLifeRemaining_HoursLeft = components.hour!
         }
         
-        print("self.deviceReplacentDate: \(self.deviceReplacentDate)")
-        print("self.deviceLifeRemaining_HoursLeft: \(self.deviceLifeRemaining_HoursLeft)")
+        print("self.deviceReplacentDate: \(String(describing: self.deviceReplacentDate))")
+        print("self.deviceLifeRemaining_HoursLeft: \(String(describing: self.deviceLifeRemaining_HoursLeft))")
         
         //MARK:- Software Version
         let softwateVersionStartIndex = scan.index(scan.startIndex, offsetBy: 74)

@@ -67,7 +67,7 @@ class NewServiceSummaryViewController: UIViewController, UITableViewDataSource {
     
     func addNewReport() {
         
-        var newDeviceReport = DeviceReportCD(context: self.context)
+        let newDeviceReport = DeviceReportCD(context: self.context)
         newDeviceReport.serviceReport = self.latestRecord
         newDeviceReport.title = newReport?.title
         newDeviceReport.date = newReport?.date
@@ -142,7 +142,7 @@ class NewServiceSummaryViewController: UIViewController, UITableViewDataSource {
         
         cell.lblName.text = self.deviceReportList?[indexPath.row].title
         cell.lblSerialNumber.text = self.deviceReportList?[indexPath.row].serialNumber
-        cell.lblDate.text =  "Date: \( dateFormat(date: (self.deviceReportList?[indexPath.row].date!)!) ?? "Unknown")"
+        cell.lblDate.text =  "Date: \(dateFormat(date: (self.deviceReportList?[indexPath.row].date!)!))"
         cell.FaultIndicatorView.backgroundColor = getFaultColour(str: (self.deviceReportList?[indexPath.row].healthIndicator)!)
         
         
@@ -177,14 +177,14 @@ class NewServiceSummaryViewController: UIViewController, UITableViewDataSource {
     
     func createNewServiceReport() {
         
-        var newServiceReport = ServiceReportCD(context: self.context)
+        let newServiceReport = ServiceReportCD(context: self.context)
         
         newServiceReport.name = self.propertyDetails.name
         newServiceReport.date = self.propertyDetails.date
         
         newServiceReport.faultIndicator = self.propertyDetails.faultIndicator
         
-        var newHouseAddress = AddressCD(context: self.context)
+        let newHouseAddress = AddressCD(context: self.context)
         
         newHouseAddress.line1 = self.propertyDetails.line1
         newHouseAddress.line2 = self.propertyDetails.line2

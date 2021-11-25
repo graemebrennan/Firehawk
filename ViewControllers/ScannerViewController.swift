@@ -11,7 +11,7 @@ import PDFKit
 import MessageUI
 import Device
 
-class ScannerViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDelegate, FrameExtractorDelegate { //
+class ScannerViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDelegate  { //FrameExtractorDelegate
     
     var newPropertyDetails = PropertyDetails() // valid only on first scan
     var scanCount: Int? // nil on first scan
@@ -78,7 +78,7 @@ class ScannerViewController: UIViewController, AVCaptureVideoDataOutputSampleBuf
     
     var PacketCount = 39
     
-    var frameExtractor: FrameExtractor!
+    //var frameExtractor: FrameExtractor!
     
     var scanEnded = false
     
@@ -151,8 +151,8 @@ class ScannerViewController: UIViewController, AVCaptureVideoDataOutputSampleBuf
         // setup AVCaptureSession IO
         self.ConnectIOToCameraSession_BackCamera()
         
-        frameExtractor = FrameExtractor()
-        frameExtractor.delegate = self
+//        frameExtractor = FrameExtractor()
+//        frameExtractor.delegate = self
         
         getFrameRate()
         
@@ -205,7 +205,7 @@ class ScannerViewController: UIViewController, AVCaptureVideoDataOutputSampleBuf
 //        print("AVCaptureDevice.DiscoverySession = \(AVCaptureDevice.DiscoverySession.self)")
 //        print("-------------------------------------------------------------------------------")
         
-        let cameras = AVCaptureDevice.devices(for: AVMediaType.video)
+        //let cameras = AVCaptureDevice.devices(for: AVMediaType.video)
 //        print("cameras = \(cameras)")
 //
 
@@ -359,9 +359,9 @@ class ScannerViewController: UIViewController, AVCaptureVideoDataOutputSampleBuf
 
     func ScanAnalaysis() {
         
-        var imageCount = self.scannedImageArray.count
+        let imageCount = self.scannedImageArray.count
         
-        for i in 0..<imageCount
+        for _ in 0..<imageCount
         {
             if seguePerformed == true {
                 self.scannedImageArray.removeAll()
@@ -374,7 +374,7 @@ class ScannerViewController: UIViewController, AVCaptureVideoDataOutputSampleBuf
                 
                 DispatchQueue.main.async { [self] in
 
-                    var progress = 0
+                    //AVCaptureDeviceDiscoverySession var progress = 0
                     var completeFramesCount = 0
 
 
@@ -384,7 +384,7 @@ class ScannerViewController: UIViewController, AVCaptureVideoDataOutputSampleBuf
                             if let index = crossCheckArray.firstIndex(of: (packet.rawData[i]?.packetNum)!) {
                                 crossCheckArray.remove(at: index)
 
-                                print(" -------------------------have packet \(self.packet.rawData[i]!.packetNum) = \(self.packet.rawData[i]!.HexVal)")
+                                print(" -------------------------have packet \(String(describing: self.packet.rawData[i]!.packetNum)) = \(String(describing: self.packet.rawData[i]!.HexVal))")
 
                                 print(" -------------------------remaining packet count = \(crossCheckArray.count)")
 
@@ -527,16 +527,16 @@ class ScannerViewController: UIViewController, AVCaptureVideoDataOutputSampleBuf
         // the above function will return a manchester decoded string or "Corrupt Scan Data" if the frame failed
         
         if frame?.HexVal == "Corrupt Scan Data" {
-            print("Corrupt frame: \(counter) = \(frame?.str)")
+            print("Corrupt frame: \(counter) = \(String(describing: frame?.str))")
             
         } else {
             
-            print("frame.packetNum \(frame?.packetNum)")
-            print("frame.HexVal \(frame?.HexVal)")
+            print("frame.packetNum \(String(describing: frame?.packetNum))")
+            print("frame.HexVal \(String(describing: frame?.HexVal))")
 
             //self.packet.rawData[frame.packetNum]?.HexVal
             if (frame?.packetNum!)! <= 39 {
-                print("frame?.packetNum! = \(frame?.packetNum!)")
+                print("frame?.packetNum! = \(String(describing: frame?.packetNum!))")
                 if packet.rawData[(frame?.packetNum!)!-1]?.HexVal == nil {
                     packet.rawData[(frame?.packetNum!)!-1] = frame
                 } else {
@@ -591,13 +591,8 @@ class ScannerViewController: UIViewController, AVCaptureVideoDataOutputSampleBuf
         let duration = CMTime.init(seconds: exposureTime, preferredTimescale: 1_000_000)
         print("duration = \(duration)")
        
-        do {
-      
-            try videoDevice.setExposureModeCustom(duration: duration, iso: 100, completionHandler: nil )
-            print("Exposure Mode Set Ok")
-        } catch {
-            print("Error Setting Exposure Mode")
-        }
+        videoDevice.setExposureModeCustom(duration: duration, iso: 100, completionHandler: nil )
+
         videoDevice.videoZoomFactor = 1.0
         
        // videoDevice.activeVideoMinFrameDuration = CMTimeMake(value: 1, timescale: 30)
@@ -669,10 +664,10 @@ class ScannerViewController: UIViewController, AVCaptureVideoDataOutputSampleBuf
             for vFormat in videoDevice.formats {
 
                 // 2
-                var ranges = vFormat.videoSupportedFrameRateRanges as [AVFrameRateRange]
-                var frameRates = ranges[0]
+                let ranges = vFormat.videoSupportedFrameRateRanges as [AVFrameRateRange]
+                let frameRates = ranges[0]
                 
-                vFormat.mediaType.rawValue
+                //AVCaptureDeviceDiscoverySession vFormat.mediaType.rawValue
                 
                 if frameRates.maxFrameRate >= fps {
                     let dimensions = CMVideoFormatDescriptionGetDimensions(vFormat.formatDescription)
@@ -789,9 +784,9 @@ class ScannerViewController: UIViewController, AVCaptureVideoDataOutputSampleBuf
 
         
         if self.fps == 30 {
-            
+            print("test2")
              let imageMaster = ScanningFunctions2(uiImage: uiImage)
-            
+            print("test2")
             if imageMaster.binaryString.isEmpty || imageMaster.byteData == nil || imageMaster.byteNum == nil {
                 
                 outputFrame.HexVal = "Corrupt Scan Data"
@@ -885,32 +880,32 @@ class ScannerViewController: UIViewController, AVCaptureVideoDataOutputSampleBuf
     }
     
     
-    func checkScan() -> Bool {
-        
-        var sum: UInt16 = 0
-        
-        let ckSumStrStartIndex = self.newScan!.index(self.newScan!.startIndex, offsetBy: SCAN_LENGTH-2)
-        let ckSumStrEndIndex = self.newScan!.index(self.newScan!.startIndex, offsetBy: SCAN_LENGTH-1)
-        let ckSumStr = String(self.newScan![ckSumStrStartIndex...ckSumStrEndIndex])
-        let ckSum = Int(ckSumStr)
-        
-        for i in stride(from: 0, to: SCAN_LENGTH, by: 2) {
-            
-            //MARK:- SerialNumber
-            let newValStrStartIndex = self.newScan!.index(self.newScan!.startIndex, offsetBy: i)
-            let newValStrEndIndex = self.newScan!.index(self.newScan!.startIndex, offsetBy: i+1)
-            let newValStr = String(self.newScan![newValStrStartIndex...newValStrEndIndex])
-            
-            var newValInt = Int(newValStr, radix: 16)
-            
-            sum += UInt16(newValInt!)
-            sum = sum & 0x00FF
-            
-        }
-        
-        print ("checksume pass")
-        return true
-    }
+//    func checkScan() -> Bool {
+//
+//        var sum: UInt16 = 0
+//
+//        let ckSumStrStartIndex = self.newScan!.index(self.newScan!.startIndex, offsetBy: SCAN_LENGTH-2)
+//        let ckSumStrEndIndex = self.newScan!.index(self.newScan!.startIndex, offsetBy: SCAN_LENGTH-1)
+//        //let ckSumStr = String(self.newScan![ckSumStrStartIndex...ckSumStrEndIndex])
+//        //let ckSum = Int(ckSumStr)
+//
+//        for i in stride(from: 0, to: SCAN_LENGTH, by: 2) {
+//
+//            //MARK:- SerialNumber
+//            let newValStrStartIndex = self.newScan!.index(self.newScan!.startIndex, offsetBy: i)
+//            let newValStrEndIndex = self.newScan!.index(self.newScan!.startIndex, offsetBy: i+1)
+//            let newValStr = String(self.newScan![newValStrStartIndex...newValStrEndIndex])
+//
+//            let newValInt = Int(newValStr, radix: 16)
+//
+//            sum += UInt16(newValInt!)
+//            sum = sum & 0x00FF
+//
+//        }
+//
+//        print ("checksume pass")
+//        return true
+//    }
     
     @IBAction func unwindToScannerViewController(_ sender: UIStoryboardSegue) {}
     
@@ -931,7 +926,7 @@ class ScannerViewController: UIViewController, AVCaptureVideoDataOutputSampleBuf
     
     func composeCameraDataPagePDF() {
         
-        let pdfTitle = "Debug Report"
+        //let pdfTitle = "Debug Report"
         
         var frameInfoString = ""
         
