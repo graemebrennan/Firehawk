@@ -13,7 +13,6 @@
 		6709DDF425EE76FB00FF5BF3 /* Scan.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6709DDF325EE76FB00FF5BF3 /* Scan.swift */; };
 		672AB24626E13C9000539414 /* Frame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 672AB24526E13C9000539414 /* Frame.swift */; };
 		672AB24826E13CCA00539414 /* Packet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 672AB24726E13CCA00539414 /* Packet.swift */; };
-		672AB24A26E13D3100539414 /* ScannerFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 672AB24926E13D3100539414 /* ScannerFunctions.swift */; };
 		672AB24C26E13D7100539414 /* CircleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 672AB24B26E13D7100539414 /* CircleView.swift */; };
 		672AB24E26E13E3700539414 /* RGBAPixel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 672AB24D26E13E3700539414 /* RGBAPixel.swift */; };
 		672AB25026E13EF700539414 /* Lines.swift in Sources */ = {isa = PBXBuildFile; fileRef = 672AB24F26E13EF700539414 /* Lines.swift */; };
@@ -53,6 +52,8 @@
 		678A8D2126CDD28E00EAD688 /* DeviceReportOP.swift in Sources */ = {isa = PBXBuildFile; fileRef = 678A8D2026CDD28E00EAD688 /* DeviceReportOP.swift */; };
 		67A16E6C270F32BB00DC519F /* ArduinoCompensation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67A16E6B270F32BB00DC519F /* ArduinoCompensation.swift */; };
 		67A1A15026FE18A40078A136 /* FrameSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67A1A14F26FE18A40078A136 /* FrameSettings.swift */; };
+		67BB4D46274FFB4B00B6461F /* ScannerFunctions30FPS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67BB4D45274FFB4B00B6461F /* ScannerFunctions30FPS.swift */; };
+		67BB4D48274FFBA100B6461F /* ScannerFunctions60FPS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67BB4D47274FFBA100B6461F /* ScannerFunctions60FPS.swift */; };
 		67CAC12D262785A40041894D /* MultiLineInputField.xib in Resources */ = {isa = PBXBuildFile; fileRef = 67CAC12C262785A40041894D /* MultiLineInputField.xib */; };
 		67CAC1302627889A0041894D /* MultiLineInputField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67CAC12F2627889A0041894D /* MultiLineInputField.swift */; };
 		67CAC134262799970041894D /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67CAC133262799970041894D /* Constants.swift */; };
@@ -84,7 +85,6 @@
 		6709DDF325EE76FB00FF5BF3 /* Scan.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Scan.swift; sourceTree = "<group>"; };
 		672AB24526E13C9000539414 /* Frame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Frame.swift; sourceTree = "<group>"; };
 		672AB24726E13CCA00539414 /* Packet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Packet.swift; sourceTree = "<group>"; };
-		672AB24926E13D3100539414 /* ScannerFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScannerFunctions.swift; sourceTree = "<group>"; };
 		672AB24B26E13D7100539414 /* CircleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleView.swift; sourceTree = "<group>"; };
 		672AB24D26E13E3700539414 /* RGBAPixel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RGBAPixel.swift; sourceTree = "<group>"; };
 		672AB24F26E13EF700539414 /* Lines.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Lines.swift; sourceTree = "<group>"; };
@@ -100,6 +100,8 @@
 		678A8D2026CDD28E00EAD688 /* DeviceReportOP.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceReportOP.swift; sourceTree = "<group>"; };
 		67A16E6B270F32BB00DC519F /* ArduinoCompensation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArduinoCompensation.swift; sourceTree = "<group>"; };
 		67A1A14F26FE18A40078A136 /* FrameSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FrameSettings.swift; sourceTree = "<group>"; };
+		67BB4D45274FFB4B00B6461F /* ScannerFunctions30FPS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScannerFunctions30FPS.swift; sourceTree = "<group>"; };
+		67BB4D47274FFBA100B6461F /* ScannerFunctions60FPS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScannerFunctions60FPS.swift; sourceTree = "<group>"; };
 		67CAC12C262785A40041894D /* MultiLineInputField.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MultiLineInputField.xib; sourceTree = "<group>"; };
 		67CAC12F2627889A0041894D /* MultiLineInputField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiLineInputField.swift; sourceTree = "<group>"; };
 		67CAC133262799970041894D /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
@@ -185,13 +187,14 @@
 				678A8D2026CDD28E00EAD688 /* DeviceReportOP.swift */,
 				672AB24526E13C9000539414 /* Frame.swift */,
 				672AB24726E13CCA00539414 /* Packet.swift */,
-				672AB24926E13D3100539414 /* ScannerFunctions.swift */,
 				672AB24B26E13D7100539414 /* CircleView.swift */,
 				672AB24D26E13E3700539414 /* RGBAPixel.swift */,
 				672AB24F26E13EF700539414 /* Lines.swift */,
 				67A1A14F26FE18A40078A136 /* FrameSettings.swift */,
 				67A16E6B270F32BB00DC519F /* ArduinoCompensation.swift */,
 				6780F5FC27203E3000D572F5 /* FrameExtractor.swift */,
+				67BB4D45274FFB4B00B6461F /* ScannerFunctions30FPS.swift */,
+				67BB4D47274FFBA100B6461F /* ScannerFunctions60FPS.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -456,6 +459,7 @@
 				675B68F825BF061200D6686D /* ReportViewController.swift in Sources */,
 				670559F126AF0EF6007982D3 /* Konstants.swift in Sources */,
 				67E636AC26A06FCD008B3B14 /* PDFCreator.swift in Sources */,
+				67BB4D48274FFBA100B6461F /* ScannerFunctions60FPS.swift in Sources */,
 				675B68F925BF061200D6686D /* MenuViewController.swift in Sources */,
 				675B68EE25BF060A00D6686D /* DeviceView.swift in Sources */,
 				675B68EC25BF060500D6686D /* HouseView.swift in Sources */,
@@ -481,7 +485,7 @@
 				675B68DB25BF05E400D6686D /* ShadowView.swift in Sources */,
 				678A8D1F26CDCF8300EAD688 /* ServiceReportOP.swift in Sources */,
 				672AB24626E13C9000539414 /* Frame.swift in Sources */,
-				672AB24A26E13D3100539414 /* ScannerFunctions.swift in Sources */,
+				67BB4D46274FFB4B00B6461F /* ScannerFunctions30FPS.swift in Sources */,
 				67433C2F26411122003204AE /* dataModel.xcdatamodeld in Sources */,
 				675B68DC25BF05E400D6686D /* SelectField.swift in Sources */,
 				675B68D825BF05DF00D6686D /* ServiceCell.swift in Sources */,
@@ -551,7 +555,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
-				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -569,7 +573,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				"INFOPLIST_FILE[sdk=*]" = "";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -627,7 +631,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				"INFOPLIST_FILE[sdk=*]" = "";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				"LD_MAP_FILE_PATH[arch=*]" = "$(TARGET_TEMP_DIR)/$(PRODUCT_NAME)-LinkMap-$(CURRENT_VARIANT)-$(CURRENT_ARCH).txt";
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
@@ -691,7 +695,7 @@
 				C64AD03D2549B9AC00C56D9A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 		C64AD03E2549B9AC00C56D9A /* Build configuration list for PBXNativeTarget "FireHawk" */ = {
 			isa = XCConfigurationList;
@@ -700,7 +704,7 @@
 				C64AD0402549B9AC00C56D9A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 /* End XCConfigurationList section */
 

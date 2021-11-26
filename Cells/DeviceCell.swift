@@ -37,23 +37,7 @@ class DeviceCell: UITableViewCell {
     
   override func layoutSubviews() {
     super.layoutSubviews()
-//    let cornerRadius: CGFloat = 16.0
-//    shadowView.layer.cornerRadius = cornerRadius
-//    bgView.layer.cornerRadius = cornerRadius
-//    shadowLayer.path = UIBezierPath(roundedRect: shadowView.bounds,
-//                                    cornerRadius: cornerRadius).cgPath
-//    shadowLayer.fillColor = backgroundColor?.cgColor
-//    shadowLayer.shadowColor = UIColor.darkGray.cgColor
-//    shadowLayer.shadowPath = shadowLayer.path
-//    shadowLayer.shadowOffset = CGSize(width: 0.0,
-//                                      height: 2.8)
-//    shadowLayer.shadowOpacity = 0.3
-//    shadowLayer.shadowRadius = 3.0
-//    shadowView.layer.insertSublayer(shadowLayer, at: 0)
-//
-//
-//    imgView.layer.cornerRadius = cornerRadius
-//    imgView.clipsToBounds = true
+
     
   }
 }

@@ -67,7 +67,7 @@ class ScannerViewController: UIViewController, AVCaptureVideoDataOutputSampleBuf
     let singleSample = 39
     let doubleSample = 78
     
-    var ImageMaster: ScanningFunctions3?
+    //var ImageMaster: ScannerFunctions60FPS?
     let packetCount = 7
     var badScan = false
     
@@ -324,10 +324,10 @@ class ScannerViewController: UIViewController, AVCaptureVideoDataOutputSampleBuf
 //                    self.packet.rawData[self.FrameCapturCount-30]?.buffer = sampleBuffer
                     //let buffer = sampleBuffer
 //                    // create background task for frame image processing
-                   frameProcessQueue.async { [self] in
+                   frameProcessQueue.async { [weak self] in
                         //self.frameProcesser(uiImage: uiImage)
 //                        sampleBufferArray.append(buffer)
-                        self.scannedImageArray.append(uiImage)
+                       self?.scannedImageArray.append(uiImage)
 //                    self.ibArray.append(CMSampleBufferGetImageBuffer(sampleBuffer)!)
                    }
                 //            DispatchQueue.main.async { [self] in {
@@ -340,11 +340,17 @@ class ScannerViewController: UIViewController, AVCaptureVideoDataOutputSampleBuf
                 if self.FrameCapturCount > (doubleSample + 30) {
                     self.scanEnded = true
                     //
-                    DispatchQueue.main.sync { [self] in
-                        self.EndFrameProcessor()
+                    DispatchQueue.main.sync { [weak self] in
+                        self?.EndFrameProcessor()
                     }
                     
-                    self.ScanAnalaysis()
+                    frameProcessQueue.sync { [weak self] in
+                         //self.frameProcesser(uiImage: uiImage)
+ //                        sampleBufferArray.append(buffer)
+                        self!.ScanAnalaysis()
+ //                    self.ibArray.append(CMSampleBufferGetImageBuffer(sampleBuffer)!)
+                    }
+
                     
                     
                     
@@ -368,11 +374,15 @@ class ScannerViewController: UIViewController, AVCaptureVideoDataOutputSampleBuf
             } else {
                 //            frameProcessQueue.sync {
                 //guard let uiImage = imageFromSampleBuffer(sampleBuffer: self.sampleBufferArray[i]) else { return }
-                self.frameProcesser(uiImage: self.scannedImageArray[0])
+                
+                weak var image = self.scannedImageArray[0]
+                
+                self.frameProcesser(uiImage: image!)
+                
                 self.scannedImageArray.remove(at: 0)
                 //            }self.scannedImageArray
                 
-                DispatchQueue.main.async { [self] in
+                DispatchQueue.main.async { [unowned self] in
 
                     //AVCaptureDeviceDiscoverySession var progress = 0
                     var completeFramesCount = 0
@@ -522,7 +532,7 @@ class ScannerViewController: UIViewController, AVCaptureVideoDataOutputSampleBuf
     func frameProcesser(uiImage: UIImage) {
         
         var frame: Frame?
-            
+
         frame = self.ProcessImage(uiImage: uiImage)
         // the above function will return a manchester decoded string or "Corrupt Scan Data" if the frame failed
         
@@ -785,7 +795,7 @@ class ScannerViewController: UIViewController, AVCaptureVideoDataOutputSampleBuf
         
         if self.fps == 30 {
             print("test2")
-             let imageMaster = ScanningFunctions2(uiImage: uiImage)
+             let imageMaster = ScannerFunctions30FPS(uiImage: uiImage)
             print("test2")
             if imageMaster.binaryString.isEmpty || imageMaster.byteData == nil || imageMaster.byteNum == nil {
                 
@@ -811,7 +821,7 @@ class ScannerViewController: UIViewController, AVCaptureVideoDataOutputSampleBuf
             
         } else if self.fps == 60 {
             
-             let imageMaster = ScanningFunctions3(uiImage: uiImage)
+             let imageMaster = ScannerFunctions60FPS(inImage: uiImage)
             
             if imageMaster.binaryString.isEmpty || imageMaster.byteData == nil || imageMaster.byteNum == nil {
                 
