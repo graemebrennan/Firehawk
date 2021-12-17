@@ -14,9 +14,7 @@ class DeviceReportViewController: UIViewController {
     var newScan: String?
     var propertyDetails = PropertyDetails() // valid only on first scan
     var scanCount: Int?
-    var testScan = "75a01003000c080002000f000201ffff03ffff05ffff07ffffffffffffffffffff0000ffb2a388"
-    var testScan2 = "75a0000300510800020010000c00ffff00ffff00ffff020000002500100048ffff000004b6a2dc"
-    var testScan3 = "75a00005ff151eff150016ff1504ff1502ff1501000909ff15ff150001ff15ffff000804aca260"
+
     // build here
     var propertyReport = ServiceReportOP()
     var newScanAnalysis: ScanAnalysis?
@@ -52,6 +50,8 @@ class DeviceReportViewController: UIViewController {
     @IBOutlet weak var manufactureDate: UILabel!
     @IBOutlet weak var peakCOLabel: UILabel!
     
+    @IBOutlet weak var reportDateLabel: UILabel!
+    
     @IBOutlet weak var productCard: ProductCard!
     
     @IBOutlet weak var commentsTV: UITextView!
@@ -78,6 +78,7 @@ class DeviceReportViewController: UIViewController {
 //        self.newScanAnalysis = ScanAnalysis(scan: testScan3)
         
         serialNumberLabel.text = "  Serial Number: \(newScanAnalysis!.deviceSerialNumber!)"
+        reportDateLabel.text = "  Report Date: \(dateFormat( date: self.newScanAnalysis!.scanDate))"
         manufactureDate.text = "  Manufacture Date: \(dateFormat( date: newScanAnalysis!.snManufactureDate!))"
         peakCOLabel.text = "  Peak CO Reading: \(newScanAnalysis!.peakCO!) PPM"
         
@@ -93,47 +94,47 @@ class DeviceReportViewController: UIViewController {
 //            
 //        }
 //        
-        commentsTV.text = """
-                          1: \(self.packet!.rawData[0]!.HexVal!)
-                          2: \(self.packet!.rawData[1]!.HexVal!)
-                          3: \(self.packet!.rawData[2]!.HexVal!)
-                          4: \(self.packet!.rawData[3]!.HexVal!)
-                          5: \(self.packet!.rawData[4]!.HexVal!)
-                          6: \(self.packet!.rawData[5]!.HexVal!)
-                          7: \(self.packet!.rawData[6]!.HexVal!)
-                          8: \(self.packet!.rawData[7]!.HexVal!)
-                          9: \(self.packet!.rawData[8]!.HexVal!)
-                          10: \(self.packet!.rawData[9]!.HexVal!)
-                          11: \(self.packet!.rawData[10]!.HexVal!)
-                          12: \(self.packet!.rawData[11]!.HexVal!)
-                          13: \(self.packet!.rawData[12]!.HexVal!)
-                          14: \(self.packet!.rawData[13]!.HexVal!)
-                          15: \(self.packet!.rawData[14]!.HexVal!)
-                          16: \(self.packet!.rawData[15]!.HexVal!)
-                          17: \(self.packet!.rawData[16]!.HexVal!)
-                          18: \(self.packet!.rawData[17]!.HexVal!)
-                          19: \(self.packet!.rawData[18]!.HexVal!)
-                          20: \(self.packet!.rawData[19]!.HexVal!)
-                          21: \(self.packet!.rawData[20]!.HexVal!)
-                          22: \(self.packet!.rawData[21]!.HexVal!)
-                          23: \(self.packet!.rawData[22]!.HexVal!)
-                          24: \(self.packet!.rawData[23]!.HexVal!)
-                          25: \(self.packet!.rawData[24]!.HexVal!)
-                          26: \(self.packet!.rawData[25]!.HexVal!)
-                          27: \(self.packet!.rawData[26]!.HexVal!)
-                          28: \(self.packet!.rawData[27]!.HexVal!)
-                          29: \(self.packet!.rawData[28]!.HexVal!)
-                          30: \(self.packet!.rawData[29]!.HexVal!)
-                          31: \(self.packet!.rawData[30]!.HexVal!)
-                          32: \(self.packet!.rawData[31]!.HexVal!)
-                          33: \(self.packet!.rawData[32]!.HexVal!)
-                          34: \(self.packet!.rawData[33]!.HexVal!)
-                          35: \(self.packet!.rawData[34]!.HexVal!)
-                          36: \(self.packet!.rawData[35]!.HexVal!)
-                          37: \(self.packet!.rawData[36]!.HexVal!)
-                          38: \(self.packet!.rawData[37]!.HexVal!)
-                          39: \(self.packet!.rawData[38]!.HexVal!)
-                          """
+//        commentsTV.text = """
+//                          1: \(self.packet!.rawData[0]!.HexVal!)
+//                          2: \(self.packet!.rawData[1]!.HexVal!)
+//                          3: \(self.packet!.rawData[2]!.HexVal!)
+//                          4: \(self.packet!.rawData[3]!.HexVal!)
+//                          5: \(self.packet!.rawData[4]!.HexVal!)
+//                          6: \(self.packet!.rawData[5]!.HexVal!)
+//                          7: \(self.packet!.rawData[6]!.HexVal!)
+//                          8: \(self.packet!.rawData[7]!.HexVal!)
+//                          9: \(self.packet!.rawData[8]!.HexVal!)
+//                          10: \(self.packet!.rawData[9]!.HexVal!)
+//                          11: \(self.packet!.rawData[10]!.HexVal!)
+//                          12: \(self.packet!.rawData[11]!.HexVal!)
+//                          13: \(self.packet!.rawData[12]!.HexVal!)
+//                          14: \(self.packet!.rawData[13]!.HexVal!)
+//                          15: \(self.packet!.rawData[14]!.HexVal!)
+//                          16: \(self.packet!.rawData[15]!.HexVal!)
+//                          17: \(self.packet!.rawData[16]!.HexVal!)
+//                          18: \(self.packet!.rawData[17]!.HexVal!)
+//                          19: \(self.packet!.rawData[18]!.HexVal!)
+//                          20: \(self.packet!.rawData[19]!.HexVal!)
+//                          21: \(self.packet!.rawData[20]!.HexVal!)
+//                          22: \(self.packet!.rawData[21]!.HexVal!)
+//                          23: \(self.packet!.rawData[22]!.HexVal!)
+//                          24: \(self.packet!.rawData[23]!.HexVal!)
+//                          25: \(self.packet!.rawData[24]!.HexVal!)
+//                          26: \(self.packet!.rawData[25]!.HexVal!)
+//                          27: \(self.packet!.rawData[26]!.HexVal!)
+//                          28: \(self.packet!.rawData[27]!.HexVal!)
+//                          29: \(self.packet!.rawData[28]!.HexVal!)
+//                          30: \(self.packet!.rawData[29]!.HexVal!)
+//                          31: \(self.packet!.rawData[30]!.HexVal!)
+//                          32: \(self.packet!.rawData[31]!.HexVal!)
+//                          33: \(self.packet!.rawData[32]!.HexVal!)
+//                          34: \(self.packet!.rawData[33]!.HexVal!)
+//                          35: \(self.packet!.rawData[34]!.HexVal!)
+//                          36: \(self.packet!.rawData[35]!.HexVal!)
+//                          37: \(self.packet!.rawData[36]!.HexVal!)
+//                          38: \(self.packet!.rawData[37]!.HexVal!)
+//                          39: \(self.packet!.rawData[38]!.HexVal!)
+//                          """
         
         commentsTV.frame = CGRect(x: 0, y: 0, width: 200, height: 100)
         // AdditionalInfo.lableInputtf.text = "enter text here"
