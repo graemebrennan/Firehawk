@@ -65,13 +65,13 @@ class ScannerFunctions60FPS {
         
         // create a CIImage from Image Buffer
         //let frame = uiImage
-        print("init frame()_1")
+        // print("init frame()_1")
         
         autoreleasepool {
             
             self.inImage = inImage
             weak var im = inImage
-            print("init frame()_2")
+            // print("init frame()_2")
             var cg1 = im?.cgImage //inImage.cgImage!
             var ciImage = CIImage(cgImage: cg1!)
             //        weak var ciImage = CIImage(image: self.inImage!)
@@ -81,7 +81,7 @@ class ScannerFunctions60FPS {
             //CIImage.
             
             // get fltered image
-            print("init frame()_3")
+            // print("init frame()_3")
             self.height = Int(imageRect.height)
             self.width = Int((imageRect.width))
             
@@ -97,14 +97,14 @@ class ScannerFunctions60FPS {
             // get bitmap info as 32 bit uint
             let bitmapInfo: UInt32 = CGBitmapInfo.byteOrder32Big.rawValue | CGImageAlphaInfo.premultipliedLast.rawValue
             //                let CGPointZero = CGPoint(x: 0, y: 0)
-            // print("bitmapInfo \(bitmapInfo[100])")
+            // // print("bitmapInfo \(bitmapInfo[100])")
             // Filter image
             // add image filters
-            print("init frame()_4")
+            // print("init frame()_4")
             // initialise CIContext needed in conjunction with CIImage for eveluating images
             let context = CIContext()
             // create a rectange with frame width and height - why?
-            print("init frame()_4.1")
+            // print("init frame()_4.1")
             
             let filter = CIFilter(name: "CIColorControls")!
             filter.setValue(2, forKey: kCIInputSaturationKey)
@@ -112,17 +112,17 @@ class ScannerFunctions60FPS {
             filter.setValue(3, forKey: kCIInputContrastKey)
             //
             filter.setValue(ciImage, forKey: kCIInputImageKey)
-            print("init frame()_4.2")
+            // print("init frame()_4.2")
             if let result = filter.outputImage {
                 
-                print("init frame()_4.3")
+                // print("init frame()_4.3")
                 
                 
                 if let ciImage_Filtered = context.createCGImage(result, from: result.extent) {
                     
                     
                     //
-                    print("init frame()_5")
+                    // print("init frame()_5")
                     // Create Quarts 2d Image from a reagoin of a core image object
                     // this can be used to limit the size/ area of the scan!!!
                     // if let imageContext = context.createCGImage(ciImage, from: imageRect){
@@ -138,7 +138,7 @@ class ScannerFunctions60FPS {
                     
                     
                     //CGContextRelease(imageContext2!)
-                    print("init frame()_6")
+                    // print("init frame()_6")
                     self.startScan = 0//Int(Double(self.height))
                     self.endScan = Int(Double(self.height))
                     
@@ -151,50 +151,50 @@ class ScannerFunctions60FPS {
                     self.detectLines()
                     
                     //   self.DrawMarkAtLineStart()
-                    print("init frame()_7")
+                    // print("init frame()_7")
                     if lines.count > 15 {
-                        print("init frame()_8")
+                        // print("init frame()_8")
                         self.FindWidestRedLine()
-                        print("init frame()_9")
+                        // print("init frame()_9")
                         self.FindThinestBlackLine()
-                        print("init frame()_10")
+                        // print("init frame()_10")
                         self.IdentifyLineType()
-                        print("init frame()_12")
+                        // print("init frame()_12")
                         self.CalculatePacketWidth()
-                        print("init frame()_13")
+                        // print("init frame()_13")
                         self.DrawPacketLimits()
-                        print("init frame()_14")
+                        // print("init frame()_14")
                         if self.preambleIndex.count > 1 {
-                            print("init frame()_15")
+                            // print("init frame()_15")
                             self.SamplePacket2()
-                            print("init frame()_16")
+                            // print("init frame()_16")
                         }else {
-                            print("Not enough preamble lines")
+                            // print("Not enough preamble lines")
                         }
                     } else {
-                        print("not enogh lines")
+                        // print("not enogh lines")
                     }
                     
                     // self.FindROI()
                     
 //                    self.BuildOutputImage()
                     
-                    print("init frame()_17")
+                    // print("init frame()_17")
                    
                     if self.byteData != nil {
                         
-                        print("sucessful scan")
+                        // print("sucessful scan")
                     } else {
                         self.SamplePacket()
 //                        self.BuildOutputImage()
-                        print("bad scan")
+                        // print("bad scan")
                     }
                 } else {
-                    print("error creating filtered image filtered ciImage ")
+                    // print("error creating filtered image filtered ciImage ")
                 }
                 
             } else {
-                print("error creating filtered image result")
+                // print("error creating filtered image result")
             }
             // deallocate memory for pixle array
             rawData.deallocate()
@@ -284,7 +284,7 @@ class ScannerFunctions60FPS {
             count = count + 1
             //   }
             
-            //print("p.red\(j) = \(pred)")
+            //// print("p.red\(j) = \(pred)")
             
             rowAvgValue = rowTotalValue / count
             
@@ -296,7 +296,7 @@ class ScannerFunctions60FPS {
             
             if (rowMaxValue > self.upperLightThreshold) && (self.binaryState == 0)
             {
-                //print("found a 1")
+                //// print("found a 1")
                 // found a change in brightness
                 if (rowMaxValueLast > self.upperLightThreshold)
                 {
@@ -323,7 +323,7 @@ class ScannerFunctions60FPS {
             {
                 if (rowMaxValueLast < self.lowerLightThreshold)
                 {
-                    //print("found a 0")
+                    //// print("found a 0")
                     self.binaryState = 0
                     
                     if lines.count > 0
@@ -409,10 +409,10 @@ class ScannerFunctions60FPS {
             // find max line width
             if self.lines[i].position == "low" && self.lines[i].width > 3 {
                 
-                print("self.smallestBlackLine = \(self.smallestBlackLine)")
+                // print("self.smallestBlackLine = \(self.smallestBlackLine)")
                 if self.lines[i].width < self.smallestBlackLine {
                     self.smallestBlackLine = self.lines[i].width
-                    print("self.smallestBlackLine = \(self.smallestBlackLine)")
+                    // print("self.smallestBlackLine = \(self.smallestBlackLine)")
                 }
             }
             
@@ -437,11 +437,11 @@ class ScannerFunctions60FPS {
                 self.lines[i].type = "Data"
             }
             
-            //            print("lineType [\(i)]= \(lines[i].type!)" )
+            //            // print("lineType [\(i)]= \(lines[i].type!)" )
         }
         
         //        for i in 0..<preambleIndex.count {
-        //            print("PreambleIndex = \(preambleIndex[i])")
+        //            // print("PreambleIndex = \(preambleIndex[i])")
         //        }
         
     }
@@ -477,10 +477,10 @@ class ScannerFunctions60FPS {
                 
             }
             
-            print("startIndex = \(self.startIndex)")
-            print("endIndex = \(self.endIndex)")
-            print("centerPreamble = \(self.centerPreamble)")
-            print("lines[preambleIndex[centerPreamble]].start = \(self.lines[self.preambleIndex[self.centerPreamble]].start)")
+            // print("startIndex = \(self.startIndex)")
+            // print("endIndex = \(self.endIndex)")
+            // print("centerPreamble = \(self.centerPreamble)")
+            // print("lines[preambleIndex[centerPreamble]].start = \(self.lines[self.preambleIndex[self.centerPreamble]].start)")
             
             
             
@@ -510,13 +510,13 @@ class ScannerFunctions60FPS {
             self.pixels![(self.width/2) + i + (self.endIndex * self.width)] = RGBAPixel(rawVal: 0xAAFFFFFF)
             
         }
-        print("startIndex = \(self.startIndex)")
-        print("midpoint = \(self.startIndex + ((self.endIndex - self.startIndex)/2))")
-        print("endIndex = \(self.endIndex)")
+        // print("startIndex = \(self.startIndex)")
+        // print("midpoint = \(self.startIndex + ((self.endIndex - self.startIndex)/2))")
+        // print("endIndex = \(self.endIndex)")
     }
     
     func SamplePacket() {
-        print("Sample Packet")
+        // print("Sample Packet")
         // var bitCorrectionFactor = 0.8
         //let preambleWidth = lines[preambleIndex[centerPreamble]].width
         //var bitWidth = Int(Double(preambleWidth / 4))// * bitCorrectionFactor)
@@ -535,7 +535,7 @@ class ScannerFunctions60FPS {
             
             // the -30 here is the offset from center, not sure its needed
             let testindex = (self.width/2) + (( self.startIndex + (row) ) * self.width)
-            //print("test spot = \(bit) -> \(row)")
+            //// print("test spot = \(bit) -> \(row)")
             
             if self.pixels![testindex].red > self.upperLightThreshold {
                 // we have a binary 1
@@ -570,7 +570,7 @@ class ScannerFunctions60FPS {
         
         if decodedString == "Corrupt Scan Data" {
             self.binaryString = ""
-            //  print("----------------------SamplePacketBackup")
+            //  // print("----------------------SamplePacketBackup")
             //  SamplePacketBackup()
         } else {
             
@@ -599,7 +599,7 @@ class ScannerFunctions60FPS {
     }
     
     func SamplePacket2() {
-        print("Sample Packet2")
+        // print("Sample Packet2")
         let preambleWidth = self.lines[self.preambleIndex[self.centerPreamble]].width
         
         //let twoBitWidthRed_max = Int((Float(preambleWidth/2)) * 1.5)
@@ -620,11 +620,11 @@ class ScannerFunctions60FPS {
         let bitWidthBlack_max = twoBitWidthBlack_min
         let bitWidthBlack_min = Int((Float(preambleWidth)) * 0.06)
         
-        print("twoBitWidthBlack_max = \(twoBitWidthBlack_max)")
-        print("twoBitWidthBlack_min = \(twoBitWidthBlack_min)")
+        // print("twoBitWidthBlack_max = \(twoBitWidthBlack_max)")
+        // print("twoBitWidthBlack_min = \(twoBitWidthBlack_min)")
         
-        print("bitWidthBlack_max = \(bitWidthBlack_max)")
-        print("bitWidthBlack_min = \(bitWidthBlack_min)")
+        // print("bitWidthBlack_max = \(bitWidthBlack_max)")
+        // print("bitWidthBlack_min = \(bitWidthBlack_min)")
         
         var firstPreambleIndex = 0
         var secondPreambleIndex = 0
@@ -679,26 +679,26 @@ class ScannerFunctions60FPS {
                 }
             }
             
-            print("")
-            print("binaryString = \(self.binaryString)")
-            print("currentLineWidth = \(currentLineWidth)")
-            print("currentLinePosition = \(currentLinePosition)")
+            // print("")
+            // print("binaryString = \(self.binaryString)")
+            // print("currentLineWidth = \(currentLineWidth)")
+            // print("currentLinePosition = \(currentLinePosition)")
             
-            print("")
+            // print("")
         }
         
-        print("Binary String = \(self.binaryString)")
-        print("Binary String Count = \(self.binaryString.count)")
+        // print("Binary String = \(self.binaryString)")
+        // print("Binary String Count = \(self.binaryString.count)")
         
         if self.binaryString.count < 28 {
-            print(" not enough captured data what happened ")
+            // print(" not enough captured data what happened ")
         } else {
             
             let decodedString = self.ManchesterDecoder(encodedString: binaryString)
             
             if decodedString == "Corrupt Scan Data" {
                 self.binaryString = ""
-                //  print("----------------------SamplePacketBackup")
+                //  // print("----------------------SamplePacketBackup")
                 //           SamplePacketBackup()
             } else {
                 
@@ -766,7 +766,7 @@ class ScannerFunctions60FPS {
     //
     //            if decodedString == "Corrupt Scan Data" {
     //                binaryString = ""
-    //              print("SamplePacketBackup Failed")
+    //              // print("SamplePacketBackup Failed")
     //     //           SamplePacketBackup()
     //            } else {
     //
@@ -815,14 +815,14 @@ class ScannerFunctions60FPS {
                 decodedString.append("1")
             }else
             {
-                print("Bad ManchesterDecoder")
-                print("encodedString = \(encodedString)")
+                // print("Bad ManchesterDecoder")
+                // print("encodedString = \(encodedString)")
                 return "Corrupt Scan Data"
             }
             
         }
         
-        print("decodedString = \(decodedString)")
+        // print("decodedString = \(decodedString)")
         return decodedString
     }
     
@@ -870,7 +870,7 @@ class ScannerFunctions60FPS {
     
     
     deinit {
-        print("deinit scan functions3_(************************************")
+        // print("deinit scan functions3_(************************************")
     }
     
 }

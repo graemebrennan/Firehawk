@@ -110,7 +110,7 @@ struct ScanAnalysis {
         let serialNumberEndIndex = scan.index(scan.startIndex, offsetBy: 7)
         let serialNumberString = String(scan[serialNumberStartIndex...serialNumberEndIndex])
         self.deviceSerialNumber = serialNumberString
-        print("serialNumberString: \(serialNumberString)")
+        // print("serialNumberString: \(serialNumberString)")
         
         let SNByte1StartIndex = scan.index(scan.startIndex, offsetBy: 0)
         let SNByte1EndIndex = scan.index(scan.startIndex, offsetBy: 1)
@@ -121,9 +121,9 @@ struct ScanAnalysis {
         // get only first 3 bits >> to get byte value
         //let check = SNByte1Int! & 0xE0
         let deviceTypeInt = (SNByte1Int! & 0xE0) >> 5
-        print("deviceTypeInt: \(deviceTypeInt)")
+        // print("deviceTypeInt: \(deviceTypeInt)")
         let productionYearInt = SNByte1Int! & 0x1F
-        print("productionYearInt: \(productionYearInt)")
+        // print("productionYearInt: \(productionYearInt)")
         
         let SNByte2StartIndex = scan.index(scan.startIndex, offsetBy: 2)
         let SNByte2EndIndex = scan.index(scan.startIndex, offsetBy: 3)
@@ -137,37 +137,37 @@ struct ScanAnalysis {
         switch deviceTypeInt {
         case 0:
             self.deviceType = "X10"
-            print("deviceType: X10 Smoke Alarm)")
+            // print("deviceType: X10 Smoke Alarm)")
             self.deviceLifetimeYears = 10
             
         case 1:
             self.deviceType = "FH700HIA"
-            print("deviceType: FH700HIA")
+            // print("deviceType: FH700HIA")
             self.deviceLifetimeYears = 10
             
         case 2:
             self.deviceType = "H10"
-            print("deviceType: H10 Heat Alarm")
+            // print("deviceType: H10 Heat Alarm")
             self.deviceLifetimeYears = 10
             
         case 3:
             self.deviceType = "CO7B 10Y"
-            print("deviceType: CO10Y Alarm")
+            // print("deviceType: CO10Y Alarm")
             self.deviceLifetimeYears = 10
             
         case 4:
             self.deviceType = "RF"
-            print("deviceType: Radio Patress")
+            // print("deviceType: Radio Patress")
             self.deviceLifetimeYears = 10
             
         case 5:
             self.deviceType = "FH500"
-            print("deviceType: FH500")
+            // print("deviceType: FH500")
             self.deviceLifetimeYears = 10
             
         default:
             self.deviceType = "Unknown Device"
-            print("deviceType: Unknown Device")
+            // print("deviceType: Unknown Device")
             self.deviceLifetimeYears = 10
         }
         
@@ -188,7 +188,7 @@ struct ScanAnalysis {
 //        let snManufactureDate = calendar.date(byAdding: snManufactureDateComponent, to: Date())
         let snManufactureDate =  calendar.date(from: snManufactureDateComponent)
         self.snManufactureDate = snManufactureDate
-        print("snManufactureDat: \(snManufactureDate!)")
+        // print("snManufactureDat: \(snManufactureDate!)")
         
         // get current year
         let currentYear = calendar.component(.year, from: Date())
@@ -199,7 +199,7 @@ struct ScanAnalysis {
         snManufactureYearsLeftComponent.year = snManufactureYearsLeft
         let snManufactureExpiaryDate = calendar.date(byAdding: snManufactureYearsLeftComponent, to: snManufactureDate!)
         self.snManufactureExpiaryDate = snManufactureExpiaryDate
-        print("snManufactureExpiaryDate: \(snManufactureExpiaryDate!)")
+        // print("snManufactureExpiaryDate: \(snManufactureExpiaryDate!)")
         
         //MARK:- RunTimeClock
         let runtimeClockStartIndex = scan.index(scan.startIndex, offsetBy: 8)
@@ -208,12 +208,12 @@ struct ScanAnalysis {
         let runtimeClockInt = Int(runtimeClockString, radix: 16)
         self.runtimeClock = runtimeClockInt
         self.runtimeClockHours = runtimeClockInt! * 2
-        print("runtimeClock: \(runtimeClockInt!)")
+        // print("runtimeClock: \(runtimeClockInt!)")
 
         var runTimeComponent = DateComponents()
         runTimeComponent.hour = runtimeClockInt! * -2
         self.deviceSwicthOnDate = calendar.date(byAdding: runTimeComponent, to: Date())
-        print("deviceSwicthOnDate: \(self.deviceSwicthOnDate!)")
+        // print("deviceSwicthOnDate: \(self.deviceSwicthOnDate!)")
         
         
         //MARK:- Life Remaining Indicator
@@ -246,7 +246,7 @@ struct ScanAnalysis {
         let plateRemovalString = String(scan[plateRemovalStartIndex...plateRemovalEndIndex])
         let plateRemovalInt = Int(plateRemovalString, radix: 16)
         self.plateRemovals = plateRemovalInt
-        print("plateRemovalsInt: \(plateRemovalInt!)")
+        // print("plateRemovalsInt: \(plateRemovalInt!)")
        
         if  plateRemovalInt == 0 {
             self.lastPlateRemovalDate = nil
@@ -263,7 +263,7 @@ struct ScanAnalysis {
             self.lastPlateRemovalComponent.hour = (runtimeClockInt! - lastPlateRemovalDateInt!) * -2
             // set date of event by adding negative value to current date
             self.lastPlateRemovalDate = calendar.date(byAdding: lastPlateRemovalComponent, to: Date())
-            print("lastPlateRemovalDate: \(lastPlateRemovalDate!)")
+            // print("lastPlateRemovalDate: \(lastPlateRemovalDate!)")
             
                     if (self.lastPlateRemovalComponent.hour!) < 4380 {
                         // device was removed in past year or has never been removed
@@ -286,7 +286,7 @@ struct ScanAnalysis {
         let deviceTestCountString = String(scan[deviceTestCountStartIndex...deviceTestCountEndIndex])
         let deviceTestCountInt = Int(deviceTestCountString, radix: 16)
         self.deviceTestCount = deviceTestCountInt
-        print("deviceTestCountInt: \(deviceTestCountInt!)")
+        // print("deviceTestCountInt: \(deviceTestCountInt!)")
 
         if  deviceTestCountInt == 0 {
             self.deviceLastTestDate = nil
@@ -301,7 +301,7 @@ struct ScanAnalysis {
             self.lastTestComponent.hour = (runtimeClockInt! - deviceLastTestDateInt!) * -2
             let deviceLastTestDate = calendar.date(byAdding: lastTestComponent, to: Date())
             self.deviceLastTestDate = deviceLastTestDate
-            print("deviceLastTestDate: \(deviceLastTestDate!)")
+            // print("deviceLastTestDate: \(deviceLastTestDate!)")
             
             if (self.lastTestComponent.hour!) > 730 {
                 // the device has not been tested in a month
@@ -323,7 +323,7 @@ struct ScanAnalysis {
         let highCOAlarmCountString = String(scan[highCOAlarmCountStartIndex...highCOAlarmCountEndIndex])
         let highCOAlarmCountInt = Int(highCOAlarmCountString, radix: 16)
         self.highCOAlarmCount = highCOAlarmCountInt
-        print("highCOAlarmCountInt: \(highCOAlarmCountInt!)")
+        // print("highCOAlarmCountInt: \(highCOAlarmCountInt!)")
         
         if  highCOAlarmCountInt == 0 {
             self.highCOAlarmLastDate = nil
@@ -346,7 +346,7 @@ struct ScanAnalysis {
                 highCOAlarmLastDateComponent.hour = (runtimeClockInt! - highCOAlarmLastDateInt!) * -2
                 let highCOAlarmLastDate = calendar.date(byAdding: highCOAlarmLastDateComponent, to: Date())
                 self.highCOAlarmLastDate = highCOAlarmLastDate
-                print("highCOAlarmLastDate: \(highCOAlarmLastDate!)")
+                // print("highCOAlarmLastDate: \(highCOAlarmLastDate!)")
                 
                 let HoursSinceLastHighCOAlarmEvent = (self.runtimeClock! - highCOAlarmLastDateInt!) * 2
                 
@@ -371,7 +371,7 @@ struct ScanAnalysis {
         let mediumCOAlarmCountString = String(scan[mediumCOAlarmCountStartIndex...mediumCOAlarmCountEndIndex])
         let mediumCOAlarmCount = Int(mediumCOAlarmCountString, radix: 16)
         self.mediumCOAlarmCount = mediumCOAlarmCount
-        print("mediumCOAlarmCount: \(mediumCOAlarmCount!)")
+        // print("mediumCOAlarmCount: \(mediumCOAlarmCount!)")
         
         if  mediumCOAlarmCount == 0 {
             self.mediumCOAlarmLastDate = nil
@@ -393,7 +393,7 @@ struct ScanAnalysis {
                 mediumCOAlarmLastDateComponent.hour = (runtimeClockInt! - mediumCOAlarmLastDateInt!) * -2
                 let mediumCOAlarmLastDate = calendar.date(byAdding: mediumCOAlarmLastDateComponent, to: Date())
                 self.mediumCOAlarmLastDate = mediumCOAlarmLastDate
-                print("mediumCOAlarmLastDate: \(mediumCOAlarmLastDate!)")
+                // print("mediumCOAlarmLastDate: \(mediumCOAlarmLastDate!)")
                 
                 let HoursSinceLastMediumCOAlarmEvent = (self.runtimeClock! - mediumCOAlarmLastDateInt!) * 2
                 
@@ -414,7 +414,7 @@ struct ScanAnalysis {
         let lowCOAlarmCountString = String(scan[lowCOAlarmCountStartIndex...lowCOAlarmCountEndIndex])
         let lowCOAlarmCount = Int(lowCOAlarmCountString, radix: 16)
         self.lowCOAlarmCount = lowCOAlarmCount
-        print("lowCOAlarmCount: \(lowCOAlarmCount!)")
+        // print("lowCOAlarmCount: \(lowCOAlarmCount!)")
  
         if lowCOAlarmCount == 0 {
             self.lowCOAlarmLastDate = nil
@@ -436,7 +436,7 @@ struct ScanAnalysis {
                 lowCOAlarmLastDateComponent.hour = (runtimeClockInt! - lowCOAlarmLastDateInt!) * -2
                 let lowCOAlarmLastDate = calendar.date(byAdding: lowCOAlarmLastDateComponent, to: Date())
                 self.lowCOAlarmLastDate = lowCOAlarmLastDate
-                print("lowCOAlarmLastDate: \(lowCOAlarmLastDate!)")
+                // print("lowCOAlarmLastDate: \(lowCOAlarmLastDate!)")
                 
                 let HoursSinceLastLowCOAlarmEvent = (self.runtimeClock! - lowCOAlarmLastDateInt!) * 2
                 
@@ -509,7 +509,7 @@ struct ScanAnalysis {
             let batteryFaultDateString = String(scan[batteryFaultDateStartIndex...batteryFaultDateEndIndex])
             
             if batteryFaultDateString == "ffff" {
-                print("date value not set")
+                // print("date value not set")
                 self.batteryFaultDate = nil
             } else {
             
@@ -525,7 +525,7 @@ struct ScanAnalysis {
             self.batteryFaultDate = nil
         }
        
-        print("self.batteryFaultDate: \(String(describing: self.batteryFaultDate))")
+        // print("self.batteryFaultDate: \(String(describing: self.batteryFaultDate))")
        
         if (self.faultFlag & 0x02) == 0x02
         {
@@ -535,7 +535,7 @@ struct ScanAnalysis {
             let deviceFaultDateString = String(scan[deviceFaultDateStartIndex...deviceFaultDateEndIndex])
             
             if deviceFaultDateString == "ffff"{
-                print("date value not set")
+                // print("date value not set")
                 self.deviceFaultDate = nil
             } else {
 
@@ -550,7 +550,7 @@ struct ScanAnalysis {
             self.deviceFaultDate = nil
         }
         
-        print("self.deviceFaultDate: \(String(describing: self.deviceFaultDate))")
+        // print("self.deviceFaultDate: \(String(describing: self.deviceFaultDate))")
         
         if (self.faultFlag & 0x04) == 0x04
         {
@@ -560,7 +560,7 @@ struct ScanAnalysis {
             let eol_FaultDateString = String(scan[eol_FaultDateStartIndex...eol_FaultDateEndIndex])
             
             if eol_FaultDateString == "ffff" {
-                print("date value not set")
+                // print("date value not set")
                 self.eol_FaultDate = nil
                 
             } else {
@@ -576,7 +576,7 @@ struct ScanAnalysis {
             self.eol_FaultDate = nil
         }
         
-        print("self.eol_FaultDate: \(String(describing: self.eol_FaultDate))")
+        // print("self.eol_FaultDate: \(String(describing: self.eol_FaultDate))")
         
         if (self.faultFlag & 0x08) == 0x08
         {
@@ -586,7 +586,7 @@ struct ScanAnalysis {
             let remoteFaultDateString = String(scan[remoteFaultDateStartIndex...remoteFaultDateEndIndex])
             
             if remoteFaultDateString == "ffff" {
-                print("remoteFaultDateString date value not set")
+                // print("remoteFaultDateString date value not set")
                 self.remoteFaultDate = nil
                 
             } else {
@@ -601,7 +601,7 @@ struct ScanAnalysis {
             self.remoteFaultDate = nil
         }
         
-        print("self.remoteFaultDate: \(String(describing: self.remoteFaultDate))")
+        // print("self.remoteFaultDate: \(String(describing: self.remoteFaultDate))")
         
         //MARK:- PeakCO
         let peakCOStartIndex = scan.index(scan.startIndex, offsetBy: 66)
@@ -612,7 +612,7 @@ struct ScanAnalysis {
       
         self.peakCO = peakCOInt
         
-        print("self.peakCO: \(String(describing: self.peakCO))")
+        // print("self.peakCO: \(String(describing: self.peakCO))")
         
         //MARK:- batteryVoltage
         let batteryVoltageStartIndex = scan.index(scan.startIndex, offsetBy: 72)
@@ -623,24 +623,24 @@ struct ScanAnalysis {
         let batteryVoltageFloat = Float(batteryChargeInt! + 128) * 0.01
         self.batteryVoltage = batteryVoltageFloat
         
-        print("self.batteryVoltage: \(String(describing: self.batteryVoltage))")
+        // print("self.batteryVoltage: \(String(describing: self.batteryVoltage))")
         
         if batteryVoltageFloat <= 2.00 {
-            print("flatBattery")
+            // print("flatBattery")
             self.batteryChargePercentage = 0.00
         } else {
             let batteryChargePercentage = (Float(batteryChargeInt! - 100)/155) * 100
             self.batteryChargePercentage = batteryChargePercentage
         }
         
-        print("self.batteryChargePercentage = \(String(describing: self.batteryChargePercentage))")
+        // print("self.batteryChargePercentage = \(String(describing: self.batteryChargePercentage))")
         
         //TODO:- complete batery condition filtering and move to replacemnet dates 27/07/2021
         let batteryLifeRemaining_YearsLeft = Float(self.deviceLifetimeYears!) * self.batteryChargePercentage!
         let batteryLifeRemaining_HoursLeft = batteryLifeRemaining_YearsLeft * (365 * 24)
         self.batteryLifeRemaining_YearsLeft = batteryLifeRemaining_YearsLeft
        
-        print("self.batteryLifeRemaining_YearsLeft: \(String(describing: self.batteryLifeRemaining_YearsLeft))")
+        // print("self.batteryLifeRemaining_YearsLeft: \(String(describing: self.batteryLifeRemaining_YearsLeft))")
         
         var batteryLifeRemaining_ReplacentDateComponent = DateComponents()
         batteryLifeRemaining_ReplacentDateComponent.hour = Int(batteryLifeRemaining_HoursLeft)
@@ -651,7 +651,7 @@ struct ScanAnalysis {
         
         self.batteryLifeRemaining_ReplacentDate = batteryLifeRemaining_ReplacentDate
         
-        print("self.batteryLifeRemaining_ReplacentDate: \(String(describing: self.batteryLifeRemaining_ReplacentDate))")
+        // print("self.batteryLifeRemaining_ReplacentDate: \(String(describing: self.batteryLifeRemaining_ReplacentDate))")
         
         if (plateRemovalInt == 0) {
             var maufactureDateComponent = DateComponents()
@@ -661,7 +661,7 @@ struct ScanAnalysis {
             self.maufactureDate = snManufactureDate
         }
         
-        print("self.maufactureDate: \(String(describing: self.maufactureDate))")
+        // print("self.maufactureDate: \(String(describing: self.maufactureDate))")
         
         // use soonest expirey prediction for report
         if batteryLifeRemaining_ReplacentDate! < snManufactureExpiaryDate! {
@@ -676,15 +676,15 @@ struct ScanAnalysis {
             self.deviceLifeRemaining_HoursLeft = components.hour!
         }
         
-        print("self.deviceReplacentDate: \(String(describing: self.deviceReplacentDate))")
-        print("self.deviceLifeRemaining_HoursLeft: \(String(describing: self.deviceLifeRemaining_HoursLeft))")
+        // print("self.deviceReplacentDate: \(String(describing: self.deviceReplacentDate))")
+        // print("self.deviceLifeRemaining_HoursLeft: \(String(describing: self.deviceLifeRemaining_HoursLeft))")
         
         //MARK:- Software Version
         let softwateVersionStartIndex = scan.index(scan.startIndex, offsetBy: 74)
         let softwateVersionEndIndex = scan.index(scan.startIndex, offsetBy: 75)
         let softwateVersionString = String(scan[softwateVersionStartIndex...softwateVersionEndIndex])
         self.softwareVersion = softwateVersionString
-        print("Software Verson String= \(softwateVersionString)")
+        // print("Software Verson String= \(softwateVersionString)")
         
         //MARK:- set faults
 
@@ -715,7 +715,7 @@ struct ScanAnalysis {
 //        self.checkSum = checkSumString
 //        self.checkSumValue = UInt8(checkSumString, radix: 16)
 //
-//        print("checkSum String= \(checkSumString)")
+//        // print("checkSum String= \(checkSumString)")
 //
 //        var checkIntTemp = 0
 //
@@ -728,7 +728,7 @@ struct ScanAnalysis {
 //            let byteInt = UInt16(byteString, radix: 16)
 //
 //            self.checkSumUInt16 = (self.checkSumUInt16 + byteInt!)// & 0x00FF
-//            print("Check sum value = \(self.checkSumUInt16)    ,\(checkIntTemp) + \(byteInt!) ")
+//            // print("Check sum value = \(self.checkSumUInt16)    ,\(checkIntTemp) + \(byteInt!) ")
 //
 //            checkIntTemp = Int(self.checkSumUInt16)
 //        }
@@ -736,7 +736,7 @@ struct ScanAnalysis {
 //        self.checkSumUInt16 = self.checkSumUInt16 & 0x00FF
 //
 //        if self.checkSumValue! == self.checkSumUInt16 {
-//            print("bad Check sum, Invalid scan")
+//            // print("bad Check sum, Invalid scan")
 //        }
 //
         

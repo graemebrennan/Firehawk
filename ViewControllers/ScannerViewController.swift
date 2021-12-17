@@ -111,7 +111,9 @@ class ScannerViewController: UIViewController, AVCaptureVideoDataOutputSampleBuf
             self.progressView.alpha = 0
             self.progressBar.progress = 0
             
-            print("View did appear")
+
+            // // print("View did appear")
+
             //    ConnectIOToCameraSession_BackCamera()
             
             self.FrameCapturCount = 0
@@ -142,7 +144,9 @@ class ScannerViewController: UIViewController, AVCaptureVideoDataOutputSampleBuf
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        print("View did Load")
+
+        // print("View did Load")
+
         self.progressView.alpha = 0
         self.scanErrorLabel.alpha = 0
         setUpElements()
@@ -151,15 +155,15 @@ class ScannerViewController: UIViewController, AVCaptureVideoDataOutputSampleBuf
         // setup AVCaptureSession IO
         self.ConnectIOToCameraSession_BackCamera()
         
-//        frameExtractor = FrameExtractor()
-//        frameExtractor.delegate = self
+        //        frameExtractor = FrameExtractor()
+        //        frameExtractor.delegate = self
         
         getFrameRate()
         
         if self.fps == 30 {
             
-     
-        instructionLable.text = "Press and hold down the Test/Silence button untill the alarm beeps. Release button and position the camera over the red light, hold close enought to fill the green circle. Press the scan button to begin data read"
+            
+            instructionLable.text = "Press and hold down the Test/Silence button untill the alarm beeps. Release button and position the camera over the red light, hold close enought to fill the green circle. Press the scan button to begin data read"
         } else {
             instructionLable.text = "Press and hold down the Display button untill the alarm beeps. Release button and position the camera over the red light, hold close enought to fill the green circle. Press the scan button to begin data read"
         }
@@ -173,10 +177,12 @@ class ScannerViewController: UIViewController, AVCaptureVideoDataOutputSampleBuf
     }
     
     func captured(image: UIImage) {
-        print("will this work every frame?")
+
+        // print("will this work every frame?")
+
     }
     
-
+    
     func setUpElements() {
         
         Utilities.styleFilledButton(scanButton)
@@ -190,25 +196,25 @@ class ScannerViewController: UIViewController, AVCaptureVideoDataOutputSampleBuf
         
         //Select the back camera device for captue session, this device is globaly declared but initialy configured here.
         videoDevice = AVCaptureDevice.default(.builtInWideAngleCamera, for: .video, position: .back)
-
-//        print("-------------------------------------------------------------------------------")
-//        print("videoDevice.videoZoomFactor = \(videoDevice.videoZoomFactor)")
-//        print("videoDevice.exposureMode = \(videoDevice.exposureMode.rawValue)")
-//        print("videoDevice.activeFormat = \(videoDevice.activeFormat)")
-//        print("videoDevice.activeVideoMinFrameDuration = \(videoDevice.activeVideoMinFrameDuration)")
-//        print("videoDevice.deviceType = \(videoDevice.deviceType)")
-//        print("videoDevice.minExposureTargetBias = \(videoDevice.minExposureTargetBias)")
-//        print("videoDevice.activeMaxExposureDuration = \(videoDevice.activeMaxExposureDuration)")
-//        print("videoDevice.activeMinExposureDuration = \(videoDevice.activeVideoMinFrameDuration)")
-//        print("videoDevice.debugDescription = \(videoDevice.debugDescription)")
-//        print("videoDevice.iso = \(videoDevice.iso)")
-//        print("AVCaptureDevice.DiscoverySession = \(AVCaptureDevice.DiscoverySession.self)")
-//        print("-------------------------------------------------------------------------------")
+        
+        //         // print("-------------------------------------------------------------------------------")
+        //         // print("videoDevice.videoZoomFactor = \(videoDevice.videoZoomFactor)")
+        //         // print("videoDevice.exposureMode = \(videoDevice.exposureMode.rawValue)")
+        //         // print("videoDevice.activeFormat = \(videoDevice.activeFormat)")
+        //         // print("videoDevice.activeVideoMinFrameDuration = \(videoDevice.activeVideoMinFrameDuration)")
+        //         // print("videoDevice.deviceType = \(videoDevice.deviceType)")
+        //         // print("videoDevice.minExposureTargetBias = \(videoDevice.minExposureTargetBias)")
+        //         // print("videoDevice.activeMaxExposureDuration = \(videoDevice.activeMaxExposureDuration)")
+        //         // print("videoDevice.activeMinExposureDuration = \(videoDevice.activeVideoMinFrameDuration)")
+        //         // print("videoDevice.debugDescription = \(videoDevice.debugDescription)")
+        //         // print("videoDevice.iso = \(videoDevice.iso)")
+        //         // print("AVCaptureDevice.DiscoverySession = \(AVCaptureDevice.DiscoverySession.self)")
+        //         // print("-------------------------------------------------------------------------------")
         
         //let cameras = AVCaptureDevice.devices(for: AVMediaType.video)
-//        print("cameras = \(cameras)")
-//
-
+        //         // print("cameras = \(cameras)")
+        //
+        
         // create a corresponding device input
         guard
             let videoDeviceInput = try? AVCaptureDeviceInput(device: videoDevice),
@@ -230,13 +236,13 @@ class ScannerViewController: UIViewController, AVCaptureVideoDataOutputSampleBuf
         guard captureSession.canAddOutput(videoOutput) else { fatalError("Error adding Video Output to capture session") }
         
         //Set Capture Session Presets - need to experiment with this.
-//        captureSession.sessionPreset = .low
-//        captureSession.sessionPreset = .medium
-  //      captureSession.sessionPreset = .high
-//        captureSession.sessionPreset = .photo
-//        captureSession.sessionPreset = .qHD960x540
- //         captureSession.sessionPreset = .hd1920x1080
-//          captureSession.sessionPreset = .hd4K3840x2160
+        //        captureSession.sessionPreset = .low
+        //        captureSession.sessionPreset = .medium
+        //      captureSession.sessionPreset = .high
+        //        captureSession.sessionPreset = .photo
+        //        captureSession.sessionPreset = .qHD960x540
+        //         captureSession.sessionPreset = .hd1920x1080
+        //          captureSession.sessionPreset = .hd4K3840x2160
         
         
         
@@ -250,13 +256,13 @@ class ScannerViewController: UIViewController, AVCaptureVideoDataOutputSampleBuf
         videoOutput.setSampleBufferDelegate(self, queue: FrameCaptureQueue)
     }
     
-
     
     
-//    func captured(image: UIImage) {
-//
-//        self.framecapture = [image]
-//    }
+    
+    //    func captured(image: UIImage) {
+    //
+    //        self.framecapture = [image]
+    //    }
     
     let previewView = PreviewView()
     
@@ -268,8 +274,8 @@ class ScannerViewController: UIViewController, AVCaptureVideoDataOutputSampleBuf
         self.previewView.videoPreviewLayer.frame = view.layer.bounds
         self.previewView.videoPreviewLayer.frame = self.view.layer.frame
         
-//        print("self.previewView.videoPreviewLayer.frame.width = \(self.previewView.videoPreviewLayer.frame.width)")
-//        print("self.previewView.videoPreviewLayer.frame.height = \(self.previewView.videoPreviewLayer.frame.height)")
+        //         // print("self.previewView.videoPreviewLayer.frame.width = \(self.previewView.videoPreviewLayer.frame.width)")
+        //         // print("self.previewView.videoPreviewLayer.frame.height = \(self.previewView.videoPreviewLayer.frame.height)")
         
     }
     
@@ -280,8 +286,8 @@ class ScannerViewController: UIViewController, AVCaptureVideoDataOutputSampleBuf
         self.startScan = true
     }
     
-
-
+    
+    
     
     // MARK: Sample buffer to UIImage conversion
     func imageFromSampleBuffer(sampleBuffer: CMSampleBuffer) -> UIImage? {
@@ -298,12 +304,14 @@ class ScannerViewController: UIViewController, AVCaptureVideoDataOutputSampleBuf
     }
     
     func captureOutput(_ captureOutput: AVCaptureOutput, didDrop sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection) {
-       
-        if self.scanEnded != true {
-            droppedFrames += 1
-            print("FrameDroped!!! \(droppedFrames)")
-            //        print("Reason \(sampleBuffer.debugDescription)")
-        }
+        
+        //        if self.scanEnded != true {
+        //            droppedFrames += 1
+        //
+        //            // print("FrameDroped!!! \(droppedFrames)")
+        //
+        //            //         // print("Reason \(sampleBuffer.debugDescription)")
+        //        }
         
     }
     
@@ -311,29 +319,31 @@ class ScannerViewController: UIViewController, AVCaptureVideoDataOutputSampleBuf
     //var bufArray = [CMSampleBuffer?](repeating: buf as! CMSampleBuffer, count: 39)
     
     func captureOutput(_ output: AVCaptureOutput, didOutput sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection) {
-
+        
         if startScan == true && self.scanEnded == false
         {
-//            // give a little time for the camera settings to adjust
+            //            // give a little time for the camera settings to adjust
             if self.FrameCapturCount >= 30
             {
-//                // this is a small delay to allow the camer configuration to settle
-
+                //                // this is a small delay to allow the camer configuration to settle
+                
                 //    CMSampleBufferGetImageBuffer(sampleBuffer)
-                    guard let uiImage = imageFromSampleBuffer(sampleBuffer: sampleBuffer) else { return }
-//                    self.packet.rawData[self.FrameCapturCount-30]?.buffer = sampleBuffer
-                    //let buffer = sampleBuffer
-//                    // create background task for frame image processing
-                   frameProcessQueue.async { [weak self] in
-                        //self.frameProcesser(uiImage: uiImage)
-//                        sampleBufferArray.append(buffer)
-                       self?.scannedImageArray.append(uiImage)
-//                    self.ibArray.append(CMSampleBufferGetImageBuffer(sampleBuffer)!)
-                   }
+                guard let uiImage = imageFromSampleBuffer(sampleBuffer: sampleBuffer) else { return }
+                //                    self.packet.rawData[self.FrameCapturCount-30]?.buffer = sampleBuffer
+                //let buffer = sampleBuffer
+                //                    // create background task for frame image processing
+                frameProcessQueue.async { [weak self] in
+                    //self.frameProcesser(uiImage: uiImage)
+                    //                        sampleBufferArray.append(buffer)
+                    self?.scannedImageArray.append(uiImage)
+                    //                    self.ibArray.append(CMSampleBufferGetImageBuffer(sampleBuffer)!)
+                }
                 //            DispatchQueue.main.async { [self] in {
                 //
                 //            }
-                print("sampleBufferArray.append(sampleBuffer) \(self.FrameCapturCount - 30)")
+
+                // print("sampleBufferArray.append(sampleBuffer) \(self.FrameCapturCount - 30)")
+
                 //
                 //
                 //
@@ -345,12 +355,12 @@ class ScannerViewController: UIViewController, AVCaptureVideoDataOutputSampleBuf
                     }
                     
                     frameProcessQueue.sync { [weak self] in
-                         //self.frameProcesser(uiImage: uiImage)
- //                        sampleBufferArray.append(buffer)
+                        //self.frameProcesser(uiImage: uiImage)
+                        //                        sampleBufferArray.append(buffer)
                         self!.ScanAnalaysis()
- //                    self.ibArray.append(CMSampleBufferGetImageBuffer(sampleBuffer)!)
+                        //                    self.ibArray.append(CMSampleBufferGetImageBuffer(sampleBuffer)!)
                     }
-
+                    
                     
                     
                     
@@ -360,9 +370,9 @@ class ScannerViewController: UIViewController, AVCaptureVideoDataOutputSampleBuf
             
             self.FrameCapturCount += 1
         }
-
+        
     }
-
+    
     func ScanAnalaysis() {
         
         let imageCount = self.scannedImageArray.count
@@ -383,70 +393,83 @@ class ScannerViewController: UIViewController, AVCaptureVideoDataOutputSampleBuf
                 //            }self.scannedImageArray
                 
                 DispatchQueue.main.async { [unowned self] in
-
+                    
                     //AVCaptureDeviceDiscoverySession var progress = 0
                     var completeFramesCount = 0
-
-
+                    
+                    
                     for i in 0 ..< 39 {
-
+                        
                         if self.packet.rawData[i]?.HexVal != nil {
                             if let index = crossCheckArray.firstIndex(of: (packet.rawData[i]?.packetNum)!) {
                                 crossCheckArray.remove(at: index)
+                                
 
-                                print(" -------------------------have packet \(String(describing: self.packet.rawData[i]!.packetNum)) = \(String(describing: self.packet.rawData[i]!.HexVal))")
-
-                                print(" -------------------------remaining packet count = \(crossCheckArray.count)")
+                                // print(" -------------------------have packet \(String(describing: self.packet.rawData[i]!.packetNum)) = \(String(describing: self.packet.rawData[i]!.HexVal))")
 
 
+                                // print(" -------------------------remaining packet count = \(crossCheckArray.count)")
+
+                                
                                 completeFramesCount = completeFramesCount + 1
-                                print(" -------------------------completeFramesCount = \(completeFramesCount)")
+
+                                // print(" -------------------------completeFramesCount = \(completeFramesCount)")
+
                             }
                         }
                     }
-
+                    
                     self.progressBar.progress = 1 - (Float(crossCheckArray.count) / 39)
-                    print(" -------------------------self.progressBar.progress = \(self.progressBar.progress)")
+
+                    // print(" -------------------------self.progressBar.progress = \(self.progressBar.progress)")
 
                     // if a frame is bad
                     if self.badScan == true {
                         // self.restartScan()
                     }
-
+                    
                     // complete scan
                     if self.progressBar.progress == 1 && self.seguePerformed == false && self.badCheckSum == false{
-
+                        
                         var scanString = ""
                         // build scan string
                         for i in 0..<39 {
-
+                            
                             scanString.append((self.packet.rawData[i]?.HexVal)!)
-
+                            
                         }
-
+                        
                         self.newScan = scanString
                         
                         if self.checkScanCheckSum(str: scanString) {
                             
                             self.seguePerformed = true
-                            print( " CheckSum OK ")
+
+                            // print( " CheckSum OK ")
+
                             self.performSegue(withIdentifier: "ScanToDeviceReport", sender: self)
                         } else {
                             
-                            print( " Bad CheckSum ")
+
+                            // print( " Bad CheckSum ")
+
                             self.badCheckSum = true
                             
                             //TODO Reset the captured array
                             self.resetPacketFrameValues()
                         }
                     }
+                    
 
-                    print( " self.frameProcessCount = \(self.counter) ")
+                    // print( " self.frameProcessCount = \(self.counter) ")
 
+                    
                     // didnt get all the frames, there is something wrong
                     if (self.progressBar.progress < 1 && self.counter == 79) || self.badCheckSum == true {
-                        print( " there is a problem ")
 
+                        // print( " there is a problem ")
+
+                        
                         self.badScanReset()
                     }
                 }
@@ -458,23 +481,25 @@ class ScannerViewController: UIViewController, AVCaptureVideoDataOutputSampleBuf
     
     func resetPacketFrameValues() {
         for i in 0 ..< 39 {
-
+            
             self.packet.rawData[i]?.HexVal = nil
             
         }
-        print("Packet has been reset")
+
+        // print("Packet has been reset")
+
     }
     
     
     func badScanReset() {
         self.scanErrorLabel.alpha = 1
-
+        
         self.counter = 0
-
+        
         self.ReSetScanExposureSettings()
-
+        
         self.progressView.alpha = 0
-
+        
         self.setupCrossCheckArray()
         self.FrameCapturCount = 0
         self.scanEnded = false
@@ -489,7 +514,8 @@ class ScannerViewController: UIViewController, AVCaptureVideoDataOutputSampleBuf
         let checkSumString = String(str[checkSumStartIndex...checkSumEndIndex])
         let checkSumUInt8 = UInt8(checkSumString, radix: 16)
         
-        print("checkSum String= \(checkSumString)")
+
+        // print("checkSum String= \(checkSumString)")
 
         var checkIntTemp: UInt16 = 0
         
@@ -497,12 +523,13 @@ class ScannerViewController: UIViewController, AVCaptureVideoDataOutputSampleBuf
         for i in stride(from: 0, to: str.count - 2, by: 2) {
             let byteStartIndex = str.index(str.startIndex, offsetBy: i)
             let byteEndIndex = str.index(str.startIndex, offsetBy: i+1)
-
+            
             let byteString = String(str[byteStartIndex...byteEndIndex])
             let byteInt = UInt16(byteString, radix: 16)
             
-            print("Check sum value = \(checkIntTemp) + \(byteInt!) = \((checkIntTemp + byteInt!))")
-            
+
+            // print("Check sum value = \(checkIntTemp) + \(byteInt!) = \((checkIntTemp + byteInt!))")
+
             checkIntTemp = (checkIntTemp + byteInt!)// & 0x00FF
         }
         
@@ -510,18 +537,21 @@ class ScannerViewController: UIViewController, AVCaptureVideoDataOutputSampleBuf
         
         if UInt8(checkIntTemp) == checkSumUInt8 {
             
-            print("Good Check Sum")
+
+            // print("Good Check Sum")
+
             return true
         } else {
             return false
         }
-
+        
     }
     
     
     func EndFrameProcessor() {
-        print("captureOutput:  end of scan")
-        
+
+        // print("captureOutput:  end of scan")
+
         self.startScan = false
         self.FrameCapturCount = 0
         self.progressView.alpha = 1
@@ -532,37 +562,51 @@ class ScannerViewController: UIViewController, AVCaptureVideoDataOutputSampleBuf
     func frameProcesser(uiImage: UIImage) {
         
         var frame: Frame?
-
+        
         frame = self.ProcessImage(uiImage: uiImage)
         // the above function will return a manchester decoded string or "Corrupt Scan Data" if the frame failed
         
         if frame?.HexVal == "Corrupt Scan Data" {
-            print("Corrupt frame: \(counter) = \(String(describing: frame?.str))")
-            
+
+            // print("Corrupt frame: \(counter) = \(String(describing: frame?.str))")
+
         } else {
             
-            print("frame.packetNum \(String(describing: frame?.packetNum))")
-            print("frame.HexVal \(String(describing: frame?.HexVal))")
 
+            // print("frame.packetNum \(String(describing: frame?.packetNum))")
+
+            
+
+            // print("frame.HexVal \(String(describing: frame?.HexVal))")
+
+            
+            
             //self.packet.rawData[frame.packetNum]?.HexVal
             if (frame?.packetNum!)! <= 39 {
-                print("frame?.packetNum! = \(String(describing: frame?.packetNum!))")
+
+                // print("frame?.packetNum! = \(String(describing: frame?.packetNum!))")
+
+                
                 if packet.rawData[(frame?.packetNum!)!-1]?.HexVal == nil {
                     packet.rawData[(frame?.packetNum!)!-1] = frame
                 } else {
-                    print("packet exisits already")
+
+                    // print("packet exisits already")
+
                 }
             }
         }
         
         //frame = nil
-            
-
+        
+        
     }
     
     func SetScanExposureSettings() {
         
-        print("SetScanExposureSettings()")
+
+        // print("SetScanExposureSettings()")
+
         
         do{
             try videoDevice.lockForConfiguration()
@@ -571,13 +615,14 @@ class ScannerViewController: UIViewController, AVCaptureVideoDataOutputSampleBuf
             self.scanErrorLabel.text = "error accessing camera"
         }
         
-        print("Device.version() = \(Device.version())")
+        // print("Device.version() = \(Device.version())")
+
         
         //TODO:- might need to find the right video format for each phone. maybe the simulator can do this?
         //        captureSession.sessionPreset = .low
         //        captureSession.sessionPreset = .medium
-          //      captureSession.sessionPreset = .high
-                //captureSession.sessionPreset = .photo
+        //      captureSession.sessionPreset = .high
+        //captureSession.sessionPreset = .photo
         //        captureSession.sessionPreset = .qHD960x540
         
         
@@ -586,57 +631,66 @@ class ScannerViewController: UIViewController, AVCaptureVideoDataOutputSampleBuf
         } else {
             captureSession.sessionPreset = .hd4K3840x2160
         }
-
+        
         if setVideoFormat(fps: self.fps) {
-            print("frame rate set ok")
-            print("videoDevice.activeFormat = \(videoDevice.activeFormat)")
+
+            // print("frame rate set ok")
+
+            // print("videoDevice.activeFormat = \(videoDevice.activeFormat)")
+
         } else {
-            print("Error setting frame rate")
+
+            // print("Error setting frame rate")
+
         }
         
         let exposureTime = CMTimeGetSeconds(self.videoDevice.activeFormat.minExposureDuration)
         
-        print("exposureTime = \(exposureTime)")
+
+        // print("exposureTime = \(exposureTime)")
+
         
         let duration = CMTime.init(seconds: exposureTime, preferredTimescale: 1_000_000)
-        print("duration = \(duration)")
-       
-        videoDevice.setExposureModeCustom(duration: duration, iso: 100, completionHandler: nil )
 
+        // print("duration = \(duration)")
+
+        
+        videoDevice.setExposureModeCustom(duration: duration, iso: 100, completionHandler: nil )
+        
         videoDevice.videoZoomFactor = 1.0
         
-       // videoDevice.activeVideoMinFrameDuration = CMTimeMake(value: 1, timescale: 30)
+        // videoDevice.activeVideoMinFrameDuration = CMTimeMake(value: 1, timescale: 30)
         
         videoDevice.automaticallyAdjustsVideoHDREnabled = false
         
-//        var formats = videoDevice.formats
-//
-//        print("videoDevice.activeFormat = \(videoDevice.activeFormat)")
-//
-//
-//        for i in 0..<formats.count {
-//            print("videoDevice.formats[\(i)] = \(formats[i])")
-//        }
-
-
-//        print("videoDevice.activeformats = \(videoDevice.activeFormat)")
-//        print("videoDevice.activeVideoMaxFrameDuration = \(videoDevice.activeVideoMaxFrameDuration)")
-//        print("videoDevice.activeVideoMinFrameDuration = \(videoDevice.activeVideoMinFrameDuration)")
-//        print("videoDevice.activeMaxExposureDuration = \(videoDevice.activeMaxExposureDuration)")
-//        print("videoDevice.exposureMode = \(videoDevice.exposureMode.rawValue)")
-//        print("videoDevice.isAdjustingExposure = \(videoDevice.isAdjustingExposure)")
-//        print("videoDevice.exposureDuration = \(videoDevice.exposureDuration)")
-//        print("videoDevice.activeDepthDataMinFrameDuration = \(videoDevice.activeDepthDataMinFrameDuration)")
-//
-//        print("----------------  Exposure -----------------")
-//        print("videoDevice.isAdjustingExposure = \(videoDevice.isAdjustingExposure)")
-//        print("videoDevice.minExposureTargetBias = \(videoDevice.minExposureTargetBias)")
-//        print("videoDevice.maxExposureTargetBias = \(videoDevice.maxExposureTargetBias)")
-//        print("videoDevice.modelID = \(videoDevice.modelID)")
-//        print("videoDevice.iso = \(videoDevice.iso)")
-//
-//        print("videoDevice.activeDepthDataMinFrameDuration = \(videoDevice.activeDepthDataMinFrameDuration)")
-//        print("videoDevice.activeDepthDataMinFrameDuration = \(videoDevice.activeDepthDataMinFrameDuration)")
+        //        var formats = videoDevice.formats
+        //
+        //         // print("videoDevice.activeFormat = \(videoDevice.activeFormat)")
+        //
+        //
+        //        for i in 0..<formats.count {
+        //             // print("videoDevice.formats[\(i)] = \(formats[i])")
+        //        }
+        
+        
+        //         // print("videoDevice.activeformats = \(videoDevice.activeFormat)")
+        //         // print("videoDevice.activeVideoMaxFrameDuration = \(videoDevice.activeVideoMaxFrameDuration)")
+        //         // print("videoDevice.activeVideoMinFrameDuration = \(videoDevice.activeVideoMinFrameDuration)")
+        //         // print("videoDevice.activeMaxExposureDuration = \(videoDevice.activeMaxExposureDuration)")
+        //         // print("videoDevice.exposureMode = \(videoDevice.exposureMode.rawValue)")
+        //         // print("videoDevice.isAdjustingExposure = \(videoDevice.isAdjustingExposure)")
+        //         // print("videoDevice.exposureDuration = \(videoDevice.exposureDuration)")
+        //         // print("videoDevice.activeDepthDataMinFrameDuration = \(videoDevice.activeDepthDataMinFrameDuration)")
+        //
+        //         // print("----------------  Exposure -----------------")
+        //         // print("videoDevice.isAdjustingExposure = \(videoDevice.isAdjustingExposure)")
+        //         // print("videoDevice.minExposureTargetBias = \(videoDevice.minExposureTargetBias)")
+        //         // print("videoDevice.maxExposureTargetBias = \(videoDevice.maxExposureTargetBias)")
+        //         // print("videoDevice.modelID = \(videoDevice.modelID)")
+        //         // print("videoDevice.iso = \(videoDevice.iso)")
+        //
+        //         // print("videoDevice.activeDepthDataMinFrameDuration = \(videoDevice.activeDepthDataMinFrameDuration)")
+        //         // print("videoDevice.activeDepthDataMinFrameDuration = \(videoDevice.activeDepthDataMinFrameDuration)")
     }
     
     func getFrameRate() {
@@ -671,63 +725,74 @@ class ScannerViewController: UIViewController, AVCaptureVideoDataOutputSampleBuf
     
     func setVideoFormat(fps: Double) -> Bool {
         
-            for vFormat in videoDevice.formats {
+        for vFormat in videoDevice.formats {
+            
+            // 2
+            let ranges = vFormat.videoSupportedFrameRateRanges as [AVFrameRateRange]
+            let frameRates = ranges[0]
+            
+            //AVCaptureDeviceDiscoverySession vFormat.mediaType.rawValue
+            
+            if frameRates.maxFrameRate >= fps {
+                let dimensions = CMVideoFormatDescriptionGetDimensions(vFormat.formatDescription)
+                // // print("dimensions = \(dimensions)")
+                
+                switch fps {
+                case 30:
+                    if dimensions.width == 1920 && dimensions.height == 1080 {
 
-                // 2
-                let ranges = vFormat.videoSupportedFrameRateRanges as [AVFrameRateRange]
-                let frameRates = ranges[0]
-                
-                //AVCaptureDeviceDiscoverySession vFormat.mediaType.rawValue
-                
-                if frameRates.maxFrameRate >= fps {
-                    let dimensions = CMVideoFormatDescriptionGetDimensions(vFormat.formatDescription)
-                    //print("dimensions = \(dimensions)")
-                    
-                    switch fps {
-                    case 30:
-                        if dimensions.width == 1920 && dimensions.height == 1080 {
-                            print("i found format")
-                            
-                            videoDevice.activeFormat = vFormat as AVCaptureDevice.Format
-                            videoDevice.activeVideoMinFrameDuration = CMTimeMake(value: 1, timescale: Int32(fps))
-                            videoDevice.activeVideoMaxFrameDuration = CMTimeMake(value: 1, timescale: Int32(fps))
-                            print("videoDevice.activeFormat = \(videoDevice.activeFormat)")
-                            return true
-                        }
-                    case 60:
-                        if dimensions.width > 1920 && dimensions.height > 1080 { //3840 2160
-                            print("i found format")
-                            
-                            videoDevice.activeFormat = vFormat as AVCaptureDevice.Format
-                            videoDevice.activeVideoMinFrameDuration = CMTimeMake(value: 1, timescale: Int32(fps))
-                            videoDevice.activeVideoMaxFrameDuration = CMTimeMake(value: 1, timescale: Int32(fps))
-                            print("videoDevice.activeFormat = \(videoDevice.activeFormat)")
-                            return true
-                        }
-                    default:
-                        print("no available format")
+                        // print("i found format")
                         
+                        videoDevice.activeFormat = vFormat as AVCaptureDevice.Format
+                        videoDevice.activeVideoMinFrameDuration = CMTimeMake(value: 1, timescale: Int32(fps))
+                        videoDevice.activeVideoMaxFrameDuration = CMTimeMake(value: 1, timescale: Int32(fps))
+
+                        // print("videoDevice.activeFormat = \(videoDevice.activeFormat)")
+
+                        return true
                     }
+                case 60:
+                    if dimensions.width > 1920 && dimensions.height > 1080 { //3840 2160
+
+                        // print("i found format")
+
+                        videoDevice.activeFormat = vFormat as AVCaptureDevice.Format
+                        videoDevice.activeVideoMinFrameDuration = CMTimeMake(value: 1, timescale: Int32(fps))
+                        videoDevice.activeVideoMaxFrameDuration = CMTimeMake(value: 1, timescale: Int32(fps))
+
+                        // print("videoDevice.activeFormat = \(videoDevice.activeFormat)")
+
+                        return true
+                    }
+                default:
+
+                    print("no available format")
                     
                 }
                 
-                
             }
-                
             
+            
+        }
+        
+        
         
         return false
     }
     
     func ReSetScanExposureSettings() {
         
-        print("SetScanExposureSettings()")
+        // print("SetScanExposureSettings()")
         
         do{
             try videoDevice.lockForConfiguration()
-            print("try ok")
+
+            // print("try ok")
+
         } catch {
-            print("error setting camera")
+
+            // print("error setting camera")
+
         }
         
         videoDevice.exposureMode = .continuousAutoExposure
@@ -737,19 +802,25 @@ class ScannerViewController: UIViewController, AVCaptureVideoDataOutputSampleBuf
         let date = Date()
         let formatter = DateFormatter()
         formatter.dateFormat = "HH:mm:ss.SSSS"
-        print("time frame recieved = ", formatter.string(from: date))
+
+        // print("time frame recieved = ", formatter.string(from: date))
+
     }
     
     func printDateEnd() {
         let date = Date()
         let formatter = DateFormatter()
         formatter.dateFormat = "HH:mm:ss.SSSS"
-        print("time frame processing ended = ", formatter.string(from: date))
+
+        // print("time frame processing ended = ", formatter.string(from: date))
+
     }
     
     func stopCaptureSession() {
         
-        print("stopCaptureSession")
+
+        // print("stopCaptureSession")
+
         self.captureSession.stopRunning()
         
         if let inputs = captureSession.inputs as? [AVCaptureDeviceInput] {
@@ -781,7 +852,7 @@ class ScannerViewController: UIViewController, AVCaptureVideoDataOutputSampleBuf
         } else {
             
         }
-
+        
         return f
     }
     
@@ -789,14 +860,20 @@ class ScannerViewController: UIViewController, AVCaptureVideoDataOutputSampleBuf
         
         var outputFrame = Frame()
         
-        print("ProcessImage")
-        
+
+        // print("ProcessImage")
 
         
+        
+        
         if self.fps == 30 {
-            print("test2")
-             let imageMaster = ScannerFunctions30FPS(uiImage: uiImage)
-            print("test2")
+
+            // print("test2")
+
+            let imageMaster = ScannerFunctions30FPS(uiImage: uiImage)
+
+            // print("test2")
+
             if imageMaster.binaryString.isEmpty || imageMaster.byteData == nil || imageMaster.byteNum == nil {
                 
                 outputFrame.HexVal = "Corrupt Scan Data"
@@ -821,7 +898,7 @@ class ScannerViewController: UIViewController, AVCaptureVideoDataOutputSampleBuf
             
         } else if self.fps == 60 {
             
-             let imageMaster = ScannerFunctions60FPS(inImage: uiImage)
+            let imageMaster = ScannerFunctions60FPS(inImage: uiImage)
             
             if imageMaster.binaryString.isEmpty || imageMaster.byteData == nil || imageMaster.byteNum == nil {
                 
@@ -848,11 +925,11 @@ class ScannerViewController: UIViewController, AVCaptureVideoDataOutputSampleBuf
             return outputFrame
         }
         
-       // let imageMaster = ScanningFunctions3(uiImage: uiImage)
-       // self.scannedImageArray.append((self.ImageMaster?.outImage[1])!)
-            
-
-
+        // let imageMaster = ScanningFunctions3(uiImage: uiImage)
+        // self.scannedImageArray.append((self.ImageMaster?.outImage[1])!)
+        
+        
+        
         
         
         
@@ -860,7 +937,9 @@ class ScannerViewController: UIViewController, AVCaptureVideoDataOutputSampleBuf
     
     
     func getImageFromSampleBuffer (buffer: CMSampleBuffer) -> UIImage? {
-        print("getImageFromSampleBuffer")
+
+        // print("getImageFromSampleBuffer")
+
         
         if let pixelBuffer = CMSampleBufferGetImageBuffer(buffer) {
             let ciImage = CIImage(cvPixelBuffer: pixelBuffer)
@@ -890,32 +969,32 @@ class ScannerViewController: UIViewController, AVCaptureVideoDataOutputSampleBuf
     }
     
     
-//    func checkScan() -> Bool {
-//
-//        var sum: UInt16 = 0
-//
-//        let ckSumStrStartIndex = self.newScan!.index(self.newScan!.startIndex, offsetBy: SCAN_LENGTH-2)
-//        let ckSumStrEndIndex = self.newScan!.index(self.newScan!.startIndex, offsetBy: SCAN_LENGTH-1)
-//        //let ckSumStr = String(self.newScan![ckSumStrStartIndex...ckSumStrEndIndex])
-//        //let ckSum = Int(ckSumStr)
-//
-//        for i in stride(from: 0, to: SCAN_LENGTH, by: 2) {
-//
-//            //MARK:- SerialNumber
-//            let newValStrStartIndex = self.newScan!.index(self.newScan!.startIndex, offsetBy: i)
-//            let newValStrEndIndex = self.newScan!.index(self.newScan!.startIndex, offsetBy: i+1)
-//            let newValStr = String(self.newScan![newValStrStartIndex...newValStrEndIndex])
-//
-//            let newValInt = Int(newValStr, radix: 16)
-//
-//            sum += UInt16(newValInt!)
-//            sum = sum & 0x00FF
-//
-//        }
-//
-//        print ("checksume pass")
-//        return true
-//    }
+    //    func checkScan() -> Bool {
+    //
+    //        var sum: UInt16 = 0
+    //
+    //        let ckSumStrStartIndex = self.newScan!.index(self.newScan!.startIndex, offsetBy: SCAN_LENGTH-2)
+    //        let ckSumStrEndIndex = self.newScan!.index(self.newScan!.startIndex, offsetBy: SCAN_LENGTH-1)
+    //        //let ckSumStr = String(self.newScan![ckSumStrStartIndex...ckSumStrEndIndex])
+    //        //let ckSum = Int(ckSumStr)
+    //
+    //        for i in stride(from: 0, to: SCAN_LENGTH, by: 2) {
+    //
+    //            //MARK:- SerialNumber
+    //            let newValStrStartIndex = self.newScan!.index(self.newScan!.startIndex, offsetBy: i)
+    //            let newValStrEndIndex = self.newScan!.index(self.newScan!.startIndex, offsetBy: i+1)
+    //            let newValStr = String(self.newScan![newValStrStartIndex...newValStrEndIndex])
+    //
+    //            let newValInt = Int(newValStr, radix: 16)
+    //
+    //            sum += UInt16(newValInt!)
+    //            sum = sum & 0x00FF
+    //
+    //        }
+    //
+    //         // print ("checksume pass")
+    //        return true
+    //    }
     
     @IBAction func unwindToScannerViewController(_ sender: UIStoryboardSegue) {}
     
@@ -929,7 +1008,7 @@ class ScannerViewController: UIViewController, AVCaptureVideoDataOutputSampleBuf
         
         // build title page
         composeCameraDataPagePDF()
-
+        
         //self.pdfDocument
         showMailComposer()
     }
@@ -965,7 +1044,7 @@ class ScannerViewController: UIViewController, AVCaptureVideoDataOutputSampleBuf
                     frame data:
                     \(frameInfoString)
                     """
-
+        
         
         let pdfCreator = PDFDebugCreator(title: "Debug Report", body: pdfBody)
         
@@ -977,11 +1056,15 @@ class ScannerViewController: UIViewController, AVCaptureVideoDataOutputSampleBuf
     
     func showMailComposer() {
         
-        print("creating Email")
+
+        // print("creating Email")
+
         
         guard MFMailComposeViewController.canSendMail() else {
             // TODO:- Show alert informing the user
-            print("Mail services are not available")
+
+            // print("Mail services are not available")
+
             return
         }
         
@@ -1012,13 +1095,21 @@ extension ScannerViewController: MFMailComposeViewControllerDelegate {
         
         switch result {
         case .cancelled:
-            print("Cancelled")
+
+             print("Cancelled")
+
         case .failed:
-            print("Failed to send")
+
+             print("Failed to send")
+
         case .saved:
-            print("Saved")
+
+             print("Saved")
+
         case .sent:
-            print("Email Sent")
+
+             print("Email Sent")
+
         @unknown default:
             break
         }
@@ -1027,7 +1118,7 @@ extension ScannerViewController: MFMailComposeViewControllerDelegate {
     }
     
     func dateFormat(date: Date) -> String {
-
+        
         let formatter1 = DateFormatter()
         formatter1.dateStyle = .short//"dd/mm/yyyy"
         
@@ -1063,11 +1154,11 @@ class PreviewView: UIView {
 
 
 public enum DeviceType {
- case iPad(String?)
- case iPhone(String?)
- case simulator(String?)
- case appleTV(String?)
- case unknown
+    case iPad(String?)
+    case iPhone(String?)
+    case simulator(String?)
+    case appleTV(String?)
+    case unknown
 }
 
 extension UIDevice {
@@ -1081,7 +1172,7 @@ extension UIDevice {
             }
             return identifier + String(UnicodeScalar(UInt8(value)))
         }
-
+        
         if code.lowercased().range(of: "ipad") != nil {
             if let range = code.lowercased().range(of: "ipad") {
                 var mutate = code

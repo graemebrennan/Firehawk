@@ -88,7 +88,7 @@ class ScannerFunctions30FPS {
             // get bitmap info as 32 bit uint
             let bitmapInfo: UInt32 = CGBitmapInfo.byteOrder32Big.rawValue | CGImageAlphaInfo.premultipliedLast.rawValue
             //                let CGPointZero = CGPoint(x: 0, y: 0)
-           // print("bitmapInfo \(bitmapInfo[100])")
+           // // print("bitmapInfo \(bitmapInfo[100])")
             // Filter image
             // add image filters
             
@@ -148,20 +148,20 @@ class ScannerFunctions30FPS {
                 self.SamplePacket()
                     
                 }else {
-                     print("badPreamble")
+                     // print("badPreamble")
                 }
             } //else {
-            //       //     print("not enogh lines")
+            //       //     // print("not enogh lines")
             //        }
             
             self.FindROI()
             //self.BuildOutputImage()
             if self.byteData != nil {
-                print("sucessful scan")
+                // print("sucessful scan")
             } else {
                 
                 //self.BuildOutputImage()
-                print("bad scan")
+                // print("bad scan")
             }
             
             // deallocate memory for pixle array
@@ -383,11 +383,11 @@ class ScannerFunctions30FPS {
                 lines[i].type = "Data"
             }
             
-//            print("lineType [\(i)]= \(lines[i].type!)" )
+//            // print("lineType [\(i)]= \(lines[i].type!)" )
         }
         
 //        for i in 0..<preambleIndex.count {
-//            print("PreambleIndex = \(preambleIndex[i])")
+//            // print("PreambleIndex = \(preambleIndex[i])")
 //        }
         
     }
@@ -473,9 +473,9 @@ class ScannerFunctions30FPS {
             pixels![(width/2) + i + (endIndex * width)] = RGBAPixel(rawVal: 0xAAFFFFFF)
            
         }
-        print("startIndex = \(startIndex)")
-        print("midpoint = \(startIndex + ((endIndex - startIndex)/2))")
-        print("endIndex = \(endIndex)")
+        // print("startIndex = \(startIndex)")
+        // print("midpoint = \(startIndex + ((endIndex - startIndex)/2))")
+        // print("endIndex = \(endIndex)")
     }
     
     
@@ -496,7 +496,7 @@ class ScannerFunctions30FPS {
             // the -30 here is the offset from center, not sure its needed
             let testindex = (self.width/2) + (( self.startIndex + (row) ) * self.width)
             
-           // print("pixels[testindex].red = \(pixels[testindex].red)")
+           // // print("pixels[testindex].red = \(pixels[testindex].red)")
             if pixels![testindex].red > upperLightThreshold {
                 // we have a binary 1
                 binaryString.append("1")
@@ -525,7 +525,7 @@ class ScannerFunctions30FPS {
         
         if decodedString == "Corrupt Scan Data" {
             binaryString = ""
-          //  print("----------------------SamplePacketBackup")
+          //  // print("----------------------SamplePacketBackup")
             SamplePacketBackup()
         } else {
             
@@ -600,8 +600,8 @@ class ScannerFunctions30FPS {
         
         if decodedString == "Corrupt Scan Data" {
             binaryString = ""
-          //  print("----------------------SamplePacketBackup")
-            print("Sample backup failed")
+          //  // print("----------------------SamplePacketBackup")
+            // print("Sample backup failed")
         } else {
             
             // unpack decoded string
@@ -645,13 +645,13 @@ class ScannerFunctions30FPS {
                 decodedString.append("1")
             }else
             {
-                print("Bad ManchesterDecoder")
+                // print("Bad ManchesterDecoder")
                 return "Corrupt Scan Data"
             }
             
         }
         
-        print("decodedString = \(decodedString)")
+        // print("decodedString = \(decodedString)")
         return decodedString
     }
     
@@ -699,7 +699,7 @@ class ScannerFunctions30FPS {
     
     
     deinit {
-        print("deinit scan functions2_(************************************")
+        // print("deinit scan functions2_(************************************")
     }
     
 }

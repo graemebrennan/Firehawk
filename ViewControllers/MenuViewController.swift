@@ -32,8 +32,9 @@ class MenuViewController: UIViewController {
         
         setUpElements()
         
+
         print("viewDidLoad")
-        
+
         tableView.delegate = self
         tableView.dataSource = self
         
@@ -57,7 +58,9 @@ class MenuViewController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
+
         print("viewWillAppear")
+
         fetchReports()
     }
     
@@ -79,10 +82,14 @@ class MenuViewController: UIViewController {
             DispatchQueue.main.async {
                 self.tableView.reloadData()
                 
+
                 print("reloadData")
+
             }
         } catch {
+
             print("error retrieving reports from core data")
+
         }
     }
     
@@ -102,7 +109,9 @@ extension MenuViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
+
         print("items to be reloaded = \(String(describing: self.serviceReports?.count))")
+
         return self.serviceReports?.count ?? 0
         
     }
@@ -139,8 +148,10 @@ extension MenuViewController: UITableViewDataSource {
             do {
                 try self.context.save()
             } catch {
-                print(error)
-                print("error saving data to core data db")
+                
+                    print(error)
+                    print("error saving data to core data db")
+                
             }
             
             // re-fetch the data
@@ -176,8 +187,9 @@ extension MenuViewController: UITableViewDelegate {
         self.selectedSeviceReport = self.serviceReports![indexPath.row]
         
         performSegue(withIdentifier: "MainVCToReportSummaryVC", sender: self)
-        
+
         print( "did selected row \(indexPath.row) ")
+
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
