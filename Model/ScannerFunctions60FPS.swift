@@ -217,8 +217,8 @@ class ScannerFunctions60FPS {
         let focusStartHeight = Int(Float(self.height) * 0.2)
         let focusEndHeight = Int(Float(self.height) * 0.8)
         
-        let focusStartWidth = Int(Float(self.width) * 0.2)
-        let focusEndWidth = Int(Float(self.width) * 0.8)
+      //  let focusStartWidth = Int(Float(self.width) * 0.2)
+      //  let focusEndWidth = Int(Float(self.width) * 0.8)
         
         for j in focusStartHeight..<focusEndHeight {
             
@@ -493,21 +493,21 @@ class ScannerFunctions60FPS {
         // draw start marker
         for i in 0..<100
         {
-            self.pixels![(self.width/2) + i + (self.startIndex * self.width)] = RGBAPixel(rawVal: 0xAAFFFFFF)
+            self.pixels![(self.width/2 - 200) + i + (self.startIndex * self.width)] = RGBAPixel(rawVal: 0xAAFFFFFF)
             
         }
         
         for i in 0..<100
         {
             // draw mid marker
-            self.pixels![(self.width/2) + i + ((self.startIndex + ((self.endIndex - self.startIndex)/2)) * self.width)] = RGBAPixel(rawVal: 0xAAFFFFFF)
+            self.pixels![(self.width/2 - 200) + i + ((self.startIndex + ((self.endIndex - self.startIndex)/2)) * self.width)] = RGBAPixel(rawVal: 0xAAFFFFFF)
             
         }
         
         for i in 0..<100
         {
             // draw end marker
-            self.pixels![(self.width/2) + i + (self.endIndex * self.width)] = RGBAPixel(rawVal: 0xAAFFFFFF)
+            self.pixels![(self.width/2 - 200) + i + (self.endIndex * self.width)] = RGBAPixel(rawVal: 0xAAFFFFFF)
             
         }
         // print("startIndex = \(self.startIndex)")
@@ -516,7 +516,7 @@ class ScannerFunctions60FPS {
     }
     
     func SamplePacket() {
-        // print("Sample Packet")
+        //print("******************************Sample Packet")
         // var bitCorrectionFactor = 0.8
         //let preambleWidth = lines[preambleIndex[centerPreamble]].width
         //var bitWidth = Int(Double(preambleWidth / 4))// * bitCorrectionFactor)
@@ -534,7 +534,7 @@ class ScannerFunctions60FPS {
             let row = Int( ( (Float(bit + 3) / 34) * Float(self.totalPacketTime) ) + c)
             
             // the -30 here is the offset from center, not sure its needed
-            let testindex = (self.width/2) + (( self.startIndex + (row) ) * self.width)
+            let testindex = (self.width/2 - 200) + (( self.startIndex + (row) ) * self.width)
             //// print("test spot = \(bit) -> \(row)")
             
             if self.pixels![testindex].red > self.upperLightThreshold {
@@ -570,8 +570,10 @@ class ScannerFunctions60FPS {
         
         if decodedString == "Corrupt Scan Data" {
             self.binaryString = ""
-            //  // print("----------------------SamplePacketBackup")
-            //  SamplePacketBackup()
+            
+//            self.BuildOutputImage()
+//            print("*****************************Failed Manchester")
+           
         } else {
             
             // unpack decoded string
@@ -599,6 +601,7 @@ class ScannerFunctions60FPS {
     }
     
     func SamplePacket2() {
+        //print("-------------------------------Sample Packet2")
         // print("Sample Packet2")
         let preambleWidth = self.lines[self.preambleIndex[self.centerPreamble]].width
         
@@ -614,7 +617,7 @@ class ScannerFunctions60FPS {
         //        let bitWidthBlack_max = twoBitWidthBlack_min
         //        let bitWidthBlack_min = Int((Float(self.smallestBlackLine)) * 0.8)
         
-        let twoBitWidthBlack_max = Int((Float(preambleWidth)) * 0.4)
+      //  let twoBitWidthBlack_max = Int((Float(preambleWidth)) * 0.4)
         let twoBitWidthBlack_min = Int((Float(preambleWidth)) * 0.2)
         
         let bitWidthBlack_max = twoBitWidthBlack_min
@@ -649,7 +652,7 @@ class ScannerFunctions60FPS {
         //var currentLineType = ""
         var currentLinePosition = ""
         
-        // self.BuildOutputImage()
+        
         
         for i in 1..<numberOfLines {
             
@@ -678,49 +681,57 @@ class ScannerFunctions60FPS {
                     self.binaryString.append("1")
                 }
             }
-            
+
             // print("")
             // print("binaryString = \(self.binaryString)")
             // print("currentLineWidth = \(currentLineWidth)")
             // print("currentLinePosition = \(currentLinePosition)")
             
-            // print("")
+
         }
-        
+//        self.BuildOutputImage()
+//        print("")
         // print("Binary String = \(self.binaryString)")
         // print("Binary String Count = \(self.binaryString.count)")
         
         if self.binaryString.count < 28 {
-            // print(" not enough captured data what happened ")
+//            self.BuildOutputImage()
+//            print("-----------------------------Failed_Manchester")
+            
         } else {
             
             let decodedString = self.ManchesterDecoder(encodedString: binaryString)
             
             if decodedString == "Corrupt Scan Data" {
                 self.binaryString = ""
-                //  // print("----------------------SamplePacketBackup")
-                //           SamplePacketBackup()
+//                print("----------------------Failed_Manchester")
+                
             } else {
                 
                 // unpack decoded string
                 let PacketNumStartIndex = decodedString.index(decodedString.startIndex, offsetBy: 0)
                 let PacketNumEndIndex = decodedString.index(decodedString.startIndex, offsetBy: 5)
                 let nstr = String(decodedString[PacketNumStartIndex...PacketNumEndIndex])
-                //let n = UInt8(nstr, radix: 2)
-                self.byteNum = String(UInt8(nstr, radix: 2)!)
-                
-                let rawDataByteStartIndex = decodedString.index(decodedString.startIndex, offsetBy: 6)
-                let rawDataByteEndIndex = decodedString.index(decodedString.startIndex, offsetBy: 13)
-                let dstr = String(decodedString[rawDataByteStartIndex...rawDataByteEndIndex])
-                let hexInt = UInt16(dstr, radix: 2)
-                
-                // swift ignores the leading 0
-                if hexInt! < 16 {
-                    self.byteData = "0" + String(hexInt!, radix: 16)
+                let n = UInt8(nstr, radix: 2)
+               // print("n = \(n!)")
+                if n! < 1 || n! > 39 {
+//                    print("packet with 0 found")
+//                    print("-----------------------------------Failed_Packet Out Of Range")
                 } else {
-                    self.byteData = String(hexInt!, radix: 16)
+                    self.byteNum = String(UInt8(nstr, radix: 2)!)
+                    
+                    let rawDataByteStartIndex = decodedString.index(decodedString.startIndex, offsetBy: 6)
+                    let rawDataByteEndIndex = decodedString.index(decodedString.startIndex, offsetBy: 13)
+                    let dstr = String(decodedString[rawDataByteStartIndex...rawDataByteEndIndex])
+                    let hexInt = UInt16(dstr, radix: 2)
+                    
+                    // swift ignores the leading 0
+                    if hexInt! < 16 {
+                        self.byteData = "0" + String(hexInt!, radix: 16)
+                    } else {
+                        self.byteData = String(hexInt!, radix: 16)
+                    }
                 }
-                
             }
         }
         

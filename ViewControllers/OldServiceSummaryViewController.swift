@@ -95,7 +95,7 @@ class OldServiceSummaryViewController: UIViewController {
                             Line 1:   \(self.serviceReport?.houseAddress?.line1 ?? "Unknown")
                             Line 2:   \(self.serviceReport?.houseAddress?.line2 ?? "Unknown")
                             City:     \(self.serviceReport?.houseAddress?.townCity ?? "Unknown")
-                            Postcode: \(self.serviceReport?.houseAddress?.postcode ?? " Unknown")
+                            Postcode: \(self.serviceReport?.houseAddress?.postcode ?? "Unknown")
                     
                         Report Date:\
                         \(self.dateFormat(date: (self.serviceReport?.date)!) )
@@ -146,6 +146,7 @@ class OldServiceSummaryViewController: UIViewController {
         self.deviceScanData = ScanAnalysis(scan: self.deviceReportList![i].scan!)
         self.prepReportDates()
         
+        
         if self.deviceScanData != nil {
             
    
@@ -156,11 +157,14 @@ class OldServiceSummaryViewController: UIViewController {
                 -----------------------------------------------------------------
                 Device Type: \(deviceReportList![i].deviceType!)
                 
-                Serial Number: \(deviceReportList![i].serialNumber!)
                 Report Date: \( dateFormat(date: deviceReportList![i].date!) )
                 
+                Manufacture Details
+                Serial Number: \(deviceScanData!.deviceSerialNumber!)
+                Manufacture Date: \(dateFormat(date:deviceScanData!.snManufactureDate!))
+                
                 Device Health Status: \(getDeviceFaultStatus(colour: deviceReportList![i].healthIndicator!))
-                Life Remaining: \(deviceScanData!.batteryLifeRemaining_YearsLeft!)
+                Life Remaining: \(self.lifeRemainingCalc(i: i))
                 Replace By: \(dateFormat(date:deviceScanData!.deviceReplacentDate!))
                 
                 Removals From Mounting Plate: \(deviceScanData!.plateRemovals!)
@@ -169,9 +173,7 @@ class OldServiceSummaryViewController: UIViewController {
                 Device Test Count: \(deviceScanData!.deviceTestCount!)
                 Last Test Date: \(dateFormat(date:deviceScanData!.deviceLastTestDate!))
                 
-                Manufacture Details
-                Serial Number: \(deviceScanData!.deviceSerialNumber!)
-                Manufacture Date: \(dateFormat(date:deviceScanData!.snManufactureDate!))
+
                 -----------------------------------------------------------------
                 Alarms
                 -----------------------------------------------------------------
@@ -204,7 +206,7 @@ class OldServiceSummaryViewController: UIViewController {
                 Remote Faults: \(String(describing:deviceScanData!.remoteFault!))
                 Date: \(self.remoteFaultDateString)
                 
-                End Of Life: \(String(describing:deviceScanData!.eol_Fault))
+                End Of Life: \(String(describing:deviceScanData!.eol_Fault!))
                 Date: \(self.eol_FaultDateString)
                 -----------------------------------------------------------------
                 Comments
@@ -286,6 +288,18 @@ class OldServiceSummaryViewController: UIViewController {
         batteryFaultDateString = ""
         remoteFaultDateString = ""
         eol_FaultDateString = ""
+    }
+    
+    func lifeRemainingCalc(i : Int) -> String
+    {
+        var str = ""
+        if deviceScanData!.batteryLifeRemaining_YearsLeft! > 1 {
+            str = "\(deviceScanData!.deviceLifeRemaining_YearsLeft!) years left"
+            
+        } else if deviceScanData!.deviceLifeRemaining_MonthsLeft! > 1 {
+            str = "\(deviceScanData!.deviceLifeRemaining_MonthsLeft!) months left"
+        }
+        return str
     }
     
     func showMailComposer() {

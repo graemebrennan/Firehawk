@@ -256,7 +256,7 @@ extension ReportViewController: UITableViewDataSource, UITableViewDelegate {
                 if self.newScanAnalysis!.lifeRemainingFaultIndicator == "green" {
                     // device not in final year of life
                     cell.count.text = "\(String(describing: self.newScanAnalysis!.deviceLifeRemaining_YearsLeft!)) Years Left"
-                    cell.note.text = " - "
+                    cell.note.text = "Calculated from manufacture date"
                     
                 } else if self.newScanAnalysis!.lifeRemainingFaultIndicator == "amber" {
                     // the device is in its final year of life
@@ -280,19 +280,19 @@ extension ReportViewController: UITableViewDataSource, UITableViewDelegate {
                 
                 if self.newScanAnalysis!.plateRemovals == 0 {
                     cell.date.text = " - "
-                    cell.note.text = "Device has never been removed"
+                   // cell.note.text = "Device has never been removed"
                 } else {
                     
                     cell.date.text = "Last Removal Date: \( dateFormat(date: self.newScanAnalysis!.lastPlateRemovalDate!) )"
                     
                     if self.newScanAnalysis!.plateRemovalsFaultIndicator == "amber" {
-                        cell.note.text = "Device has been removed in past year"
+                       // cell.note.text = "Device has been removed in past year"
                     } else if self.newScanAnalysis!.plateRemovalsFaultIndicator == "red"{
-                        cell.note.text = "Device has been removed in past 6 months"
+                       // cell.note.text = "Device has been removed in past 6 months"
                     } else {
-                        cell.note.text = " - "
+                       // cell.note.text = " - "
                     }
-               
+                    cell.note.text = "Incremented when device is switched on"
                 }
                 
                 cell.FaultIndicator.backgroundColor = getFaultColour(str: newScanAnalysis!.plateRemovalsFaultIndicator)
@@ -303,7 +303,7 @@ extension ReportViewController: UITableViewDataSource, UITableViewDelegate {
                 cell.count.text = "Test Count: \(self.newScanAnalysis!.deviceTestCount!)"
                 
                 if self.newScanAnalysis!.deviceTestCount == 0 {
-                    cell.date.text = " Device never tested"
+                    cell.date.text = "Device never tested"
                 } else {
                     cell.date.text = "Last Test Date: \(dateFormat(date: self.newScanAnalysis!.deviceLastTestDate!) )"
                 }
@@ -406,7 +406,7 @@ extension ReportViewController: UITableViewDataSource, UITableViewDelegate {
         
         switch str {
         case "green":
-            return "No Alarms detected"
+            return "No recent alarms detected"
         case "amber":
             return "Alarm within the past year"
         case "red":

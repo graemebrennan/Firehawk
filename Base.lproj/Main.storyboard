@@ -203,7 +203,7 @@
                                                     <action selector="NewServicePressed:" destination="gIr-tg-Fhk" eventType="touchUpInside" id="pAH-5U-jWF"/>
                                                 </connections>
                                             </button>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Version: 0.1.0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="M4w-Uc-7Dq">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Version: 1.0.2" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="M4w-Uc-7Dq">
                                                 <rect key="frame" x="0.0" y="65" width="414" height="20"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="20" id="GbK-Vo-ues"/>

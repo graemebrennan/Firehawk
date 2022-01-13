@@ -197,8 +197,13 @@ struct ScanAnalysis {
         // predict expiary date by claculating (life time - years since manufacture date) = years left from now
         var snManufactureYearsLeftComponent = DateComponents()
         snManufactureYearsLeftComponent.year = snManufactureYearsLeft
+        
+        var snManufactureExpiaryDateComponant = DateComponents()
+        snManufactureExpiaryDateComponant.year = self.deviceLifetimeYears!
+        snManufactureExpiaryDateComponant.month = 6 // for added shelf life
+        
         let snManufactureExpiaryDate = calendar.date(byAdding: snManufactureYearsLeftComponent, to: snManufactureDate!)
-        self.snManufactureExpiaryDate = snManufactureExpiaryDate
+        self.snManufactureExpiaryDate = calendar.date(byAdding: snManufactureExpiaryDateComponant, to: snManufactureDate!)//snManufactureExpiaryDate
         // print("snManufactureExpiaryDate: \(snManufactureExpiaryDate!)")
         
         //MARK:- RunTimeClock
@@ -265,20 +270,26 @@ struct ScanAnalysis {
             self.lastPlateRemovalDate = calendar.date(byAdding: lastPlateRemovalComponent, to: Date())
             // print("lastPlateRemovalDate: \(lastPlateRemovalDate!)")
             
-                    if (self.lastPlateRemovalComponent.hour!) < 4380 {
-                        // device was removed in past year or has never been removed
-                        self.plateRemovalsFaultIndicator = "red"
-            
-                    } else if (self.lastPlateRemovalComponent.hour!) <= 8760 {
-                        // device was removed in past year
-                        self.plateRemovalsFaultIndicator = "amber"
-                    } else {
-                        self.plateRemovalsFaultIndicator = "green"
-                    }
+            if lastPlateRemovalDateInt! < 12 {
+                // allow a day post burn in testing to trigger a fault
+                self.plateRemovalsFaultIndicator = "green"
+                
+//            } else if (self.lastPlateRemovalComponent.hour!) < 4380 {
+//                // device was removed in past year or has never been removed
+//                self.plateRemovalsFaultIndicator = "red"
+//
+            } else if (self.lastPlateRemovalComponent.hour!) <= 8760 {
+                //TODO:- need to fix plate removal warning, i.e too many times or if recent
+                // device was removed in past year
+              //  self.plateRemovalsFaultIndicator = "amber"
+                self.plateRemovalsFaultIndicator = "green"
+            } else {
+                self.plateRemovalsFaultIndicator = "green"
+            }
         }
         
-
-//
+        
+        //
 
         //MARK:- DeviceTest
         let deviceTestCountStartIndex = scan.index(scan.startIndex, offsetBy: 18)
@@ -332,6 +343,7 @@ struct ScanAnalysis {
             let highCOAlarmLastDateStartIndex = scan.index(scan.startIndex, offsetBy: 28)
             let highCOAlarmLastDateEndIndex = scan.index(scan.startIndex, offsetBy: 31)
             let highCOAlarmLastDateString = String(scan[highCOAlarmLastDateStartIndex...highCOAlarmLastDateEndIndex])
+            let highCOAlarmLastDateInt = Int(highCOAlarmLastDateString, radix: 16)
             
             if highCOAlarmLastDateString == "ffff" {
                 // no date set yet
@@ -339,8 +351,12 @@ struct ScanAnalysis {
                 self.highCOAlarmFaultIndicator = "green"
                 //self.highCOAlarmLastDate = nil
                 
+            } else if highCOAlarmLastDateInt! < 15 {
+                
+                // allow some time for burn in testing before trggering a fault
+                self.highCOAlarmFaultIndicator = "green"
+                
             } else {
-                let highCOAlarmLastDateInt = Int(highCOAlarmLastDateString, radix: 16)
                 
                 var highCOAlarmLastDateComponent = DateComponents()
                 highCOAlarmLastDateComponent.hour = (runtimeClockInt! - highCOAlarmLastDateInt!) * -2
@@ -388,7 +404,13 @@ struct ScanAnalysis {
                 self.mediumCOAlarmFaultIndicator = "green"
                 //self.highCOAlarmLastDate = nil
                 
+            } else if mediumCOAlarmLastDateInt! < 15 {
+                
+                // allow some time for burn in testing before trggering a fault
+                self.mediumCOAlarmFaultIndicator = "green"
+                
             } else {
+                
                 var mediumCOAlarmLastDateComponent = DateComponents()
                 mediumCOAlarmLastDateComponent.hour = (runtimeClockInt! - mediumCOAlarmLastDateInt!) * -2
                 let mediumCOAlarmLastDate = calendar.date(byAdding: mediumCOAlarmLastDateComponent, to: Date())
@@ -431,6 +453,11 @@ struct ScanAnalysis {
                 self.lowCOAlarmFaultIndicator = "green"
                 //self.highCOAlarmLastDate = nil
                 
+            } else if lowCOAlarmLastDateInt! < 15 {
+                
+                // allow some time for burn in testing before trggering a fault
+                self.lowCOAlarmFaultIndicator = "green"
+                
             } else {
                 var lowCOAlarmLastDateComponent = DateComponents()
                 lowCOAlarmLastDateComponent.hour = (runtimeClockInt! - lowCOAlarmLastDateInt!) * -2
@@ -440,7 +467,10 @@ struct ScanAnalysis {
                 
                 let HoursSinceLastLowCOAlarmEvent = (self.runtimeClock! - lowCOAlarmLastDateInt!) * 2
                 
-                if HoursSinceLastLowCOAlarmEvent <= HoursInAMonth {
+                if HoursSinceLastLowCOAlarmEvent < 24 {
+                    // allow 24 hours after burn in testing
+                    self.lowCOAlarmFaultIndicator = "green"
+                } else if HoursSinceLastLowCOAlarmEvent <= HoursInAMonth {
                     // the alam happened within the last month
                     self.lowCOAlarmFaultIndicator = "red"
                 } else if HoursSinceLastLowCOAlarmEvent <= HoursInAYear {
@@ -474,6 +504,11 @@ struct ScanAnalysis {
                 
                 self.preCOAlarmFaultIndicator = "green"
                 //self.highCOAlarmLastDate = nil
+                
+            } else if preCOAlarmLastDateInt! < 15 {
+                
+                // allow some time for burn in testing before trggering a fault
+                self.preCOAlarmFaultIndicator = "green"
                 
             } else {
                 var preCOAlarmLastDateComponent = DateComponents()

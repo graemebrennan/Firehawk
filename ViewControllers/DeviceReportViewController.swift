@@ -388,7 +388,7 @@ extension DeviceReportViewController: UITableViewDataSource, UITableViewDelegate
                 if self.newScanAnalysis!.lifeRemainingFaultIndicator == "green" {
                     // device not in final year of life
                     cell.count.text = "\(String(describing: self.newScanAnalysis!.deviceLifeRemaining_YearsLeft!)) Years Left"
-                    cell.note.text = " - "
+                    cell.note.text = "Calculated from manufacture date"
                     
                 } else if self.newScanAnalysis!.lifeRemainingFaultIndicator == "amber" {
                     // the device is in its final year of life
@@ -423,7 +423,7 @@ extension DeviceReportViewController: UITableViewDataSource, UITableViewDelegate
                     } else if self.newScanAnalysis!.plateRemovalsFaultIndicator == "red"{
                         cell.note.text = "Device has been removed in past 6 months"
                     } else {
-                        cell.note.text = " - "
+                        cell.note.text = "Incremented when device is switched on"
                     }
                     
                 }
